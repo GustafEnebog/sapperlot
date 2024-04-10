@@ -55,12 +55,10 @@ def main_menu_select():
     print('3. Delete data')
     print('4. Meta data')
     print('5. Bell curve')
-    print('6. Inbetween points')
-    print('7. HELP')
-    print('8. QUIT PROGRAM\n')
+    print('6. Inbetween points          "H" HELP          "Q" QUIT PROGRAM')
 
     while True:
-        selection_main_menu = input('\nPlease select an option by entering a number between 1-6:\n')
+        selection_main_menu = input('\nPlease select an option by entering a number between 1-6 an H or Q:\n')
         if selection_main_menu == '1':
             get_airplane_data()
             
@@ -79,15 +77,15 @@ def main_menu_select():
         elif selection_main_menu == '6':
             calc_inbetween_outside_point()
 
-        elif selection_main_menu == '7':
+        elif selection_main_menu == 'H':
             help()
 
         #Abort the current running process
-        elif selection_main_menu == '8':
+        elif selection_main_menu == 'Q':
             os.abort()
 
         else:
-            print('Invalid choice, please enter a number between 1-6,\n')
+            print('Invalid choice, please enter a number between 1-6 an H or Q:\n')
             continue
 
 
@@ -102,21 +100,59 @@ def get_airplane_data():
     Returns: airplane_data list (str and float) - incomplete user input data for one airplane.
     """
 
-
     # Sub menu - Add data
-    print('In the next step you will be asked to enter three out of the\nfollowing five aircraft parameters:\nWing span, Aspect ratio, Wing area, Max takeoff weight, Wing loading.\n')
+    print('\nIn the next step you will be asked to enter three out of the\nfollowing five aircraft parameters:\nWing span, Aspect ratio, Wing area, Max takeoff weight, Wing loading.')
     print('This is to not over-define the data. The program will calculate these values for you!')
-
-    print('1. ' + esc('238;2;9') + 'Wing span,' + esc(0) + ' Aspect ratio, Wing area, ' + esc('238;2;9') + 'Max takeoff weight,'  + esc(0) + ' Wing loading')
+    print('\n1. ' + esc('238;2;9') + 'Wing span,' + esc(0) + ' Aspect ratio, Wing area, ' + esc('238;2;9') + 'Max takeoff weight,'  + esc(0) + ' Wing loading')
     print('2. ' + esc('238;2;9') + 'Wing span,' + esc(0) + ' Aspect ratio, Wing area, Max takeoff weight, '  + esc('238;2;9') + 'Wing loading' + esc(0))
     print('3. Wing span, ' + esc('238;2;9') + 'Aspect ratio,' + esc(0) + ' Wing area, ' + esc('238;2;9') + 'Max takeoff weight,'  + esc(0) + ' Wing loading')
     print('4. Wing span, ' + esc('238;2;9') + 'Aspect ratio,' + esc(0) + ' Wing area, Max takeoff weight, ' + esc('238;2;9') + 'Wing loading'  + esc(0))
     print('5. ' + esc('238;2;9') + 'Wing span,' + esc(0) + ' Aspect ratio, ' + esc('238;2;9') + 'Wing area,'  + esc(0) + ' Max takeoff weight, Wing loading')
     print('6. Wing span, ' + esc('238;2;9') + 'Aspect ratio,'  + esc(0) + ' ' + esc('238;2;9') + 'Wing area,'  + esc(0) + ' Max takeoff weight'  + esc(0) + ', Wing loading')
     print('7. Wing span, Aspect ratio, ' + esc('238;2;9') + 'Wing area,'  + esc(0) + ' ' + esc('238;2;9') + 'Max takeoff weight,'  + esc(0) + ' Wing loading')
-    print('8. Wing span, Aspect ratio, ' + esc('238;2;9') + 'Wing area,' + esc(0) + ' Max takeoff weight, ' + esc('238;2;9') + 'Wing loading\n'  + esc(0))
-    print('Or type 0 to return to main menu\n')
-    input('Please select an option by entering a number between 0-8:\n')
+    print('8. Wing span, Aspect ratio, ' + esc('238;2;9') + 'Wing area,' + esc(0) + ' Max takeoff weight, ' + esc('238;2;9') + 'Wing loading'  + esc(0))
+    print('"H" HELP          "M" BACK TO MAIN MENU          "Q" QUIT PROGRAM')
+
+    while True:
+        selection_sub_menu_dep_variable = input('\nPlease select an alternative by entering a number between 1-8 an H, M or Q:\n')
+
+        if selection_sub_menu_dep_variable == '1':
+            input('\nPlease enter data for on the following format:\nairplane_name, manufacturer, country, category, year, "", aspect_ratio, wing_area, "", wing_loading')
+            
+        elif selection_sub_menu_dep_variable == '2':
+            input('\nPlease enter data for on the following format:\nairplane_name, manufacturer, country, category, year, "", aspect_ratio, wing_area, max_takeoff_weight, ""')
+            
+        elif selection_sub_menu_dep_variable == '3':
+            input('\nPlease enter data for on the following format:\nairplane_name, manufacturer, country, category, year, wing_span, "", wing_area, "", wing_loading')
+            
+        elif selection_sub_menu_dep_variable == '4':
+            input('\nPlease enter data for on the following format:\nairplane_name, manufacturer, country, category, year, wing_span, "", wing_area, max_takeoff_weight, ""')
+            
+        elif selection_sub_menu_dep_variable == '5':
+            input('\nPlease enter data for on the following format:\nairplane_name, manufacturer, country, category, year, "", aspect_ratio, "", max_takeoff_weight, wing_loading')
+
+        elif selection_sub_menu_dep_variable == '6':
+            input('\nPlease enter data for on the following format:\nairplane_name, manufacturer, country, category, year, wing_span, "", "", max_takeoff_weight, wing_loading')
+
+        elif selection_sub_menu_dep_variable == '7':
+            input('\nPlease enter data for on the following format:\nairplane_name, manufacturer, country, category, year, wing_span, aspect_ratio, "", "", wing_loading')
+
+        elif selection_sub_menu_dep_variable == '8':
+            input('\nPlease enter data for on the following format:\nairplane_name, manufacturer, country, category, year, wing_span, aspect_ratio, "", max_takeoff_weight, ""')
+
+        elif selection_sub_menu_dep_variable == 'H':
+            help()
+
+        elif selection_sub_menu_dep_variable == 'M':
+            main_menu_select()
+
+        #Abort the current running process
+        elif selection_sub_menu_dep_variable == 'Q':
+            os.abort()
+
+        else:
+            print('Invalid choice, please enter a number between 1-8 an H, M or Q:\n')
+            continue
 
 
 def validate_airplane_data():
@@ -211,6 +247,8 @@ def uppdate_dependent_airplane_data():
     by the function xxxxxxxxxxx. The reason for leaving some values blank
     is that values are interdependent. Inputting all values would therfore
     over-define (overdetermine) the airplane-data.
+
+    https://docs.google.com/spreadsheets/d/186F_QSx24xYlkzunnzrzawt06MJO8GfdPsxGeRoqIa4/edit#gid=1680754323
 
     Argumemts: airplane_data list (str and float) - incomplete user input data for one airplane.
     Returns: airplane_data list (str and float) - completed user input data for one airplane.
