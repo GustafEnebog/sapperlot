@@ -42,6 +42,7 @@ def esc(code):
     """
     return f'\033[{code}m'
 
+
 def get_airplane_data():
     """ Get and validate inputed airplane data. the input validation is made by
     calling a separate function validate_airplane_data()
@@ -52,6 +53,21 @@ def get_airplane_data():
 
     Returns: airplane_data list (str and float) - incomplete user input data for one airplane.
     """
+
+    # Sub menu - Add data
+    print('In the next step you will be asked to enter three out of the\nfollowing five aircraft parameters:\nWing span, Aspect ratio, Wing area, Max takeoff weight, Wing loading.\n')
+    print('This is to not over-define the data. The program will calculate these values for you!')
+
+    print('1. ' + esc('238;2;9') + 'Wing span,' + esc(0) + ' Aspect ratio, Wing area, ' + esc('238;2;9') + 'Max takeoff weight,'  + esc(0) + ' Wing loading')
+    print('2. ' + esc('238;2;9') + 'Wing span,' + esc(0) + ' Aspect ratio, Wing area, Max takeoff weight, '  + esc('238;2;9') + 'Wing loading' + esc(0))
+    print('3. Wing span, ' + esc('238;2;9') + 'Aspect ratio,' + esc(0) + ' Wing area, ' + esc('238;2;9') + 'Max takeoff weight,'  + esc(0) + ' Wing loading')
+    print('4. Wing span, ' + esc('238;2;9') + 'Aspect ratio,' + esc(0) + ' Wing area, Max takeoff weight, ' + esc('238;2;9') + 'Wing loading'  + esc(0))
+    print('5. ' + esc('238;2;9') + 'Wing span,' + esc(0) + ' Aspect ratio, ' + esc('238;2;9') + 'Wing area,'  + esc(0) + ' Max takeoff weight, Wing loading')
+    print('6. Wing span, ' + esc('238;2;9') + 'Aspect ratio,'  + esc(0) + ' ' + esc('238;2;9') + 'Wing area,'  + esc(0) + ' Max takeoff weight'  + esc(0) + ', Wing loading')
+    print('7. Wing span, Aspect ratio, ' + esc('238;2;9') + 'Wing area,'  + esc(0) + ' ' + esc('238;2;9') + 'Max takeoff weight,'  + esc(0) + ' Wing loading')
+    print('8. Wing span, Aspect ratio, ' + esc('238;2;9') + 'Wing area,' + esc(0) + ' Max takeoff weight, ' + esc('238;2;9') + 'Wing loading\n'  + esc(0))
+    print('Or type 0 to return to main menu\n')
+    input('Please select an option by entering a number between 0-8:')
 
 def validate_airplane_data():
     """
@@ -149,6 +165,17 @@ def uppdate_dependent_airplane_data():
     Returns: airplane_data list (str and float) - completed user input data for one airplane.
     """
 
+def edit_data():
+    """ Edit the relevant worksheet with the data provided
+    """
+    print('Please select an option by entering a number between 0-x:')
+
+
+def delete_data():
+    """ Edit the relevant worksheet with the data provided
+    """
+    print('Please select an option by entering a number between 0-x:')
+
 
 def push_airplane_data_to_worksheet():
     """ Update the relevant worksheet with the data provided
@@ -212,6 +239,7 @@ def create_meta_data_table():
     Returns: 
     """
 
+    print("Meta data - Please select an option by entering a number between 0-x:")
 
 def calc_bell_curve():
     """ Calculate mean (Arithmetic mean) for a parameter in airplane_data[].
@@ -233,9 +261,32 @@ def calc_inbetween_point():
     Returns: mean wing span value
     """
     # numpy.interp(x, xp, fp, left=None, right=None, period=None)[source]
+    # Note - The datas independent variable needs to be sorted so that it is increasing!
+
+    print('Please choose an airplane parameter whose value you want to evaluate/estimaten\nbetween (interpolate) or outside (extrapolate) of it's data points')
+
+    print('1. Wing span')
+    print('2. Aspect ratio')
+    print('3. Wing area')
+    print('4. Max takeoff weight')
+    print('5. Wing loading')
+    input('Please select an option by entering a number between 0-x:')
+    print('Note in the case of extrapolation that the reliability of estimate\nquickly deteriate for estimates as estimates moves away from the data points')
+    input('Please choose a second airplane parameter you want to use as the independent vaiable\n(you have just given the dependent parameter) for the interpolation')
+
+
+def help():
+
+    """ Display help text
+
+    Argumemts:
+    Returns:
+    """
+    input('Do you want to read the instructions? y/n\n')
+    print('HELP text here')
+
 
 def main():
-
     """ Run all program functions
     
         Parameters:
@@ -249,28 +300,25 @@ def main():
     Argumemts:
     Returns:
     """
+    print('MAIN MENU')
+    print('1. Add data')
+    print('2. Edit data')
+    print('3. Delete data')
+    print('4. Meta data')
+    print('5. Inbetween points')
+    print('6. HELP\n')
 
-
-
+    input('Please select an option by entering a number between 1-6:')
 
 
 # Welcome message
-print("\033[1;34;40mx x x x      x      x x x x   x x x x   x x x x   x x x x   x         x x x x   x x x x")
-print("x           x x     x     x   x     x   x         x     x   x         x     x      x")
-print("x x x x    x   x    x x x x   x x x x   x x x x   x x x x   x         x     x      x")
-print("      x   x x x x   x         x         x         x   x     x         x     x      x")
-print("x x x x  x       x  x         x         x x x x   x     x   x x x x   x x x x      x\n")
-print(Fore.WHITE +"                                                                       Copyright: Gustaf Enebog 2024")
-print("Welcome to SAPPERLOT - Statistical Airplane Potent Parameter Engineering Radical Loaded Oranges Tool\n")
-print("Do you want to read the instructions? y/n\n")
+print('\033[1;34;40mx x x x      x      x x x x   x x x x   x x x x   x x x x   x         x x x x   x x x x')
+print('x           x x     x     x   x     x   x         x     x   x         x     x      x')
+print('x x x x    x   x    x x x x   x x x x   x x x x   x x x x   x         x     x      x')
+print('      x   x x x x   x         x         x         x   x     x         x     x      x')
+print('x x x x  x       x  x         x         x x x x   x     x   x x x x   x x x x      x\n')
+print(Fore.WHITE +'                                                                       Copyright: Gustaf Enebog 2024')
+print('Welcome to SAPPERLOT - Statistical Airplane Potent Parameter Engineering Radical Loaded Oranges Tool\n')
 
 
-# Main Menu
-# print("1. Add data 2. Edit data 3. Delete data 4. Meta data 5. Inbetween points 6. HELP")
-print("Please select an option by entering a number between 1-6:")
-print("1. Add data")
-print("2. Edit data")
-print("3. Delete data")
-print("4. Meta data")
-print("5. Inbetween points")
-print("6. HELP")
+main()
