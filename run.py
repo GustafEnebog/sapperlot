@@ -97,10 +97,12 @@ def get_airplane_data():
     via the terminal, which must be a string of 10 numbers separated
     by commas. The loop will repeatedly request data, until it is valid.
 
+    Based on "get_sales_data()" in loveSandwiches, AJGreaves at Code Institute https://github.com/Code-Institute-Solutions/love-sandwiches-p5-sourcecode/tree/master/05-deployment/01-deployment-part-1
+
     Returns: airplane_data list (str and float) - incomplete user input data for one airplane.
     """
 
-    # Sub menu - Add data
+    # Sub menu - first choise
     print('\nIn the next step you will be asked to enter three out of the\nfollowing five aircraft parameters:\nWing span, Aspect ratio, Wing area, Max takeoff weight, Wing loading.')
     print('This is to not over-define the data. The program will calculate these values for you!')
     print('\n1. ' + esc('238;2;9') + 'Wing span,' + esc(0) + ' Aspect ratio, Wing area, ' + esc('238;2;9') + 'Max takeoff weight,'  + esc(0) + ' Wing loading')
@@ -113,49 +115,49 @@ def get_airplane_data():
     print('8. Wing span, Aspect ratio, ' + esc('238;2;9') + 'Wing area,' + esc(0) + ' Max takeoff weight, ' + esc('238;2;9') + 'Wing loading'  + esc(0))
     print('"H" HELP          "M" BACK TO MAIN MENU          "Q" QUIT PROGRAM')
 
+    selection_sub_menu_dep_variable = input('\nPlease select an alternative by entering a number between 1-8 an H, M or Q:\n')
+
+    # Sub menu - Second choise dependent on the first choise 
     while True:
-        selection_sub_menu_dep_variable = input('\nPlease select an alternative by entering a number between 1-8 an H, M or Q:\n')
-
         if selection_sub_menu_dep_variable == '1':
-            input('\nPlease enter data for on the following format:\nairplane_name, manufacturer, country, category, year, "", aspect_ratio, wing_area, "", wing_loading\n')
-            
+            print('\nYou selected to leave out "Wing span" and "Max Takeoff Weight". Your data to be entered should therefore have this format:\nairplane_name, manufacturer, country, category, year, "", aspect_ratio, wing_area, "", wing_loading\n')
         elif selection_sub_menu_dep_variable == '2':
-            input('\nPlease enter data for on the following format:\nairplane_name, manufacturer, country, category, year, "", aspect_ratio, wing_area, max_takeoff_weight, ""\n')
-            
+            print('\nYou selected to leave out "Wing span" and "Wing loading". Your data to be entered should therefore have this format:\nairplane_name, manufacturer, country, category, year, "", aspect_ratio, wing_area, max_takeoff_weight, ""\n')
         elif selection_sub_menu_dep_variable == '3':
-            input('\nPlease enter data for on the following format:\nairplane_name, manufacturer, country, category, year, wing_span, "", wing_area, "", wing_loading\n')
-            
+            print('\nYou selected to leave out "Aspect Ratio" and "Max Takeoff Weight". Your data to be entered should therefore have this format:\nairplane_name, manufacturer, country, category, year, wing_span, "", wing_area, "", wing_loading\n')
         elif selection_sub_menu_dep_variable == '4':
-            input('\nPlease enter data for on the following format:\nairplane_name, manufacturer, country, category, year, wing_span, "", wing_area, max_takeoff_weight, ""\n')
-            
+            print('\nYou selected to leave out "Aspect Ratio" and "Wing loading". Your data to be entered should therefore have this format:\nairplane_name, manufacturer, country, category, year, wing_span, "", wing_area, max_takeoff_weight, ""\n')
         elif selection_sub_menu_dep_variable == '5':
-            input('\nPlease enter data for on the following format:\nairplane_name, manufacturer, country, category, year, "", aspect_ratio, "", max_takeoff_weight, wing_loading\n')
-
+            print('\nYou selected to leave out "Wing span" and "Wing Area". Your data to be entered should therefore have this format:\nairplane_name, manufacturer, country, category, year, "", aspect_ratio, "", max_takeoff_weight, wing_loading\n')
         elif selection_sub_menu_dep_variable == '6':
-            input('\nPlease enter data for on the following format:\nairplane_name, manufacturer, country, category, year, wing_span, "", "", max_takeoff_weight, wing_loading\n')
-
+            print('\nYou selected to leave out "Aspect Ratio" and "Wing Area". Your data to be entered should therefore have this format:\nairplane_name, manufacturer, country, category, year, wing_span, "", "", max_takeoff_weight, wing_loading\n')
         elif selection_sub_menu_dep_variable == '7':
-            input('\nPlease enter data for on the following format:\nairplane_name, manufacturer, country, category, year, wing_span, aspect_ratio, "", "", wing_loading\n')
-
+            print('\nYou selected to leave out "Wing Area" and "Max Takeoff Weight". Your data to be entered should therefore have this format:\nairplane_name, manufacturer, country, category, year, wing_span, aspect_ratio, "", "", wing_loading\n')
         elif selection_sub_menu_dep_variable == '8':
-            input('\nPlease enter data for on the following format:\nairplane_name, manufacturer, country, category, year, wing_span, aspect_ratio, "", max_takeoff_weight, ""\n')
-
+            print('\nYou selected to leave out "Wing Area" and "Wing loading". Your data to be entered should therefore have this format:\nairplane_name, manufacturer, country, category, year, wing_span, aspect_ratio, "", max_takeoff_weight, ""\n')
         elif selection_sub_menu_dep_variable == 'H':
             help()
-
         elif selection_sub_menu_dep_variable == 'M':
             main_menu_select()
-
         #Abort the current running process
         elif selection_sub_menu_dep_variable == 'Q':
             os.abort()
-
         else:
             print('Invalid choice, please enter a number between 1-8 an H, M or Q:\n')
             continue
 
+        airplane_data_str = input("Please enter the data here:\n")
 
-def validate_airplane_data():
+        airplane_data = airplane_data_str.split(",")
+
+        if validate_airplane_data(airplane_data):
+            print("Data is valid!")
+            break
+
+return airplane_data
+
+
+def validate_airplane_data(values):
     """
     Validates if user input is valid by checking data types(str and float), if there is exactly 10 values
     and that they are all positive and larger than zero.
@@ -164,9 +166,35 @@ def validate_airplane_data():
     Raises ValueError if these strings cannot be converted into int and,
     or if there aren't exactly 10 values.
 
+    Based on "validate_data()" in loveSandwiches, AJGreaves at Code Institute https://github.com/Code-Institute-Solutions/love-sandwiches-p5-sourcecode/tree/master/05-deployment/01-deployment-part-1
+
     Argumemts: airplane_data list (str and float) - incomplete user input data for one airplane.
     Returns: true or false
     """
+    try:
+        # [int(value) for value in values]
+        for i in range(4, 9):
+            int(values[i])
+        if len(values) != 10:
+            raise ValueError(
+                f"Exactly 10 values required, you provided {len(values)}"
+            )
+    except ValueError as e:
+        print(f"Invalid data: {e}, please try again.\n")
+        return False
+
+    return True
+
+
+def convert_to_int():
+    """ Converts the numeric data (year, wing_span, aspect_ratio, wing_area, max_takeoff_weight, wing_loading) to integers
+
+    Argumemts: 
+    Returns: 
+    """
+    for i in range(4, 9):
+        int(values[i])
+    return converted_airplane_data
 
 
 def calc_wing_span():
@@ -250,6 +278,8 @@ def uppdate_dependent_airplane_data():
 
     https://docs.google.com/spreadsheets/d/186F_QSx24xYlkzunnzrzawt06MJO8GfdPsxGeRoqIa4/edit#gid=1680754323
 
+    Based on "update_worksheet()" in loveSandwiches, AJGreaves at Code Institute https://github.com/Code-Institute-Solutions/love-sandwiches-p5-sourcecode/tree/master/05-deployment/01-deployment-part-1
+
     Argumemts: airplane_data list (str and float) - incomplete user input data for one airplane.
     Returns: airplane_data list (str and float) - completed user input data for one airplane.
     """
@@ -270,6 +300,18 @@ def delete_data():
 def push_airplane_data_to_worksheet():
     """ Update the relevant worksheet with the data provided
     """
+
+
+def update_worksheet(data, worksheet):
+    """
+    Receives a list of integers to be inserted into a worksheet
+    Update the relevant worksheet with the data provided
+    """
+    print(f"Updating {worksheet} worksheet...\n")
+    worksheet_to_update = SHEET.worksheet(worksheet)
+    worksheet_to_update.append_row(data)
+    print(f"{worksheet} worksheet updated successfully\n")
+
 
 
 def select_and_pull_airplane_data_from_worksheet():
@@ -388,6 +430,14 @@ def main():
     Returns:
     """
     main_menu_select()
+    unconverted_airplane_data = get_airplane_data()
+    converted_airplane_data = convert_to_int(unconverted_airplane_data)
+
+
+
+    # data = get_airplane_data()
+    # sales_data = [int(num) for num in data]
+    # update_worksheet(sales_data, "sales")
 
 
 # Welcome message
