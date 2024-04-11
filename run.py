@@ -117,28 +117,28 @@ def get_airplane_data():
         selection_sub_menu_dep_variable = input('\nPlease select an alternative by entering a number between 1-8 an H, M or Q:\n')
 
         if selection_sub_menu_dep_variable == '1':
-            input('\nPlease enter data for on the following format:\nairplane_name, manufacturer, country, category, year, "", aspect_ratio, wing_area, "", wing_loading')
+            input('\nPlease enter data for on the following format:\nairplane_name, manufacturer, country, category, year, "", aspect_ratio, wing_area, "", wing_loading\n')
             
         elif selection_sub_menu_dep_variable == '2':
-            input('\nPlease enter data for on the following format:\nairplane_name, manufacturer, country, category, year, "", aspect_ratio, wing_area, max_takeoff_weight, ""')
+            input('\nPlease enter data for on the following format:\nairplane_name, manufacturer, country, category, year, "", aspect_ratio, wing_area, max_takeoff_weight, ""\n')
             
         elif selection_sub_menu_dep_variable == '3':
-            input('\nPlease enter data for on the following format:\nairplane_name, manufacturer, country, category, year, wing_span, "", wing_area, "", wing_loading')
+            input('\nPlease enter data for on the following format:\nairplane_name, manufacturer, country, category, year, wing_span, "", wing_area, "", wing_loading\n')
             
         elif selection_sub_menu_dep_variable == '4':
-            input('\nPlease enter data for on the following format:\nairplane_name, manufacturer, country, category, year, wing_span, "", wing_area, max_takeoff_weight, ""')
+            input('\nPlease enter data for on the following format:\nairplane_name, manufacturer, country, category, year, wing_span, "", wing_area, max_takeoff_weight, ""\n')
             
         elif selection_sub_menu_dep_variable == '5':
-            input('\nPlease enter data for on the following format:\nairplane_name, manufacturer, country, category, year, "", aspect_ratio, "", max_takeoff_weight, wing_loading')
+            input('\nPlease enter data for on the following format:\nairplane_name, manufacturer, country, category, year, "", aspect_ratio, "", max_takeoff_weight, wing_loading\n')
 
         elif selection_sub_menu_dep_variable == '6':
-            input('\nPlease enter data for on the following format:\nairplane_name, manufacturer, country, category, year, wing_span, "", "", max_takeoff_weight, wing_loading')
+            input('\nPlease enter data for on the following format:\nairplane_name, manufacturer, country, category, year, wing_span, "", "", max_takeoff_weight, wing_loading\n')
 
         elif selection_sub_menu_dep_variable == '7':
-            input('\nPlease enter data for on the following format:\nairplane_name, manufacturer, country, category, year, wing_span, aspect_ratio, "", "", wing_loading')
+            input('\nPlease enter data for on the following format:\nairplane_name, manufacturer, country, category, year, wing_span, aspect_ratio, "", "", wing_loading\n')
 
         elif selection_sub_menu_dep_variable == '8':
-            input('\nPlease enter data for on the following format:\nairplane_name, manufacturer, country, category, year, wing_span, aspect_ratio, "", max_takeoff_weight, ""')
+            input('\nPlease enter data for on the following format:\nairplane_name, manufacturer, country, category, year, wing_span, aspect_ratio, "", max_takeoff_weight, ""\n')
 
         elif selection_sub_menu_dep_variable == 'H':
             help()
@@ -365,9 +365,9 @@ def calc_inbetween_outside_point():
     print('3. Wing area')
     print('4. Max takeoff weight')
     print('5. Wing loading')
-    input('Please select an option by entering a number between 0-x:')
+    input('Please select an option by entering a number between 0-x:\n')
     print('Note in the case of extrapolation that the reliability of estimate\nquickly deteriate for estimates as estimates moves away from the data points')
-    input('Please choose a second airplane parameter you want to use as the independent vaiable\n(you have just given the dependent parameter) for the interpolation')
+    input('Please choose a second airplane parameter you want to use as the independent vaiable\n(you have just given the dependent parameter) for the interpolation\n')
 
 
 def help():
