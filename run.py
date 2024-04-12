@@ -33,6 +33,15 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('aircraft_data')
 #------------------------------------------------------------------------------
 
+class Colors:
+    BLUE = '\033[94m'
+    CYAN = '\033[96m'
+    GREEN = '\033[92m'
+    ORANGE = '\033[93m'
+    YELLOW = '\u001b[33m'
+    RED = '\033[91m'
+    BLACK = '\u001b[30m'
+    ENDC = '\033[0m'
 
 def esc(code):
     """ Function somehow necessary for colorama
@@ -55,7 +64,7 @@ def main_menu_select():
         selection_main_menu = input('\nPlease select an option by entering a number between 1-6 an H or Q:\n')
         if selection_main_menu == '1':
             unconverted_airplane_data = get_airplane_data()
-            converted_airplane_data = convert_to_int(unconverted_airplane_data)
+            converted_airplane_data = convert_to_int_and_float(unconverted_airplane_data)
             airplane_data = uppdate_dependent_airplane_data(converted_airplane_data)
             push_airplane_data_to_worksheet(airplane_data)  # loveSandwiches code also have a worksheet as an argument. I took it away since it does not work since it is not defined
             break
@@ -181,8 +190,10 @@ def validate_airplane_data(values):
                 f"Exactly 10 values required, you provided {len(values)}"
             )
         # [int(value) for value in values]
-        for i in range(4, 9):  # 10 items in a list starting at index 0 running untill index 9
-            int(values[i])
+
+            int(values[4])  # test if value f (year) can be converted into int
+        for i in range(5, 10):  # 10 items in a list starting at index 0 running untill index 9
+            float(values[i])  # test if fifth to tenth value can be converted into float
     except ValueError as e:
         print(f"Invalid data: {e}, please try again.\n")
         return False
@@ -190,15 +201,18 @@ def validate_airplane_data(values):
     return True
 
 
-def convert_to_int(unconverted_airplane_data):
+def convert_to_int_and_float(unconverted_airplane_data):
     """ Converts the numeric data (year, wing_span, aspect_ratio, wing_area, max_takeoff_weight, wing_loading) to integers
 
     Argumemts: 
     Returns: 
     """
-    converted_airplane_data = unconverted_airplane_data  # Looks not so right but it makes it work!
-    for i in range(4, 9):
-        converted_airplane_data[i] = int(unconverted_airplane_data[i])
+    converted_airplane_data = unconverted_airplane_data  # Looks not so right but it made it work, at least at one point in time!
+    converted_airplane_data[4] = int(unconverted_airplane_data[4])  # Entry of Year
+    for i in range(5, 10):
+        print(unconverted_airplane_data)
+        converted_airplane_data[i] = float(unconverted_airplane_data[i])
+        converted_airplane_data = format(converted_airplane_data[i], ".2f")  # Formate floats to two decimals. Note that it is truncated (all the decimals are still there under the hood), not rounded (that would be the round() function) 
     return converted_airplane_data
 
 
@@ -261,6 +275,12 @@ def uppdate_dependent_airplane_data(converted_airplane_data):
         print('Invalid choice, please enter a number between 1-8 an H, M or Q:\n')
 
     print(airplane_data)
+    
+    # Format these nely calculated dependent values to two decimals
+    for i in range(5, 10):
+        airplane_data = format(airplane_data[i], ".2f")  # Formate floats to two decimals. Note that it is truncated (all the decimals are still there under the hood), not rounded (that would be the round() function) 
+
+    print(airplane_data)
 
     return airplane_data
 
@@ -312,7 +332,7 @@ def select_and_pull_airplane_data_from_worksheet():
     selecs and collects columns of airplane data from worksheet,
     and returns the data as a list of lists.
     """
-
+    sorted()
 
 def calc_mean():
     """ Calculate mean (Arithmetic mean) for a parameter in airplane_data[].
@@ -438,15 +458,33 @@ def main():
     # sales_data = [int(num) for num in data]
     # update_worksheet(sales_data, "sales")
 
-
-# Welcome message
-print('\033[1;34;40mx x x x      x      x x x x   x x x x   x x x x   x x x x   x         x x x x   x x x x')
+print('\033[1;34;40m \n\nx x x x      x      x x x x   x x x x   x x x x   x x x x   x         x x x x   x x x x')
 print('x           x x     x     x   x     x   x         x     x   x         x     x      x')
 print('x x x x    x   x    x x x x   x x x x   x x x x   x x x x   x         x     x      x')
 print('      x   x x x x   x         x         x         x   x     x         x     x      x')
-print('x x x x  x       x  x         x         x x x x   x     x   x x x x   x x x x      x\n')
-print(Fore.WHITE +'                                                                       Copyright: Gustaf Enebog 2024')
-print('Welcome to SAPPERLOT - Statistical Airplane Potent Parameter Engineering Radical Loaded Oranges Tool\n')
+print(f'x x x x  x       x  x         x         x x x x   x     x   x x x x   x x x x      x\n{Colors.ENDC}\n')
 
+
+# Welcome message
+print(f'{Colors.BLUE}\nx x x x      x      x x x x   x x x x   x x x x   x x x x   x         x x x x   x x x x')
+print('x           x x     x     x   x     x   x         x     x   x         x     x      x')
+print('x x x x    x   x    x x x x   x x x x   x x x x   x x x x   x         x     x      x')
+print('      x   x x x x   x         x         x         x   x     x         x     x      x')
+print(f'x x x x  x       x  x         x         x x x x   x     x   x x x x   x x x x      x{Colors.ENDC}\n')
+
+# print(f'{Colors.BLUE}\n                                        ')
+# print('                                               ')
+# print('                                        ')
+# print('                                               ')
+# print('                                          {Colors.ENDC}\n')
+
+# print(f'{Colors.BLUE}\nI I I     I     I I I  I I I  I I I  I I I  I      I I I  I I I')
+# print('I        I I    I   I  I   I  I      I   I  I      I   I    I')
+# print('I I I   I   I   I I I  I I I  I I I  I I I  I      I   I    I')
+# print('    I  I I I I  I      I      I      I I    I      I   I    I')
+# print('I I I  I     I  I      I      I I I  I   I  I I I  I I I    I{Colors.ENDC}\n')
+
+print('Welcome to SAPPERLOT -              Copyright: Gustaf Enebog 2024') # Statistical Airplane Potent Parameter Engineering Radical Loaded Oranges Tool\n')
+print('Statistical Airplane Potent Parameter Engineering Radical Loaded Oranges Tool\n')
 
 main()
