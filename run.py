@@ -46,6 +46,7 @@ def esc(code):
     """
     return f'\033[{code}m'
 
+
 def main_menu_select():
     """ Handles selection from main menu
     """
@@ -55,34 +56,35 @@ def main_menu_select():
     print('3. Delete data')
     print('4. Meta data')
     print('5. Bell curve')
-    print('6. Inbetween points          "H" HELP          "Q" QUIT PROGRAM')
+    print('6. Inbetween points     "H" HELP     "Q" QUIT PROGRAM')
 
     while True:
         selection_main_menu = input('\nPlease select an option by entering a number between 1-6 an H or Q:\n')
         if selection_main_menu == '1':
-            get_airplane_data()
-            
+            unconverted_airplane_data = get_airplane_data()
+            converted_airplane_data = convert_to_int(unconverted_airplane_data)
+            airplane_data = uppdate_dependent_airplane_data(converted_airplane_data)
+            break
         elif selection_main_menu == '2':
             edit_data()
-            
+            break
         elif selection_main_menu == '3':
             delete_data()
-            
+            break
         elif selection_main_menu == '4':
             create_meta_data_table()
-            
+            break
         elif selection_main_menu == '5':
             create_bell_curve_graph()
-
+            break
         elif selection_main_menu == '6':
             calc_inbetween_outside_point()
-
+            break
         elif selection_main_menu == 'H':
             help()
-
+            break
         elif selection_main_menu == 'Q':
             os.abort()  #Abort the current running process
-
         else:
             print('Invalid choice, please enter a number between 1-6 an H or Q:\n')
             continue
@@ -101,7 +103,7 @@ def get_airplane_data():
     Returns: airplane_data list (str and float) - incomplete user input data for one airplane.
     """
 
-    # Sub menu - first choise
+    # Sub menu - FIRST choise
     print('\nIn the next step you will be asked to enter three out of the\nfollowing five aircraft parameters:\nWing span, Aspect ratio, Wing area, Max takeoff weight, Wing loading.')
     print('This is to not over-define the data. The program will calculate these values for you!')
     print('\n1. ' + esc('238;2;9') + 'Wing span,' + esc(0) + ' Aspect ratio, Wing area, ' + esc('238;2;9') + 'Max takeoff weight,'  + esc(0) + ' Wing loading')
@@ -115,40 +117,48 @@ def get_airplane_data():
     print('"H" HELP          "M" BACK TO MAIN MENU          "Q" QUIT PROGRAM')
 
     global selection_sub_menu_dep_variable
-    selection_sub_menu_dep_variable = input('\nPlease select an alternative by entering a number between 1-8 an H, M or Q:\n')
-
-    # Sub menu - Second choise dependent on the first choise 
     while True:
+        selection_sub_menu_dep_variable = input('\nPlease select an alternative by entering a number between 1-8 an H, M or Q:\n')
         if selection_sub_menu_dep_variable == '1':
-            print('\nYou selected to leave out "Wing span" and "Max Takeoff Weight". Your data to be entered should therefore have this format:\nairplane_name, manufacturer, country, category, year, "", aspect_ratio, wing_area, "", wing_loading\n')
+            print('\nYou selected to leave out "Wing span" and "Max Takeoff Weight" (replace value with 0). Your data to be entered should therefore have this format:\nairplane_name, manufacturer, country, category, year, 0, aspect_ratio, wing_area, 0, wing_loading\n')
+            break
         elif selection_sub_menu_dep_variable == '2':
-            print('\nYou selected to leave out "Wing span" and "Wing loading". Your data to be entered should therefore have this format:\nairplane_name, manufacturer, country, category, year, "", aspect_ratio, wing_area, max_takeoff_weight, ""\n')
+            print('\nYou selected to leave out "Wing span" and "Wing loading" (replace value with 0). Your data to be entered should therefore have this format:\nairplane_name, manufacturer, country, category, year, 0, aspect_ratio, wing_area, max_takeoff_weight, 0\n')
+            break
         elif selection_sub_menu_dep_variable == '3':
-            print('\nYou selected to leave out "Aspect Ratio" and "Max Takeoff Weight". Your data to be entered should therefore have this format:\nairplane_name, manufacturer, country, category, year, wing_span, "", wing_area, "", wing_loading\n')
+            print('\nYou selected to leave out "Aspect Ratio" and "Max Takeoff Weight" (replace value with 0). Your data to be entered should therefore have this format:\nairplane_name, manufacturer, country, category, year, wing_span, 0, wing_area, 0, wing_loading\n')
+            break
         elif selection_sub_menu_dep_variable == '4':
-            print('\nYou selected to leave out "Aspect Ratio" and "Wing loading". Your data to be entered should therefore have this format:\nairplane_name, manufacturer, country, category, year, wing_span, "", wing_area, max_takeoff_weight, ""\n')
+            print('\nYou selected to leave out "Aspect Ratio" and "Wing loading" (replace value with 0). Your data to be entered should therefore have this format:\nairplane_name, manufacturer, country, category, year, wing_span, 0, wing_area, max_takeoff_weight, 0\n')
+            break
         elif selection_sub_menu_dep_variable == '5':
-            print('\nYou selected to leave out "Wing span" and "Wing Area". Your data to be entered should therefore have this format:\nairplane_name, manufacturer, country, category, year, "", aspect_ratio, "", max_takeoff_weight, wing_loading\n')
+            print('\nYou selected to leave out "Wing span" and "Wing Area" (replace value with 0). Your data to be entered should therefore have this format:\nairplane_name, manufacturer, country, category, year, 0, aspect_ratio, 0, max_takeoff_weight, wing_loading\n')
+            break
         elif selection_sub_menu_dep_variable == '6':
-            print('\nYou selected to leave out "Aspect Ratio" and "Wing Area". Your data to be entered should therefore have this format:\nairplane_name, manufacturer, country, category, year, wing_span, "", "", max_takeoff_weight, wing_loading\n')
+            print('\nYou selected to leave out "Aspect Ratio" and "Wing Area" (replace value with 0). Your data to be entered should therefore have this format:\nairplane_name, manufacturer, country, category, year, wing_span, 0, 0, max_takeoff_weight, wing_loading\n')
+            break
         elif selection_sub_menu_dep_variable == '7':
-            print('\nYou selected to leave out "Wing Area" and "Max Takeoff Weight". Your data to be entered should therefore have this format:\nairplane_name, manufacturer, country, category, year, wing_span, aspect_ratio, "", "", wing_loading\n')
+            print('\nYou selected to leave out "Wing Area" and "Max Takeoff Weight" (replace value with 0). Your data to be entered should therefore have this format:\nairplane_name, manufacturer, country, category, year, wing_span, aspect_ratio, 0, 0, wing_loading\n')
+            break
         elif selection_sub_menu_dep_variable == '8':
-            print('\nYou selected to leave out "Wing Area" and "Wing loading". Your data to be entered should therefore have this format:\nairplane_name, manufacturer, country, category, year, wing_span, aspect_ratio, "", max_takeoff_weight, ""\n')
+            print('\nYou selected to leave out "Wing Area" and "Wing loading". Your data to be entered should therefore have this format:\nairplane_name, manufacturer, country, category, year, wing_span, aspect_ratio, 0, max_takeoff_weight, 0\n')
+            break
         elif selection_sub_menu_dep_variable == 'H':
             help()
+            break  # Should this break be here or is not necessary since it goes to this function anyway!?
         elif selection_sub_menu_dep_variable == 'M':
             main_menu_select()
+            break  # Should this break be here or is not necessary since it goes to this function anyway!?
         elif selection_sub_menu_dep_variable == 'Q':
             os.abort()  #Abort the current running process
         else:
             print('Invalid choice, please enter a number between 1-8 an H, M or Q:\n')
             continue
 
+    # Sub menu - SECOND choise
+    while True:
         inputted_airplane_data_str = input("Please enter the data here:\n")
-
         inputted_airplane_data = inputted_airplane_data_str.split(",")
-
         if validate_airplane_data(inputted_airplane_data):
             print("Data is valid!")
             break
@@ -171,13 +181,13 @@ def validate_airplane_data(values):
     Returns: true or false
     """
     try:
-        # [int(value) for value in values]
-        for i in range(4, 9):
-            int(values[i])
-        if len(values) != 10:
+        if len(values) != 11:  # 11 items in a list starting at index 0 running untill index 10
             raise ValueError(
                 f"Exactly 10 values required, you provided {len(values)}"
             )
+        # [int(value) for value in values]
+        for i in range(4, 10):  # 11 items in a list starting at index 0 running untill index 10
+            int(values[i])
     except ValueError as e:
         print(f"Invalid data: {e}, please try again.\n")
         return False
@@ -185,80 +195,16 @@ def validate_airplane_data(values):
     return True
 
 
-def convert_to_int():
+def convert_to_int(unconverted_airplane_data):
     """ Converts the numeric data (year, wing_span, aspect_ratio, wing_area, max_takeoff_weight, wing_loading) to integers
 
     Argumemts: 
     Returns: 
     """
-    for i in range(4, 9):
-        int(values[i])
+    converted_airplane_data = unconverted_airplane_data  # Looks not so right but it makes it work!
+    for i in range(4, 11):
+        converted_airplane_data[i] = int(unconverted_airplane_data[i])
     return converted_airplane_data
-
-
-def calc_wing_span(whatever_airplane_data):
-    """ Calculates Wing span based on two values in the airplane_data list[].
-
-    If statement selects which values to be used for calculation based on case 
-    the user has choosen.
-
-    Argumemts: incomplete airplane_data list (str and float) for one airplane.
-               alternative stating wich case of dependancy variables should be used
-    Returns: wing span
-    """
-    whatever_airplane_data[5] = math.sqrt(whatever_airplane_data[6] * whatever_airplane_data[7])
-
-
-def calc_aspect_ratio(whatever_airplane_data):
-    """ Calculates Wing span based on two values in the airplane_data list[].
-
-    If statement selects which values to be used for calculation based on case 
-    the user has choosen.
-
-    Argumemts: incomplete airplane_data list (str and float) for one airplane.
-               alternative stating wich case of dependancy variables should be used
-    Returns: wing span
-    """
-    whatever_airplane_data[6] = math.pow(whatever_airplane_data[5]) / whatever_airplane_data[7]
-
-
-def calc_wing_area(whatever_airplane_data):
-    """ Calculates Wing span based on two values in the airplane_data list[].
-
-    If statement selects which values to be used for calculation based on case 
-    the user has choosen.
-
-    Argumemts: incomplete airplane_data list (str and float) for one airplane.
-               alternative stating wich case of dependancy variables should be used
-    Returns: wing span
-    """
-    whatever_airplane_data[7] = math.pow(whatever_airplane_data[5]) / whatever_airplane_data[6]
-
-
-def calc_max_takeoff_weight(whatever_airplane_data):
-    """ Calculates Wing span based on two values in the airplane_data list[].
-
-    If statement selects which values to be used for calculation based on case 
-    the user has choosen.
-
-    Argumemts: incomplete airplane_data list (str and float) for one airplane.
-               alternative stating wich case of dependancy variables should be used
-    Returns: wing span
-    """
-    whatever_airplane_data[8] = whatever_airplane_data[9] * whatever_airplane_data[7]
-
-
-def calc_wing_loading(whatever_airplane_data):
-    """ Calculates Wing span based on two values in the airplane_data list[].
-
-    If statement selects which values to be used for calculation based on case 
-    the user has choosen.
-
-    Argumemts: incomplete airplane_data list (str and float) for one airplane.
-               alternative stating wich case of dependancy variables should be used
-    Returns: wing span
-    """
-    whatever_airplane_data[9] = whatever_airplane_data[8] / whatever_airplane_data[7]
 
 
 def feedback_on_airplane_data():
@@ -269,8 +215,7 @@ def feedback_on_airplane_data():
     Argumemts: complete airplane_data list (str and float) for one airplane.
     """
 
-
-def uppdate_dependent_airplane_data(lack_dependant_airplane_data):
+def uppdate_dependent_airplane_data(converted_airplane_data):
     """ Fills in the blank values in the user provided airplane_data-list
     by function calls to separate functions that calculates these values.
 
@@ -286,30 +231,33 @@ def uppdate_dependent_airplane_data(lack_dependant_airplane_data):
     Argumemts: airplane_data list (str and float) - incomplete user input data for one airplane.
     Returns: airplane_data list (str and float) - completed user input data for one airplane.
     """
+    print("Here we go, uppdate_dependent_airplane_data")
+    there_should_not_be_any_holes_now = print(converted_airplane_data)
+    airplane_data = converted_airplane_data
     if selection_sub_menu_dep_variable == '1':
-        semi_lack_dependent_airplane_data = calc_wing_span(lack_dependent_airplane_data)
-        airplane_data = calc_max_takeoff_weight(semi_lack_dependent_airplane_data)
+        airplane_data[5] = math.sqrt(converted_airplane_data[6] * converted_airplane_data[7])
+        airplane_data[8] = converted_airplane_data[9] * converted_airplane_data[7]
     elif selection_sub_menu_dep_variable == '2':
-        semi_lack_dependent_airplane_data = calc_wing_span(lack_dependent_airplane_data)
-        airplane_data = calc_wing_loading(semi_lack_dependent_airplane_data)
+        airplane_data[5] = math.sqrt(converted_airplane_data[6] * converted_airplane_data[7])
+        airplane_data[9] = converted_airplane_data[8] / converted_airplane_data[7]
     elif selection_sub_menu_dep_variable == '3':
-        semi_lack_dependent_airplane_data = calc_aspect_ratio(lack_dependent_airplane_data)
-        airplane_data = calc_max_takeoff_weight(semi_lack_dependent_airplane_data)
+        airplane_data[6] = math.pow(converted_airplane_data[5],2) / converted_airplane_data[7]
+        airplane_data[8] = converted_airplane_data[9] * converted_airplane_data[7]
     elif selection_sub_menu_dep_variable == '4':
-        semi_lack_dependent_airplane_data = calc_aspect_ratio(lack_dependent_airplane_data)
-        airplane_data = calc_wing_loading(semi_lack_dependent_airplane_data)
+        airplane_data[6] = math.pow(converted_airplane_data[5],2) / converted_airplane_data[7]
+        airplane_data[9] = converted_airplane_data[8] / converted_airplane_data[7]
     elif selection_sub_menu_dep_variable == '5':
-        semi_lack_dependent_airplane_data = calc_wing_span(lack_dependent_airplane_data)
-        airplane_data = calc_wing_area(semi_lack_dependent_airplane_data)
+        airplane_data[5] = math.sqrt(converted_airplane_data[6] * (converted_airplane_data[8] / converted_airplane_data[9]))  # Special case equation 1
+        airplane_data[7] = math.pow(converted_airplane_data[5],2) / converted_airplane_data[6]
     elif selection_sub_menu_dep_variable == '6':
-        semi_lack_dependent_airplane_data = calc_aspect_ratio(lack_dependent_airplane_data)
-        airplane_data = calc_wing_area(semi_lack_dependent_airplane_data)
+        airplane_data[6] = math.pow(converted_airplane_data[5],2) / (converted_airplane_data[8] / converted_airplane_data[9])  # Special case equation 2
+        airplane_data[7] = math.pow(converted_airplane_data[5],2) / converted_airplane_data[6]
     elif selection_sub_menu_dep_variable == '7':
-        semi_lack_dependent_airplane_data = calc_wing_area(lack_dependent_airplane_data)
-        airplane_data = calc_max_takeoff_weight(semi_lack_dependent_airplane_data)
+        airplane_data[7] = math.pow(converted_airplane_data[5],2) / converted_airplane_data[6]  # Special case equation 3
+        airplane_data[8] = converted_airplane_data[9] * (converted_airplane_data[8] / converted_airplane_data[9])  # Special case equation 4
     elif selection_sub_menu_dep_variable == '8':
-        semi_lack_dependent_airplane_data = calc_wing_area(lack_dependent_airplane_data)
-        airplane_data = calc_wing_loading(semi_lack_dependent_airplane_data)
+        airplane_data[7] = math.pow(converted_airplane_data[5],2) / converted_airplane_data[6]  # Special case equation 3
+        airplane_data[9] = converted_airplane_data[8] / (converted_airplane_data[8] / converted_airplane_data[9])  # Special case equation 5
     elif selection_sub_menu_dep_variable == 'H':
         help()
     elif selection_sub_menu_dep_variable == 'M':
@@ -318,7 +266,12 @@ def uppdate_dependent_airplane_data(lack_dependant_airplane_data):
         os.abort()  #Abort the current running process
     else:
         print('Invalid choice, please enter a number between 1-8 an H, M or Q:\n')
-return airplane_data
+
+
+    print(airplane_data)
+
+
+    return airplane_data
 
 
 def edit_data():
@@ -463,15 +416,19 @@ def main():
     """ Run all program functions
     
     Lifecycle of the user input alternative nr 1 from the main menu:
-    inputted_airplane_data -> unconverted_airplane_data -> converted_airplane_data -> lack_dependant_airplane_data / whatever_airplane_data -> semi_lack_dependant_airplane_data / whatever_airplane_data -> airplane_data
+    inputted_airplane_data -> unconverted_airplane_data -> converted_airplane_data -> airplane_data
 
     Argumemts:
     Returns:
     """
     main_menu_select()
-    unconverted_airplane_data = get_airplane_data()
-    converted_airplane_data = convert_to_int(unconverted_airplane_data)
-    airplane_data = uppdate_dependent_airplane_data(converted_airplane_data)
+    # print('BEFORE get_airplane_data')
+    # unconverted_airplane_data = get_airplane_data()
+    # print('AFTER get_airplane_data')
+    # converted_airplane_data = convert_to_int(unconverted_airplane_data)
+    # THIS = print(converted_airplane_data)
+    # airplane_data = uppdate_dependent_airplane_data(converted_airplane_data)
+    # there_should_not_be_any_holes_now = print(airplane_data)
 
     # data = get_airplane_data()
     # sales_data = [int(num) for num in data]
