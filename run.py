@@ -31,15 +31,8 @@ CREDS = Credentials.from_service_account_file('creds.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('aircraft_data')
-
-
-multirole_fighter = SHEET.worksheet('multirole_fighter')
-
-data = multirole_fighter.get_all_values()
-
-# print(data)
-
 #------------------------------------------------------------------------------
+
 
 def esc(code):
     """ Function somehow necessary for colorama
@@ -64,6 +57,7 @@ def main_menu_select():
             unconverted_airplane_data = get_airplane_data()
             converted_airplane_data = convert_to_int(unconverted_airplane_data)
             airplane_data = uppdate_dependent_airplane_data(converted_airplane_data)
+            push_airplane_data_to_worksheet(airplane_data)  # loveSandwiches code also have a worksheet as an argument. I took it away since it does not work since it is not defined
             break
         elif selection_main_menu == '2':
             edit_data()
@@ -120,28 +114,28 @@ def get_airplane_data():
     while True:
         selection_sub_menu_dep_variable = input('\nPlease select an alternative by entering a number between 1-8 an H, M or Q:\n')
         if selection_sub_menu_dep_variable == '1':
-            print('\nYou selected to leave out "Wing span" and "Max Takeoff Weight" (replace value with 0). Your data to be entered should therefore have this format:\nairplane_name, manufacturer, country, category, year, 0, aspect_ratio, wing_area, 0, wing_loading\n')
+            print('\nYou selected to leave out "Wing span" and "Max Takeoff Weight" (replace value with 0). Your data to be entered should therefore have this format:\nairplane_name, manufacturer, country, category, year, 0, aspect_ratio, wing_area, 0, wing_loading (so 10 items including the two zero)\n')
             break
         elif selection_sub_menu_dep_variable == '2':
-            print('\nYou selected to leave out "Wing span" and "Wing loading" (replace value with 0). Your data to be entered should therefore have this format:\nairplane_name, manufacturer, country, category, year, 0, aspect_ratio, wing_area, max_takeoff_weight, 0\n')
+            print('\nYou selected to leave out "Wing span" and "Wing loading" (replace value with 0). Your data to be entered should therefore have this format:\nairplane_name, manufacturer, country, category, year, 0, aspect_ratio, wing_area, max_takeoff_weight, 0 (so 10 items including the two zero)\n')
             break
         elif selection_sub_menu_dep_variable == '3':
-            print('\nYou selected to leave out "Aspect Ratio" and "Max Takeoff Weight" (replace value with 0). Your data to be entered should therefore have this format:\nairplane_name, manufacturer, country, category, year, wing_span, 0, wing_area, 0, wing_loading\n')
+            print('\nYou selected to leave out "Aspect Ratio" and "Max Takeoff Weight" (replace value with 0). Your data to be entered should therefore have this format:\nairplane_name, manufacturer, country, category, year, wing_span, 0, wing_area, 0, wing_loading (so 10 items including the two zero)\n')
             break
         elif selection_sub_menu_dep_variable == '4':
-            print('\nYou selected to leave out "Aspect Ratio" and "Wing loading" (replace value with 0). Your data to be entered should therefore have this format:\nairplane_name, manufacturer, country, category, year, wing_span, 0, wing_area, max_takeoff_weight, 0\n')
+            print('\nYou selected to leave out "Aspect Ratio" and "Wing loading" (replace value with 0). Your data to be entered should therefore have this format:\nairplane_name, manufacturer, country, category, year, wing_span, 0, wing_area, max_takeoff_weight, 0 (so 10 items including the two zero)\n')
             break
         elif selection_sub_menu_dep_variable == '5':
-            print('\nYou selected to leave out "Wing span" and "Wing Area" (replace value with 0). Your data to be entered should therefore have this format:\nairplane_name, manufacturer, country, category, year, 0, aspect_ratio, 0, max_takeoff_weight, wing_loading\n')
+            print('\nYou selected to leave out "Wing span" and "Wing Area" (replace value with 0). Your data to be entered should therefore have this format:\nairplane_name, manufacturer, country, category, year, 0, aspect_ratio, 0, max_takeoff_weight, wing_loading (so 10 items including the two zero)\n')
             break
         elif selection_sub_menu_dep_variable == '6':
-            print('\nYou selected to leave out "Aspect Ratio" and "Wing Area" (replace value with 0). Your data to be entered should therefore have this format:\nairplane_name, manufacturer, country, category, year, wing_span, 0, 0, max_takeoff_weight, wing_loading\n')
+            print('\nYou selected to leave out "Aspect Ratio" and "Wing Area" (replace value with 0). Your data to be entered should therefore have this format:\nairplane_name, manufacturer, country, category, year, wing_span, 0, 0, max_takeoff_weight, wing_loading (so 10 items including the two zero)\n')
             break
         elif selection_sub_menu_dep_variable == '7':
-            print('\nYou selected to leave out "Wing Area" and "Max Takeoff Weight" (replace value with 0). Your data to be entered should therefore have this format:\nairplane_name, manufacturer, country, category, year, wing_span, aspect_ratio, 0, 0, wing_loading\n')
+            print('\nYou selected to leave out "Wing Area" and "Max Takeoff Weight" (replace value with 0). Your data to be entered should therefore have this format:\nairplane_name, manufacturer, country, category, year, wing_span, aspect_ratio, 0, 0, wing_loading (so 10 items including the two zero)\n')
             break
         elif selection_sub_menu_dep_variable == '8':
-            print('\nYou selected to leave out "Wing Area" and "Wing loading". Your data to be entered should therefore have this format:\nairplane_name, manufacturer, country, category, year, wing_span, aspect_ratio, 0, max_takeoff_weight, 0\n')
+            print('\nYou selected to leave out "Wing Area" and "Wing loading". Your data to be entered should therefore have this format:\nairplane_name, manufacturer, country, category, year, wing_span, aspect_ratio, 0, max_takeoff_weight, 0 (so 10 items including the two zero)\n')
             break
         elif selection_sub_menu_dep_variable == 'H':
             help()
@@ -181,12 +175,13 @@ def validate_airplane_data(values):
     Returns: true or false
     """
     try:
-        if len(values) != 11:  # 11 items in a list starting at index 0 running untill index 10
+        if len(values) != 10:  # 10 items in a list starting at index 0 running untill index 9
+            print(values)
             raise ValueError(
                 f"Exactly 10 values required, you provided {len(values)}"
             )
         # [int(value) for value in values]
-        for i in range(4, 10):  # 11 items in a list starting at index 0 running untill index 10
+        for i in range(4, 9):  # 10 items in a list starting at index 0 running untill index 9
             int(values[i])
     except ValueError as e:
         print(f"Invalid data: {e}, please try again.\n")
@@ -202,7 +197,7 @@ def convert_to_int(unconverted_airplane_data):
     Returns: 
     """
     converted_airplane_data = unconverted_airplane_data  # Looks not so right but it makes it work!
-    for i in range(4, 11):
+    for i in range(4, 9):
         converted_airplane_data[i] = int(unconverted_airplane_data[i])
     return converted_airplane_data
 
@@ -231,8 +226,6 @@ def uppdate_dependent_airplane_data(converted_airplane_data):
     Argumemts: airplane_data list (str and float) - incomplete user input data for one airplane.
     Returns: airplane_data list (str and float) - completed user input data for one airplane.
     """
-    print("Here we go, uppdate_dependent_airplane_data")
-    there_should_not_be_any_holes_now = print(converted_airplane_data)
     airplane_data = converted_airplane_data
     if selection_sub_menu_dep_variable == '1':
         airplane_data[5] = math.sqrt(converted_airplane_data[6] * converted_airplane_data[7])
@@ -267,9 +260,7 @@ def uppdate_dependent_airplane_data(converted_airplane_data):
     else:
         print('Invalid choice, please enter a number between 1-8 an H, M or Q:\n')
 
-
     print(airplane_data)
-
 
     return airplane_data
 
@@ -286,21 +277,34 @@ def delete_data():
     print('Please select an option by entering a number between 0-x:')
 
 
-def push_airplane_data_to_worksheet():
-    """ Update the relevant worksheet with the data provided
+def push_airplane_data_to_worksheet(data):  # loveSandwiches code also have a worksheet as an argument. I took it away since it does not work since it is not defined
+    """ Update the correct tab in worksheet with data in the form of
+    a list of string and integer values
     """
+    # print(f"Updating {worksheet} worksheet...\n")
+    if data[3] == 'multirole_fighter':
+        worksheet_to_update = SHEET.worksheet('multirole_fighter')
+        worksheet_to_update.append_row(data)
+        print('The "multirole_fighter"-category/tab in our worksheet updated successfully\n')
+        # print(f"{'multirole_fighter'} worksheet updated successfully\n")
+    elif data[3] == 'airliner':
+        worksheet_to_update = SHEET.worksheet('airliner')
+        worksheet_to_update.append_row(data)
+        print('The "airliner"-category/tab in our worksheet updated successfully\n')
+    elif data[3] == 'general_aviation':
+        worksheet_to_update = SHEET.worksheet('general_aviation')
+        worksheet_to_update.append_row(data)
+        print('The "general_aviation"-category/tab in our worksheet updated successfully\n')
+    else:
+        print('Ouuups, you must have misspelled the fourth entry (category). It should be Multirole Fighter, Airliner or General Aviation. sorry, but this error really should have been caught earlier!')
 
+    # multirole_fighter = SHEET.worksheet('multirole_fighter')  ???????? Where have I gotten these from? Can I throw them away??????????
+    # data = multirole_fighter.get_all_values()  ???????? Where have I gotten these from? Can I throw them away??????????
 
-def update_worksheet(data, worksheet):
-    """
-    Receives a list of integers to be inserted into a worksheet
-    Update the relevant worksheet with the data provided
-    """
-    print(f"Updating {worksheet} worksheet...\n")
-    worksheet_to_update = SHEET.worksheet(worksheet)
-    worksheet_to_update.append_row(data)
-    print(f"{worksheet} worksheet updated successfully\n")
-
+    # print(f"Updating {worksheet} worksheet...\n")
+    # worksheet_to_update = SHEET.worksheet(worksheet)
+    # worksheet_to_update.append_row(data)
+    # print(f"{worksheet} worksheet updated successfully\n")
 
 
 def select_and_pull_airplane_data_from_worksheet():
