@@ -12,6 +12,8 @@ import os
 # I installed colorama with the following command (type in command line): - pip3 install colorama for Python 3 and pip install colorama for older versions of Python
 from colorama import Fore
 
+from pprint import pprint
+
 # Import python built-in module math used for basic math operations like: square root, exponents etc.
 import math
 
@@ -43,6 +45,7 @@ class Colors:
     BLACK = '\u001b[30m'
     ENDC = '\033[0m'
 
+
 def esc(code):
     """ Function somehow necessary for colorama
     """
@@ -52,13 +55,14 @@ def esc(code):
 def main_menu_select():
     """ Handles selection from main menu
     """
-    print('MAIN MENU')
+    print('\nMAIN MENU')
     print('1. Add data')
     print('2. Edit data')
     print('3. Delete data')
-    print('4. Meta data')
-    print('5. Bell curve')
-    print('6. Inbetween points     "H" HELP     "Q" QUIT PROGRAM')
+    print('4. View data')
+    print('5. Meta data')
+    print('6. Bell curve')
+    print('7. Inbetween points     "H" HELP     "Q" QUIT PROGRAM')
 
     while True:
         selection_main_menu = input('\nPlease select an option by entering a number between 1-6 an H or Q:\n')
@@ -75,12 +79,15 @@ def main_menu_select():
             delete_data()
             break
         elif selection_main_menu == '4':
-            create_meta_data_table()
+            select_and_view_airplane_data()
             break
         elif selection_main_menu == '5':
-            create_bell_curve_graph()
+            create_meta_data_table()
             break
         elif selection_main_menu == '6':
+            create_bell_curve_graph()
+            break
+        elif selection_main_menu == '7':
             calc_inbetween_outside_point()
             break
         elif selection_main_menu == 'H':
@@ -327,11 +334,56 @@ def push_airplane_data_to_worksheet(data):  # loveSandwiches code also have a wo
     # print(f"{worksheet} worksheet updated successfully\n")
 
 
+
+
+
+def select_and_view_airplane_data():
+    """
+    selecs and collects columns of airplane data from worksheet,
+    and returns the data as a list of lists.
+
+    https://codingpub.dev/access-google-sheets-in-python-using-gspread/    
+    """
+    print('\n1. multirole_fighter')
+    print('2. airliner')
+    print('3. general aviation     "M" MAIN MENU     "H" HELP     "Q" QUIT PROGRAM')
+    select_value = input('\nPlease select an option by entering a number between 1-3 an H, M or Q:\n')
+    if select_value == '1':
+        multirole_fighter_sheet = SHEET.worksheet("multirole_fighter").get_all_values()
+        pprint(multirole_fighter_sheet)
+    elif select_value == '2':
+        airliner_sheet = SHEET.worksheet("airliner").get_all_values()
+        pprint(airliner_sheet)
+    elif select_value == '3':
+        general_aviation_sheet = SHEET.worksheet("general_aviation").get_all_values()
+        pprint(general_aviation_sheet)
+    elif select_value == 'H':
+        help()
+    elif select_value == 'M':
+        main_menu_select()
+    elif select_value == 'Q':
+        os.abort()  #Abort the current running process
+    else:
+        print('Invalid choice, please enter a number between 1-3 an H, M or Q:\n')
+
+
 def select_and_pull_airplane_data_from_worksheet():
     """
     selecs and collects columns of airplane data from worksheet,
     and returns the data as a list of lists.
+
+    https://codingpub.dev/access-google-sheets-in-python-using-gspread/    
     """
+    print("Calculating surplus data...\n")
+    stock = SHEET.worksheet("stock").get_all_values()
+    stock_row = stock[-1]
+    
+    surplus_data = []
+    for stock, sales in zip(stock_row, sales_row):
+        surplus = int(stock) - sales
+        surplus_data.append(surplus)
+
+    return surplus_data
     sorted()
 
 def calc_mean():
