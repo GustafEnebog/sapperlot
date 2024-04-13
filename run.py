@@ -12,6 +12,7 @@ import os
 # I installed colorama with the following command (type in command line): - pip3 install colorama for Python 3 and pip install colorama for older versions of Python
 from colorama import Fore
 
+# Import pprint
 from pprint import pprint
 
 # Import python built-in module math used for basic math operations like: square root, exponents etc.
@@ -59,10 +60,11 @@ def main_menu_select():
     print('1. Add data')
     print('2. Edit data')
     print('3. Delete data')
-    print('4. View data')
-    print('5. Meta data')
-    print('6. Bell curve')
-    print('7. Inbetween points     "H" HELP     "Q" QUIT PROGRAM')
+    print('4. View list of Airplane Categories')
+    print('5. View data')
+    print('6. Meta data')
+    print('7. Bell curve')
+    print('8. Inbetween points     "H" HELP     "Q" QUIT PROGRAM')
 
     while True:
         selection_main_menu = input('\nPlease select an option by entering a number between 1-6 an H or Q:\n')
@@ -79,15 +81,18 @@ def main_menu_select():
             delete_data()
             break
         elif selection_main_menu == '4':
-            select_and_view_airplane_data()
+            view_list_of_worksheets()
             break
         elif selection_main_menu == '5':
-            create_meta_data_table()
+            select_and_view_airplane_data()
             break
         elif selection_main_menu == '6':
-            create_bell_curve_graph()
+            create_meta_data_table()
             break
         elif selection_main_menu == '7':
+            create_bell_curve_graph()
+            break
+        elif selection_main_menu == '8':
             calc_inbetween_outside_point()
             break
         elif selection_main_menu == 'H':
@@ -334,7 +339,15 @@ def push_airplane_data_to_worksheet(data):  # loveSandwiches code also have a wo
     # print(f"{worksheet} worksheet updated successfully\n")
 
 
+def view_list_of_worksheets():
+    """
+    selecs and collects columns of airplane data from worksheet,
+    and returns the data as a list of lists.
 
+    https://codingpub.dev/access-google-sheets-in-python-using-gspread/    
+    """
+    list_of_worksheets = SHEET.worksheets()
+    print(list_of_worksheets)
 
 
 def select_and_view_airplane_data():
