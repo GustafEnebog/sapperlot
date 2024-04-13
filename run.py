@@ -62,9 +62,10 @@ def main_menu_select():
     print('3. Delete data')
     print('4. View list of Airplane Categories')
     print('5. View data')
-    print('6. Meta data')
-    print('7. Bell curve')
-    print('8. Inbetween points     "H" HELP     "Q" QUIT PROGRAM')
+    print('6. Search data')
+    print('7. Meta data')
+    print('8. Bell curve')
+    print('9. Inbetween points     "H" HELP     "Q" QUIT PROGRAM')
 
     while True:
         selection_main_menu = input('\nPlease select an option by entering a number between 1-6 an H or Q:\n')
@@ -87,12 +88,15 @@ def main_menu_select():
             select_and_view_airplane_data()
             break
         elif selection_main_menu == '6':
-            create_meta_data_table()
+            search_data()
             break
         elif selection_main_menu == '7':
-            create_bell_curve_graph()
+            create_meta_data_table()
             break
         elif selection_main_menu == '8':
+            create_bell_curve_graph()
+            break
+        elif selection_main_menu == '9':
             calc_inbetween_outside_point()
             break
         elif selection_main_menu == 'H':
@@ -297,6 +301,15 @@ def uppdate_dependent_airplane_data(converted_airplane_data):
     return airplane_data
 
 
+def create_worksheet():
+    """ Edit the relevant worksheet with the data provided
+    Create Worksheet
+    You can create a new worksheet in the selected spreadsheet using the following command.
+    """
+    print('Please select an option by entering a number between 0-x:')
+    # worksheet = sh.add_worksheet(title="A worksheet", rows="100", cols="20")
+
+
 def edit_data():
     """ Edit the relevant worksheet with the data provided
     """
@@ -304,10 +317,11 @@ def edit_data():
 
 
 def delete_data():
-    """ Edit the relevant worksheet with the data provided
+    """ Delete Worksheet
+    You can delete a worksheet using the below given command and passing worksheet retrieved in "Select Worksheet".
     """
-    print('Please select an option by entering a number between 0-x:')
-
+    # print('Please select an option by entering a number between 0-x:')
+    # SHEET.del_worksheet(worksheet)
 
 def push_airplane_data_to_worksheet(data):  # loveSandwiches code also have a worksheet as an argument. I took it away since it does not work since it is not defined
     """ Update the correct tab in worksheet with data in the form of
@@ -378,6 +392,34 @@ def select_and_view_airplane_data():
         os.abort()  #Abort the current running process
     else:
         print('Invalid choice, please enter a number between 1-3 an H, M or Q:\n')
+
+
+def search_data():
+    """
+    search for search words in worksheet
+
+    https://codingpub.dev/access-google-sheets-in-python-using-gspread/
+    https://docs.gspread.org/en/latest/api/models/worksheet.html#gspread.worksheet.Worksheet.findall     middle of page
+    """
+    print('\n1. Exact word search')
+    print('3. Regular expression (regex)     "M" MAIN MENU     "H" HELP     "Q" QUIT PROGRAM')
+    select_value = input('\nPlease select an option by entering a number between 1-2 an H, M or Q:\n')
+    if select_value == '1':
+        search_word = input('\nPlease enter an exact search word (not case sensitive):\n')
+        # cell = worksheet.find('search_word')  # cell = worksheet.find("Mail")
+        cell = find('search_word', case_sensitive=True)
+    elif select_value == '2':
+        search_word = input('\nPlease enter a word or a sequence of characters in the word you search for\n')
+        cell = re.compile(r'search_word')  #mail_re = re.compile(r'(Google|Yahoo) Mail')     cell = worksheet.find(mail_re)
+    elif select_value == 'H':
+        help()
+    elif select_value == 'M':
+        main_menu_select()
+    elif select_value == 'Q':
+        os.abort()  #Abort the current running process
+    else:
+        print('Invalid choice, please enter a number between 1-3 an H, M or Q:\n')
+    print(f'{search_word} exist in the worksheet in cell {cell}')
 
 
 def select_and_pull_airplane_data_from_worksheet():
