@@ -21,9 +21,13 @@ import math
 # Import statistics Library used to calculate basic statistic like: arithmetic mean, median, spread, bell curce and interpolate
 import statistics
 
+# Module for search using regex
+import re
+
 # Import NumPy https://numpy.org/doc/stable/user/absolute_beginners.html
 # import numpy as np
 
+# NOTICE: The google sheets are formated (in the sheets, not in run.py) down to row 200, unsure if it is important but it might cause errors after this, simply copy a formated empty row and copy it onto rows past row 200 to format further!
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
@@ -68,7 +72,7 @@ def main_menu_select():
     print('9. Inbetween points     "H" HELP     "Q" QUIT PROGRAM')
 
     while True:
-        selection_main_menu = input('\nPlease select an option by entering a number between 1-6 an H or Q:\n')
+        selection_main_menu = input('\nPlease select an option by entering a number between 1-9 an H or Q:\n')
         if selection_main_menu == '1':
             unconverted_airplane_data = get_airplane_data()
             converted_airplane_data = convert_to_int_and_float(unconverted_airplane_data)
@@ -91,7 +95,7 @@ def main_menu_select():
             search_data()
             break
         elif selection_main_menu == '7':
-            create_meta_data_table()
+            calc_meta_data()
             break
         elif selection_main_menu == '8':
             create_bell_curve_graph()
@@ -223,12 +227,23 @@ def convert_to_int_and_float(unconverted_airplane_data):
     Argumemts: 
     Returns: 
     """
+    # converted_airplane_data = unconverted_airplane_data  # Looks not so right but it made it work, at least at one point in time!
+    #converted_airplane_data = []
+    #converted_airplane_data[4] = int(unconverted_airplane_data[4])  # Entry of Year
+    #for i in range(5, 10):
+        # print(unconverted_airplane_data)
+    #    converted_value[i] = float(unconverted_airplane_data[i])
+    #    converted_airplane_data.append(converted_value)
+    #    converted_airplane_data = format(converted_airplane_data[i], ".2f")  # Formate floats to two decimals. Note that it is truncated (all the decimals are still there under the hood), not rounded (that would be the round() function) 
+    # return converted_airplane_data
+
+
     converted_airplane_data = unconverted_airplane_data  # Looks not so right but it made it work, at least at one point in time!
     converted_airplane_data[4] = int(unconverted_airplane_data[4])  # Entry of Year
     for i in range(5, 10):
         print(unconverted_airplane_data)
         converted_airplane_data[i] = float(unconverted_airplane_data[i])
-        converted_airplane_data = format(converted_airplane_data[i], ".2f")  # Formate floats to two decimals. Note that it is truncated (all the decimals are still there under the hood), not rounded (that would be the round() function) 
+        # converted_airplane_data = format(converted_airplane_data[i], ".2f")  # Formate floats to two decimals. Note that it is truncated (all the decimals are still there under the hood), not rounded (that would be the round() function) 
     return converted_airplane_data
 
 
@@ -291,13 +306,6 @@ def uppdate_dependent_airplane_data(converted_airplane_data):
         print('Invalid choice, please enter a number between 1-8 an H, M or Q:\n')
 
     print(airplane_data)
-    
-    # Format these nely calculated dependent values to two decimals
-    for i in range(5, 10):
-        airplane_data = format(airplane_data[i], ".2f")  # Formate floats to two decimals. Note that it is truncated (all the decimals are still there under the hood), not rounded (that would be the round() function) 
-
-    print(airplane_data)
-
     return airplane_data
 
 
@@ -401,16 +409,19 @@ def search_data():
     https://codingpub.dev/access-google-sheets-in-python-using-gspread/
     https://docs.gspread.org/en/latest/api/models/worksheet.html#gspread.worksheet.Worksheet.findall     middle of page
     """
+    cell = 'No results found'
     print('\n1. Exact word search')
-    print('3. Regular expression (regex)     "M" MAIN MENU     "H" HELP     "Q" QUIT PROGRAM')
+    print('2. Regular expression (regex)     "M" MAIN MENU     "H" HELP     "Q" QUIT PROGRAM')
     select_value = input('\nPlease select an option by entering a number between 1-2 an H, M or Q:\n')
     if select_value == '1':
         search_word = input('\nPlease enter an exact search word (not case sensitive):\n')
         # cell = worksheet.find('search_word')  # cell = worksheet.find("Mail")
-        cell = find('search_word', case_sensitive=True)
+        cell = SHEET.worksheet("multirole_fighter").find(search_word)
+        # cell = find('search_word', case_sensitive=True)
     elif select_value == '2':
         search_word = input('\nPlease enter a word or a sequence of characters in the word you search for\n')
-        cell = re.compile(r'search_word')  #mail_re = re.compile(r'(Google|Yahoo) Mail')     cell = worksheet.find(mail_re)
+        regex = re.compile(rf'{search_word}')  #mail_re = re.compile(r'(Google|Yahoo) Mail')     cell = worksheet.find(mail_re)
+        cell = SHEET.worksheet("multirole_fighter").findall(regex)
     elif select_value == 'H':
         help()
     elif select_value == 'M':
@@ -431,15 +442,25 @@ def select_and_pull_airplane_data_from_worksheet():
     """
     print("Calculating surplus data...\n")
     stock = SHEET.worksheet("stock").get_all_values()
-    stock_row = stock[-1]
-    
-    surplus_data = []
-    for stock, sales in zip(stock_row, sales_row):
-        surplus = int(stock) - sales
-        surplus_data.append(surplus)
 
-    return surplus_data
+    values_list = worksheet.col_values(1)
     sorted()
+
+
+
+#6 - Get Cell Value
+#You can get call value either using cell label or using cell coordinates with the commands given below
+
+#val = worksheet.acell('B1').value # With label
+
+#val = worksheet.cell(1, 2).value # With coords
+#7 - Get all values from row or column
+#If you want to values from an entire row or entire column you can use the following commands
+
+#values_list = worksheet.row_values(1)
+
+#values_list = worksheet.col_values(1)
+
 
 def calc_mean():
     """ Calculate mean (Arithmetic mean) for a parameter in airplane_data[].
@@ -450,6 +471,21 @@ def calc_mean():
     Argumemts: airplane_data_select_parameter[]
     Returns: mean value for airplane_data_select_parameter[]
     """
+
+
+def calc_mean():
+    """ Calculate mean (Arithmetic mean) for a parameter in airplane_data[].
+    
+    https://www.w3schools.com/python/ref_stat_mean.asp
+    https://numpy.org/doc/stable/reference/generated/numpy.mean.html
+    
+    Argumemts: airplane_data_select_parameter[]
+    Returns: mean value for airplane_data_select_parameter[]
+    """
+    values_list = SHEET.worksheet("multirole_fighter").col_values(1)
+    print(values_list)
+    sorted(values_list)
+    print(values_list)
     # print(statistics.mean([1, 3, 5, 7, 9, 11, 13]))
     # numpy.mean(a, axis=None, dtype=None, out=None, keepdims=<no value>, *, where=<no value>)[source]
 
@@ -480,13 +516,46 @@ def calc_variance():
     # numpy.var(a, axis=None, dtype=None, out=None, ddof=0, keepdims=<no value>, *, where=<no value>)
 
 
-def create_meta_data_table():
+def calc_meta_data():
     """ Calculate mean (Arithmetic mean) for a parameter in airplane_data[].
     
     Argumemts: airplane_data_select_parameter[]
     Returns: 
     """
+    values_list = SHEET.worksheet("airliner").col_values(5)
+    print('printout before pop' + str(values_list))
+    # using pop(0) to perform removal
+    values_list.pop(0)
+    print('printout after pop' + str(values_list))
 
+    # converted_airplane_data = unconverted_airplane_data  # Looks not so right but it made it work, at least at one point in time!
+    # converted_airplane_data[4] = int(values_lista[4])  # Entry of Year
+    for i in range(len(values_list)):
+    # for i in range(0, len(values_list)):
+        values_list[i] = float(values_list[i])
+        print(values_list)
+
+
+    print('printout before sorted' + str(values_list))
+    values_list = sorted(values_list)
+    print('printout after sorted' + str(values_list))
+
+    mean = statistics.mean(values_list)
+    median = statistics.median(values_list)
+    variance = statistics.variance(values_list)
+
+    print(f'mean {mean} unit')
+    print(f'mean {median} unit')
+    print(f'mean {variance} unit')
+
+    numpy.interp(x, xp, fp, left=None, right=None, period=None)[source]
+    #print(values_list)
+    #sorted(values_list)
+    #print(values_list)
+    # mean_of_year = print(statistics.mean(values_list))  # print(statistics.mean([1, 3, 5, 7, 9, 11, 13]))
+    #print(mean_of_year)
+    # numpy.mean(a, axis=None, dtype=None, out=None, keepdims=<no value>, *, where=<no value>)[source]
+    
     print("Meta data - Please select an option by entering a number between 0-x:")
 
 
@@ -520,6 +589,24 @@ def calc_inbetween_outside_point():
     """
     # numpy.interp(x, xp, fp, left=None, right=None, period=None)[source]
     # Note - The datas independent variable needs to be sorted so that it is increasing!
+
+    print("testing...\n")
+    # xxxxx = SHEET.worksheet("multirole_fighter").get_all_values()
+
+    #values_list = worksheet.col_values(1)
+    #values_list = airliner.col_values(1)
+    # values_list = aircraft_data.col_values(1)
+    # values_list = SHEET.worksheet('multirole_fighter')  col_values(1)
+    # values_list = SHEET.airliner.col_values(1)
+    #values_list = airliner.aircraft_data.col_values(1)
+    #values_list = aircraft_data.airliner.col_values(1)
+    #values_list = SHEET.airliner.col_values(1)
+    values_list = SHEET.worksheet("multirole_fighter").col_values(1)
+
+    #values_list = worksheet.col_values(1)
+    print(values_list)
+    sorted(values_list)
+    print(values_list)
 
     print("Please choose an airplane parameter whose value you want to evaluate/estimaten\nbetween (interpolate) or outside (extrapolate) of it's data points")
     print('1. Wing span')
@@ -595,3 +682,10 @@ print('Welcome to SAPPERLOT -              Copyright: Gustaf Enebog 2024') # Sta
 print('Statistical Airplane Potent Parameter Engineering Radical Loaded Oranges Tool\n')
 
 main()
+
+
+
+
+# Format these nely calculated dependent values to two decimals
+    #for i in range(5, 10):
+        # airplane_data = format(airplane_data[i], ".2f")  # Formate floats to two decimals. Note that it is truncated (all the decimals are still there under the hood), not rounded (that would be the round() function) 
