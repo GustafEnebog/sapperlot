@@ -616,9 +616,9 @@ def calc_inbetween_outside_point():
     Argumemts: x
     Returns: mean wing span value
     """
+    print('\nWhich category do you want to search?:')
+    sheet_select = select_airplane_category()
 
-
-    
     # Selection of aircraft data parameter (y-coordinates) you wish to calculate an "inbetween"-value for, e.g. wing area.
     print('Aircraft data parameters (y-coord.) to calculate "inbetween"-value, e.g. wing area')
     print('1. Wing span')
@@ -822,33 +822,15 @@ def main():
     # sales_data = [int(num) for num in data]
     # update_worksheet(sales_data, "sales")
 
-print('\033[1;34;40m \n\nx x x x      x      x x x x   x x x x   x x x x   x x x x   x         x x x x   x x x x')
-print('x           x x     x     x   x     x   x         x     x   x         x     x      x')
-print('x x x x    x   x    x x x x   x x x x   x x x x   x x x x   x         x     x      x')
-print('      x   x x x x   x         x         x         x   x     x         x     x      x')
-print(f'x x x x  x       x  x         x         x x x x   x     x   x x x x   x x x x      x\n{Colors.ENDC}\n')
 
+print('\n')
+print('\033[1;34;40m\n\n                                ')
+print('                                                    ')
+print('                                   ')
+print('                                                 ')
+print(f'                                         \n{Colors.ENDC}\n')
 
-# Welcome message
-print(f'{Colors.BLUE}\nx x x x      x      x x x x   x x x x   x x x x   x x x x   x         x x x x   x x x x')
-print('x           x x     x     x   x     x   x         x     x   x         x     x      x')
-print('x x x x    x   x    x x x x   x x x x   x x x x   x x x x   x         x     x      x')
-print('      x   x x x x   x         x         x         x   x     x         x     x      x')
-print(f'x x x x  x       x  x         x         x x x x   x     x   x x x x   x x x x      x{Colors.ENDC}\n')
-
-# print(f'{Colors.BLUE}\n                                        ')
-# print('                                               ')
-# print('                                        ')
-# print('                                               ')
-# print('                                          {Colors.ENDC}\n')
-
-# print(f'{Colors.BLUE}\nI I I     I     I I I  I I I  I I I  I I I  I      I I I  I I I')
-# print('I        I I    I   I  I   I  I      I   I  I      I   I    I')
-# print('I I I   I   I   I I I  I I I  I I I  I I I  I      I   I    I')
-# print('    I  I I I I  I      I      I      I I    I      I   I    I')
-# print('I I I  I     I  I      I      I I I  I   I  I I I  I I I    I{Colors.ENDC}\n')
-
-print('Welcome to SAPPERLOT -              Copyright: Gustaf Enebog 2024') # Statistical Airplane Potent Parameter Engineering Radical Loaded Oranges Tool\n')
+print('Welcome to SAPPERLOT -                          Copyright: Gustaf Enebog 2024') # Statistical Airplane Potent Parameter Engineering Radical Loaded Oranges Tool\n')
 print('Statistical Airplane Potent Parameter Engineering Radical Loaded Oranges Tool\n')
 
 main()
