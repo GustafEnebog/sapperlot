@@ -405,23 +405,39 @@ def select_and_view_airplane_data():
 def search_data():
     """
     search for search words in worksheet
-
+    Credit to Code Institute tutor "John" for bugfix
     https://codingpub.dev/access-google-sheets-in-python-using-gspread/
     https://docs.gspread.org/en/latest/api/models/worksheet.html#gspread.worksheet.Worksheet.findall     middle of page
     """
-    cell = 'No results found'
+    print('\nWhich sheet do you want to search?:')
+    print('1. Multirole fighter')
+    print('2. Airliner')
+    print('3. General Aviation')
+    select_value = input('\nPlease select an option by entering a number between 1-3 an H, M or Q:\n')
+
+    if select_value == '1':
+        sheet_select = 'multirole_fighter'
+    elif select_value == '2':
+        sheet_select = 'airliner'
+    elif select_value == '3':
+        sheet_select = 'general_aviation'
+    else:
+        print('Invalid choice, please enter a number between 1-3 an H, M or Q:\n')
+
     print('\n1. Exact word search')
     print('2. Regular expression (regex)     "M" MAIN MENU     "H" HELP     "Q" QUIT PROGRAM')
     select_value = input('\nPlease select an option by entering a number between 1-2 an H, M or Q:\n')
+
+    cell = 'No results found'
     if select_value == '1':
         search_word = input('\nPlease enter an exact search word (not case sensitive):\n')
         # cell = worksheet.find('search_word')  # cell = worksheet.find("Mail")
-        cell = SHEET.worksheet("multirole_fighter").find(search_word)
+        cell = SHEET.worksheet(sheet_select).find(search_word)
         # cell = find('search_word', case_sensitive=True)
     elif select_value == '2':
         search_word = input('\nPlease enter a word or a sequence of characters in the word you search for\n')
         regex = re.compile(rf'{search_word}')  #mail_re = re.compile(r'(Google|Yahoo) Mail')     cell = worksheet.find(mail_re)
-        cell = SHEET.worksheet("multirole_fighter").findall(regex)
+        cell = SHEET.worksheet(sheet_select).findall(regex)
     elif select_value == 'H':
         help()
     elif select_value == 'M':
@@ -430,7 +446,11 @@ def search_data():
         os.abort()  #Abort the current running process
     else:
         print('Invalid choice, please enter a number between 1-3 an H, M or Q:\n')
-    print(f'{search_word} exist in the worksheet in cell {cell}')
+
+    if cell != '':
+        print(f'{search_word} exist in the worksheet in cell {cell}')
+    elif cell == '':
+        print(f'No sesults found for {search_word}')
 
 
 def select_and_pull_airplane_data_from_worksheet():
