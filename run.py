@@ -517,74 +517,58 @@ def calc_mean():
     # numpy.mean(a, axis=None, dtype=None, out=None, keepdims=<no value>, *, where=<no value>)[source]
 
 
-def calc_median():
-    """ Calculate mean (Arithmetic mean) for a parameter in airplane_data[].
-    
-    https://www.w3schools.com/python/ref_stat_median.asp#:~:text=median()%20method%20calculates%20the,in%20a%20set%20of%20data.
-    https://numpy.org/doc/stable/reference/generated/numpy.median.html
-    
-    Argumemts: airplane_data_select_parameter[]
-    Returns: mean value for airplane_data_select_parameter[]
-    """
-    # print(statistics.median([1, 3, 5, 7, 9, 11, 13]))
-    # numpy.median(a, axis=None, out=None, overwrite_input=False, keepdims=False)[source]
-
-
-def calc_variance():
-    """ Calculate mean (Arithmetic mean) for a parameter in airplane_data[].
-    
-    https://www.w3schools.com/python/ref_stat_variance.asp
-    https://numpy.org/doc/stable/reference/generated/numpy.var.html
-    
-    Argumemts: airplane_data_select_parameter[]
-    Returns: mean value for airplane_data_select_parameter[]
-    """
-    # print(statistics.variance([1, 3, 5, 7, 9, 11]))
-    # numpy.var(a, axis=None, dtype=None, out=None, ddof=0, keepdims=<no value>, *, where=<no value>)
-
 
 def calc_meta_data():
-    """ Calculate mean (Arithmetic mean) for a parameter in airplane_data[].
+    """ Calculate mean (Arithmetic mean) median and variance for each parameter in each aircraft category.
+    The function gets the data directly from the worksheet
     
-    Argumemts: airplane_data_select_parameter[]
-    Returns: 
+    https://www.w3schools.com/python/ref_stat_mean.asp
+    https://www.w3schools.com/python/ref_stat_median.asp
+    https://www.w3schools.com/python/ref_stat_variance.asp
+
+    Argumemts:
+    Returns:
     """
-    values_list = SHEET.worksheet("airliner").col_values(5)
-    print('printout before pop' + str(values_list))
-    # using pop(0) to perform removal
-    values_list.pop(0)
-    print('printout after pop' + str(values_list))
-
-    # converted_airplane_data = unconverted_airplane_data  # Looks not so right but it made it work, at least at one point in time!
-    # converted_airplane_data[4] = int(values_lista[4])  # Entry of Year
-    for i in range(len(values_list)):
-    # for i in range(0, len(values_list)):
-        values_list[i] = float(values_list[i])
-        print(values_list)
-
-
-    print('printout before sorted' + str(values_list))
-    values_list = sorted(values_list)
-    print('printout after sorted' + str(values_list))
-
-    mean = statistics.mean(values_list)
-    median = statistics.median(values_list)
-    variance = statistics.variance(values_list)
-
-    print(f'mean {mean} unit')
-    print(f'mean {median} unit')
-    print(f'mean {variance} unit')
-
-    numpy.interp(x, xp, fp, left=None, right=None, period=None)[source]
-    #print(values_list)
-    #sorted(values_list)
-    #print(values_list)
-    # mean_of_year = print(statistics.mean(values_list))  # print(statistics.mean([1, 3, 5, 7, 9, 11, 13]))
-    #print(mean_of_year)
-    # numpy.mean(a, axis=None, dtype=None, out=None, keepdims=<no value>, *, where=<no value>)[source]
-    
-    print("Meta data - Please select an option by entering a number between 0-x:")
-
+    sheets_for_loop =  ['multirole_fighter', 'airliner', 'general_aviation']
+    for i in range(len(sheets_for_loop)):
+        for j in range(5,10):
+            values_list = SHEET.worksheet(sheets_for_loop[i]).col_values(j)
+            # using pop(0) to remove table headline
+            values_list.pop(0)
+            for k in range(len(values_list)):
+                # using float to convert str to float
+                values_list[k] = float(values_list[k])
+            # using math.statistics module 
+            mean = statistics.mean(values_list)
+            median = statistics.median(values_list)
+            variance = statistics.variance(values_list)
+            mean = format(mean, ".2f")
+            median = format(median, ".2f")
+            variance = format(variance, ".2f")
+            # Print out calculated meta data
+            if j == 6:
+                print(f'\nmean "Wing Span" for {sheets_for_loop[i]}s are {mean} m')
+                print(f'median "Wing Span" for {sheets_for_loop[i]}s are {median} m')
+                print(f'variance for the "Wing Span" for {sheets_for_loop[i]}s is {variance} m\n')
+            elif j == 7:
+                print(f'\nmean "Aspect Ratio" for {sheets_for_loop[i]}s are {mean} n/a')
+                print(f'median "Aspect Ratio" for {sheets_for_loop[i]}s are {median} n/a')
+                print(f'variance for the "Aspect Ratio" for {sheets_for_loop[i]}s is {variance} n/a\n')
+            elif j == 8:
+                print(f'\nmean "Wing Area" for {sheets_for_loop[i]}s are {mean} m\u00b2')
+                print(f'median "Wing Area" for {sheets_for_loop[i]}s are {median} m\u00b2')
+                print(f'variance for the "Wing Area" for {sheets_for_loop[i]}s is {variance} m\u00b2\n')
+            elif j == 9:
+                print(f'\nmean "Max Takeoff Weight" for {sheets_for_loop[i]}s are {mean} kg')
+                print(f'median "Max Takeoff Weight" for {sheets_for_loop[i]}s are {median} kg')
+                print(f'variance for the "Max Takeoff Weight" for {sheets_for_loop[i]}s is {variance} kg\n')
+            elif j == 10:
+                print(f'\nmean "Wing Loading" for {sheets_for_loop[i]}s are {mean} kg/m\u00b2')
+                print(f'median "Wing Loading" for {sheets_for_loop[i]}s are {median} kg/m\u00b2')
+                print(f'variance for the "Wing Loading" for {sheets_for_loop[i]}s is {variance} kg/m\u00b2\n')
+            else
+                print(index error)
+                
 
 def create_bell_curve_graph():
     """ Calculate mean (Arithmetic mean) for a parameter in airplane_data[].
@@ -730,6 +714,9 @@ def calc_inbetween_outside_point():
 
 
 
+    print('printout before sorted' + str(values_list))
+    values_list = sorted(values_list)
+    print('printout after sorted' + str(values_list))
 
     # numpy.interp(x, xp, fp, left=None, right=None, period=None)[source]
     # Note - The datas independent variable needs to be sorted so that it is increasing!
