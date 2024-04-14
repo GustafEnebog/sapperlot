@@ -372,6 +372,24 @@ def view_list_of_worksheets():
     print(list_of_worksheets)
 
 
+def select_airplane_category():
+    print('1. Multirole fighter')
+    print('2. Airliner')
+    print('3. General Aviation')
+    select_value = input('\nPlease select an option by entering a number between 1-3 an H, M or Q:\n')
+
+    if select_value == '1':
+        sheet_select = 'multirole_fighter'
+    elif select_value == '2':
+        sheet_select = 'airliner'
+    elif select_value == '3':
+        sheet_select = 'general_aviation'
+    else:
+        print('Invalid choice, please enter a number between 1-3 an H, M or Q:\n')
+    
+    return sheet_select
+
+
 def select_and_view_airplane_data():
     """
     selecs and collects columns of airplane data from worksheet,
@@ -409,20 +427,8 @@ def search_data():
     https://codingpub.dev/access-google-sheets-in-python-using-gspread/
     https://docs.gspread.org/en/latest/api/models/worksheet.html#gspread.worksheet.Worksheet.findall     middle of page
     """
-    print('\nWhich sheet do you want to search?:')
-    print('1. Multirole fighter')
-    print('2. Airliner')
-    print('3. General Aviation')
-    select_value = input('\nPlease select an option by entering a number between 1-3 an H, M or Q:\n')
-
-    if select_value == '1':
-        sheet_select = 'multirole_fighter'
-    elif select_value == '2':
-        sheet_select = 'airliner'
-    elif select_value == '3':
-        sheet_select = 'general_aviation'
-    else:
-        print('Invalid choice, please enter a number between 1-3 an H, M or Q:\n')
+    print('\nWhich category do you want to search?:')
+    sheet_select = select_airplane_category()
 
     print('\n1. Exact word search')
     print('2. Regular expression (regex)     "M" MAIN MENU     "H" HELP     "Q" QUIT PROGRAM')
@@ -451,7 +457,8 @@ def search_data():
         print(f'{search_word} exist in the worksheet in cell {cell}')
     elif cell == '':
         print(f'No sesults found for {search_word}')
-
+    else:
+        print('I guess one always should have an else-statement but what on earth should I write here!?')
 
 def select_and_pull_airplane_data_from_worksheet():
     """
@@ -602,11 +609,128 @@ def calc_bell_curve():
 def calc_inbetween_outside_point():
     """ Calculate (interpolate and extrapolate) value for a  for a value in airplane_data[].
 
+    Code snippet for "sorting a list using a second list" (approach 1) https://www.geeksforgeeks.org/python-sort-values-first-list-using-second-list/
+
     https://numpy.org/doc/stable/reference/generated/numpy.interp.html
 
     Argumemts: x
     Returns: mean wing span value
     """
+
+
+    
+    # Selection of aircraft data parameter (y-coordinates) you wish to calculate an "inbetween"-value for, e.g. wing area.
+    print('Aircraft data parameters (y-coord.) to calculate "inbetween"-value, e.g. wing area')
+    print('1. Wing span')
+    print('2. Aspect ratio')
+    print('3. Wing area')
+    print('4. Max takeoff weight')
+    print('5. Wing loading')
+    select_value_1 = input('\nPlease select an option by entering a number between 1-5 an H, M or Q:\n')
+
+    if select_value_1 == '1':
+        y_parameter_index = 5  # Wing span
+    elif select_value_1 == '2':
+         y_parameter_index = 6  # Aspect ratio
+    elif select_value_1 == '3':
+         y_parameter_index = 7  # Wing area
+    elif select_value_1 == '4':
+         y_parameter_index = 8  # Max takeoff weight
+    elif select_value_1 == '5':
+         y_parameter_index = 9  # Wing loading
+    elif selection_sub_menu_dep_variable == 'H':
+        help()
+    elif selection_sub_menu_dep_variable == 'M':
+        main_menu_select()
+    elif selection_sub_menu_dep_variable == 'Q':
+        os.abort()  #Abort the current running process
+    else:
+        print('Invalid choice, please enter a number between 1-3 an H, M or Q:\n')
+
+
+    # Selection of aircraft data parameter (x-coordinates) to make the above selected parameter dependent on e.g. Max Takeoff Weight. These values must be increasing.   
+    print('Aircraft data parameters (x-coord.) to base calulation of "inbetween"-value, e.g. Max Takeoff Weight. You may not select the same parameter as already selected in previous step\n')
+    print('1. Wing span')
+    print('2. Aspect ratio')
+    print('3. Wing area')
+    print('4. Max takeoff weight')
+    print('5. Wing loading')
+    select_value_2 = input('\nPlease select an option by entering a number between 1-5 an H, M or Q:\n')
+
+    if select_value_2 == select_value_1:
+        print('Invalid choice, You may not chose the same parameter as you made in your previous selection (y-coord.) 1-3 an H, M or Q:\n')
+    elif select_value_2 == '1':
+        x_parameter_index = 5  # Wing Span
+        print_parameter = 'Wing span'
+    elif select_value_2 == '2':
+        x_parameter_index = 6  # Aspect Ratio
+        print_parameter = 'Aspect ratio'
+    elif select_value_2 == '3':
+        x_parameter_index = 7  # Wing Area
+        print_parameter = 'Wing area'
+    elif select_value_2 == '4':
+        x_parameter_index = 8  # Max Takeoff Weight
+        print_parameter = 'Max Takeoff Weight'
+    elif select_value_2 == '5':
+        x_parameter_index = 9  # Wing Loading
+        print_parameter = 'Wing loading'
+    elif selection_sub_menu_dep_variable == 'H':
+        help()
+    elif selection_sub_menu_dep_variable == 'M':
+        main_menu_select()
+    elif selection_sub_menu_dep_variable == 'Q':
+        os.abort()  #Abort the current running process
+    else:
+        print('Invalid choice, please enter a number between 1-3 an H, M or Q:\n')
+
+
+    # Selection of the value (of the above selected aircraft data parameter, x-coordinates) at which to evaluate the interpolated value.
+    print('Note in the case of extrapolation that the reliability of estimate\nquickly deteriate as estimates moves away from the outermost data points')
+    x_value = input('\nPlease select an value of "' + str(print_parameter) + '" to interpolate, e.g. 16500 kg:\n')
+
+    print('y_parameter_index "' + str(y_parameter_index) + '" x_parameter_index "' + str(x_parameter_index) + '" x_value "' + str(x_value) + '"')
+
+
+
+    # Get correct list for popping, transform to floats, sorting and then interpolating
+    values_list_y = SHEET.worksheet("multirole_fighter").col_values(y_parameter_index)
+    values_list_x = SHEET.worksheet("multirole_fighter").col_values(x_parameter_index)
+
+    #values_list = worksheet.col_values(1)
+    print(values_list_y)
+    print(values_list_x)
+    while True:
+        break
+    sorted(values_list)
+    print(values_list)
+
+
+    values_list = SHEET.worksheet("airliner").col_values(5)
+    print('printout before pop' + str(values_list))
+    # using pop(0) to perform removal
+    values_list.pop(0)
+    print('printout after pop' + str(values_list))
+
+
+
+    # Python program to sort one list using the other list
+    def sort_list(list1, list2):
+        zipped_pairs = zip(list2, list1)
+        z = [x for _, x in sorted(zipped_pairs)]
+        return z
+
+    # driver code
+    x = ["a", "b", "c", "d", "e", "f", "g", "h", "i"]
+    y = [0, 1, 1, 0, 1, 2, 2, 0, 1]
+    print(sort_list(x, y))
+
+    x = ["g", "e", "e", "k", "s", "f", "o", "r", "g", "e", "e", "k", "s"]
+    y = [0, 1, 1, 0, 1, 2, 2, 0, 1]
+    print(sort_list(x, y))
+
+
+
+
     # numpy.interp(x, xp, fp, left=None, right=None, period=None)[source]
     # Note - The datas independent variable needs to be sorted so that it is increasing!
 
@@ -621,22 +745,48 @@ def calc_inbetween_outside_point():
     #values_list = airliner.aircraft_data.col_values(1)
     #values_list = aircraft_data.airliner.col_values(1)
     #values_list = SHEET.airliner.col_values(1)
-    values_list = SHEET.worksheet("multirole_fighter").col_values(1)
+ 
 
-    #values_list = worksheet.col_values(1)
-    print(values_list)
-    sorted(values_list)
-    print(values_list)
+    # converted_airplane_data = unconverted_airplane_data  # Looks not so right but it made it work, at least at one point in time!
+    # converted_airplane_data[4] = int(values_lista[4])  # Entry of Year
+    for i in range(len(values_list)):
+    # for i in range(0, len(values_list)):
+        values_list[i] = float(values_list[i])
+        print(values_list)
 
-    print("Please choose an airplane parameter whose value you want to evaluate/estimaten\nbetween (interpolate) or outside (extrapolate) of it's data points")
-    print('1. Wing span')
-    print('2. Aspect ratio')
-    print('3. Wing area')
-    print('4. Max takeoff weight')
-    print('5. Wing loading')
-    input('Please select an option by entering a number between 0-x:\n')
-    print('Note in the case of extrapolation that the reliability of estimate\nquickly deteriate for estimates as estimates moves away from the data points')
-    input('Please choose a second airplane parameter you want to use as the independent vaiable\n(you have just given the dependent parameter) for the interpolation\n')
+
+    print('printout before sorted' + str(values_list))
+    values_list = sorted(values_list)
+    print('printout after sorted' + str(values_list))
+
+    mean = statistics.mean(values_list)
+    median = statistics.median(values_list)
+    variance = statistics.variance(values_list)
+
+    print(f'mean {mean} unit')
+    print(f'mean {median} unit')
+    print(f'mean {variance} unit')
+
+    numpy.interp(x, xp, fp, left=None, right=None, period=None)[source]
+    #print(values_list)
+    #sorted(values_list)
+    #print(values_list)
+    # mean_of_year = print(statistics.mean(values_list))  # print(statistics.mean([1, 3, 5, 7, 9, 11, 13]))
+    #print(mean_of_year)
+    # numpy.mean(a, axis=None, dtype=None, out=None, keepdims=<no value>, *, where=<no value>)[source]
+    
+    print("Meta data - Please select an option by entering a number between 0-x:")
+
+
+
+
+
+
+
+
+
+
+
 
 
 def help():
