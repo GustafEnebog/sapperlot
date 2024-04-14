@@ -62,14 +62,12 @@ def main_menu_select():
     """
     print('\nMAIN MENU')
     print('1. Add data')
-    print('2. Edit data')
-    print('3. Delete data')
-    print('4. View list of Airplane Categories')
-    print('5. View data')
-    print('6. Search data')
-    print('7. Meta data')
-    print('8. Bell curve')
-    print('9. Inbetween points     "H" HELP     "Q" QUIT PROGRAM')
+    print('2. View list of Airplane Categories')
+    print('3. View data')
+    print('4. Search data')
+    print('5. Meta data')
+    print('6. Bell curve')
+    print('7. Inbetween points     "H" HELP     "Q" QUIT PROGRAM')
 
     while True:
         selection_main_menu = input('\nPlease select an option by entering a number between 1-9 an H or Q:\n')
@@ -80,27 +78,21 @@ def main_menu_select():
             push_airplane_data_to_worksheet(airplane_data)  # loveSandwiches code also have a worksheet as an argument. I took it away since it does not work since it is not defined
             break
         elif selection_main_menu == '2':
-            edit_data()
-            break
-        elif selection_main_menu == '3':
-            delete_data()
-            break
-        elif selection_main_menu == '4':
             view_list_of_worksheets()
             break
-        elif selection_main_menu == '5':
+        elif selection_main_menu == '3':
             select_and_view_airplane_data()
             break
-        elif selection_main_menu == '6':
+        elif selection_main_menu == '4':
             search_data()
             break
-        elif selection_main_menu == '7':
+        elif selection_main_menu == '5':
             calc_meta_data()
             break
-        elif selection_main_menu == '8':
+        elif selection_main_menu == '6':
             create_bell_curve_graph()
             break
-        elif selection_main_menu == '9':
+        elif selection_main_menu == '7':
             calc_inbetween_outside_point()
             break
         elif selection_main_menu == 'H':
@@ -247,14 +239,6 @@ def convert_to_int_and_float(unconverted_airplane_data):
     return converted_airplane_data
 
 
-def feedback_on_airplane_data():
-    """
-    Review airplane data and give feedback to the user if any of the user provided airplane data 
-    Appear to be extreme.
-
-    Argumemts: complete airplane_data list (str and float) for one airplane.
-    """
-
 def uppdate_dependent_airplane_data(converted_airplane_data):
     """ Fills in the blank values in the user provided airplane_data-list
     by function calls to separate functions that calculates these values.
@@ -306,30 +290,11 @@ def uppdate_dependent_airplane_data(converted_airplane_data):
         print('Invalid choice, please enter a number between 1-8 an H, M or Q:\n')
 
     print(airplane_data)
+
+
+
     return airplane_data
 
-
-def create_worksheet():
-    """ Edit the relevant worksheet with the data provided
-    Create Worksheet
-    You can create a new worksheet in the selected spreadsheet using the following command.
-    """
-    print('Please select an option by entering a number between 0-x:')
-    # worksheet = sh.add_worksheet(title="A worksheet", rows="100", cols="20")
-
-
-def edit_data():
-    """ Edit the relevant worksheet with the data provided
-    """
-    print('Please select an option by entering a number between 0-x:')
-
-
-def delete_data():
-    """ Delete Worksheet
-    You can delete a worksheet using the below given command and passing worksheet retrieved in "Select Worksheet".
-    """
-    # print('Please select an option by entering a number between 0-x:')
-    # SHEET.del_worksheet(worksheet)
 
 def push_airplane_data_to_worksheet(data):  # loveSandwiches code also have a worksheet as an argument. I took it away since it does not work since it is not defined
     """ Update the correct tab in worksheet with data in the form of
@@ -489,35 +454,6 @@ def select_and_pull_airplane_data_from_worksheet():
 #values_list = worksheet.col_values(1)
 
 
-def calc_mean():
-    """ Calculate mean (Arithmetic mean) for a parameter in airplane_data[].
-    
-    https://www.w3schools.com/python/ref_stat_mean.asp
-    https://numpy.org/doc/stable/reference/generated/numpy.mean.html
-    
-    Argumemts: airplane_data_select_parameter[]
-    Returns: mean value for airplane_data_select_parameter[]
-    """
-
-
-def calc_mean():
-    """ Calculate mean (Arithmetic mean) for a parameter in airplane_data[].
-    
-    https://www.w3schools.com/python/ref_stat_mean.asp
-    https://numpy.org/doc/stable/reference/generated/numpy.mean.html
-    
-    Argumemts: airplane_data_select_parameter[]
-    Returns: mean value for airplane_data_select_parameter[]
-    """
-    values_list = SHEET.worksheet("multirole_fighter").col_values(1)
-    print(values_list)
-    sorted(values_list)
-    print(values_list)
-    # print(statistics.mean([1, 3, 5, 7, 9, 11, 13]))
-    # numpy.mean(a, axis=None, dtype=None, out=None, keepdims=<no value>, *, where=<no value>)[source]
-
-
-
 def calc_meta_data():
     """ Calculate mean (Arithmetic mean) median and variance for each parameter in each aircraft category.
     The function gets the data directly from the worksheet
@@ -547,47 +483,27 @@ def calc_meta_data():
             variance = format(variance, ".2f")
             # Print out calculated meta data
             if j == 6:
-                print(f'\nmean "Wing Span" for {sheets_for_loop[i]}s are {mean} m')
-                print(f'median "Wing Span" for {sheets_for_loop[i]}s are {median} m')
-                print(f'variance for the "Wing Span" for {sheets_for_loop[i]}s is {variance} m\n')
+                print(f'\nMean "Wing Span" for {sheets_for_loop[i]}s are {mean} m')
+                print(f'Median "Wing Span" for {sheets_for_loop[i]}s are {median} m')
+                print(f'Variance for the "Wing Span" for {sheets_for_loop[i]}s is {variance} m\n')
             elif j == 7:
-                print(f'\nmean "Aspect Ratio" for {sheets_for_loop[i]}s are {mean} n/a')
-                print(f'median "Aspect Ratio" for {sheets_for_loop[i]}s are {median} n/a')
-                print(f'variance for the "Aspect Ratio" for {sheets_for_loop[i]}s is {variance} n/a\n')
+                print(f'\nMean "Aspect Ratio" for {sheets_for_loop[i]}s are {mean} n/a')
+                print(f'Median "Aspect Ratio" for {sheets_for_loop[i]}s are {median} n/a')
+                print(f'Variance for the "Aspect Ratio" for {sheets_for_loop[i]}s is {variance} n/a\n')
             elif j == 8:
-                print(f'\nmean "Wing Area" for {sheets_for_loop[i]}s are {mean} m\u00b2')
-                print(f'median "Wing Area" for {sheets_for_loop[i]}s are {median} m\u00b2')
-                print(f'variance for the "Wing Area" for {sheets_for_loop[i]}s is {variance} m\u00b2\n')
+                print(f'\nMean "Wing Area" for {sheets_for_loop[i]}s are {mean} m\u00b2')
+                print(f'Median "Wing Area" for {sheets_for_loop[i]}s are {median} m\u00b2')
+                print(f'Variance for the "Wing Area" for {sheets_for_loop[i]}s is {variance} m\u00b2\n')
             elif j == 9:
-                print(f'\nmean "Max Takeoff Weight" for {sheets_for_loop[i]}s are {mean} kg')
-                print(f'median "Max Takeoff Weight" for {sheets_for_loop[i]}s are {median} kg')
-                print(f'variance for the "Max Takeoff Weight" for {sheets_for_loop[i]}s is {variance} kg\n')
+                print(f'\nMean "Max Takeoff Weight" for {sheets_for_loop[i]}s are {mean} kg')
+                print(f'Median "Max Takeoff Weight" for {sheets_for_loop[i]}s are {median} kg')
+                print(f'Variance for the "Max Takeoff Weight" for {sheets_for_loop[i]}s is {variance} kg\n')
             elif j == 10:
-                print(f'\nmean "Wing Loading" for {sheets_for_loop[i]}s are {mean} kg/m\u00b2')
-                print(f'median "Wing Loading" for {sheets_for_loop[i]}s are {median} kg/m\u00b2')
-                print(f'variance for the "Wing Loading" for {sheets_for_loop[i]}s is {variance} kg/m\u00b2\n')
-            else
-                print(index error)
-                
-
-def create_bell_curve_graph():
-    """ Calculate mean (Arithmetic mean) for a parameter in airplane_data[].
-    
-    
-    Argumemts: airplane_data_select_parameter[]
-    Returns: 
-    """
-
-
-def calc_bell_curve():
-    """ Calculate mean (Arithmetic mean) for a parameter in airplane_data[].
-    
-    https://numpy.org/doc/stable/reference/random/generated/numpy.random.normal.html
-    
-    Argumemts: airplane_data_select_parameter[]
-    Returns: mean value for airplane_data_select_parameter[]
-    """
-    # numpy.random.normal(loc=0.0, scale=1.0, size=None)
+                print(f'\nMean "Wing Loading" for {sheets_for_loop[i]}s are {mean} kg/m\u00b2')
+                print(f'Median "Wing Loading" for {sheets_for_loop[i]}s are {median} kg/m\u00b2')
+                print(f'Variance for the "Wing Loading" for {sheets_for_loop[i]}s is {variance} kg/m\u00b2\n')
+            else:
+                print('index error')
 
 
 def calc_inbetween_outside_point():
@@ -814,7 +730,7 @@ print('\n')
 print('\033[1;34;40m\n\n                                ')
 print('                                                    ')
 print('                                   ')
-print('                                                 ')
+print('                                                 ')
 print(f'                                         \n{Colors.ENDC}\n')
 
 print('Welcome to SAPPERLOT -                          Copyright: Gustaf Enebog 2024') # Statistical Airplane Potent Parameter Engineering Radical Loaded Oranges Tool\n')
