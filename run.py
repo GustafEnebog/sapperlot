@@ -1,4 +1,6 @@
-# Write your code to expect a terminal of 80 characters wide and 24 rows high
+# Heroku terminal 80 char wide, 24 rows high
+# PEP8 code 79 char wide (72 for comments)
+#----------------------------------------------------------------------*------**
 # Run program: python3 run.py
 
 import gspread
@@ -7,18 +9,23 @@ from google.oauth2.service_account import Credentials
 #Import OS Library
 import os
 
-# Import colorama for colored command line text (slightly below middle of page) https://www.studytonight.com/python-howtos/how-to-print-colored-text-in-python#:~:text=You%20can%20use%20the%20Colorama,for%20colored%20text%20in%20Python.
+# Import colorama for colored command line text (slightly below middle of page)
+# https://www.studytonight.com/python-howtos/how-to-print-colored-text-in-python#:~:text=You%20can%20use%20the%20Colorama,for%20colored%20text%20in%20Python.
 #  ANSI escape codes. and/with colorama python library
-# I installed colorama with the following command (type in command line): - pip3 install colorama for Python 3 and pip install colorama for older versions of Python
+# I installed colorama with the following command (type in command line):
+# - pip3 install colorama for Python 3 and pip install colorama for
+# older versions of Python
 from colorama import Fore
 
 # Import pprint
 from pprint import pprint
 
-# Import python built-in module math used for basic math operations like: square root, exponents etc.
+# Import python built-in module math used for basic math operations like:
+# square root, exponents etc.
 import math
 
-# Import statistics Library used to calculate basic statistic like: arithmetic mean, median, spread, bell curce and interpolate
+# Import statistics Library used to calculate basic statistic like:
+# arithmetic mean, median, spread, bell curce and interpolate
 import statistics
 
 # Module for search using regex
@@ -27,7 +34,11 @@ import re
 # Import NumPy https://numpy.org/doc/stable/user/absolute_beginners.html
 # import numpy as np
 
-# NOTICE: The google sheets are formated (in the sheets, not in run.py) down to row 200, unsure if it is important but it might cause errors after this, simply copy a formated empty row and copy it onto rows past row 200 to format further!
+# NOTICE: The google sheets are formated (in the sheets, not in run.py) down to
+# row 200, unsure if it is important but it might cause errors after this,
+# simply copy a formated empty row and copy it onto rows past row 200
+# to format further!
+
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
@@ -38,7 +49,6 @@ CREDS = Credentials.from_service_account_file('creds.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('aircraft_data')
-#------------------------------------------------------------------------------
 
 class Colors:
     BLUE = '\033[94m'
@@ -56,72 +66,24 @@ def esc(code):
     """
     return f'\033[{code}m'
 
-
-def main_menu_select():
-    """ Handles selection from main menu
-    """
-    print('\nMAIN MENU')
-    print('1. Add data')
-    print('2. View list of Airplane Categories')
-    print('3. View data')
-    print('4. Search data')
-    print('5. Meta data')
-    print('6. Bell curve')
-    print('7. Inbetween points     "H" HELP     "Q" QUIT PROGRAM')
-
-    while True:
-        selection_main_menu = input('\nPlease select an option by entering a number between 1-9 an H or Q:\n')
-        if selection_main_menu == '1':
-            unconverted_airplane_data = get_airplane_data()
-            converted_airplane_data = convert_to_int_and_float(unconverted_airplane_data)
-            airplane_data = uppdate_dependent_airplane_data(converted_airplane_data)
-            push_airplane_data_to_worksheet(airplane_data)  # loveSandwiches code also have a worksheet as an argument. I took it away since it does not work since it is not defined
-            break
-        elif selection_main_menu == '2':
-            view_list_of_worksheets()
-            break
-        elif selection_main_menu == '3':
-            select_and_view_airplane_data()
-            break
-        elif selection_main_menu == '4':
-            search_data()
-            break
-        elif selection_main_menu == '5':
-            calc_meta_data()
-            break
-        elif selection_main_menu == '6':
-            create_bell_curve_graph()
-            break
-        elif selection_main_menu == '7':
-            calc_inbetween_outside_point()
-            break
-        elif selection_main_menu == 'H':
-            help()
-            break
-        elif selection_main_menu == 'Q':
-            os.abort()  #Abort the current running process
-        else:
-            print('Invalid choice, please enter a number between 1-6 an H or Q:\n')
-            continue
-
-
+#----------------------------------------------------------------------*------**
 def get_airplane_data():
-    """ Get and validate inputed airplane data. the input validation is made by
-    calling a separate function validate_airplane_data()
-
+    """ Get and validate (via function call) inputed airplane data.
     Run a while loop to collect a valid string of data from the user
-    via the terminal, which must be a string of 10 numbers separated
-    by commas. The loop will repeatedly request data, until it is valid.
+    via the terminal, which must be a string of 10 items separated
+    by commas (str,str,str,str,int,float,float,float,float,float).
+    The loop will repeatedly request data, until it is valid.
 
-    Based on "get_sales_data()" in loveSandwiches, AJGreaves at Code Institute https://github.com/Code-Institute-Solutions/love-sandwiches-p5-sourcecode/tree/master/05-deployment/01-deployment-part-1
-
-    Returns: airplane_data list (str and float) - incomplete user input data for one airplane.
+    Based on "get_sales_data()" in loveSandwiches, AJGreaves at Code Institute
+    https://github.com/Code-Institute-Solutions/love-sandwiches-p5-sourcecode/tree/master/05-deployment/01-deployment-part-1
+    
+    function calls: validate_airplane_data(values)
+    Returns: airplane_data list (str, int and float) - 
+    incomplete user input data for one airplane.
     """
-
     # Sub menu - FIRST choise
-    print('\nIn the next step you will be asked to enter three out of the\nfollowing five aircraft parameters:\nWing span, Aspect ratio, Wing area, Max takeoff weight, Wing loading.')
-    print('This is to not over-define the data. The program will calculate these values for you!')
-    print('\n1. ' + esc('238;2;9') + 'Wing span,' + esc(0) + ' Aspect ratio, Wing area, ' + esc('238;2;9') + 'Max takeoff weight,'  + esc(0) + ' Wing loading')
+    print('\nSets of Aircraft parameters to input (S̶t̶r̶i̶k̶e̶t̶h̶r̶o̶u̶g̶h̶ parameters will be calculated for you!)')
+    print('1. ' + esc('238;2;9') + 'Wing span,' + esc(0) + ' Aspect ratio, Wing area, ' + esc('238;2;9') + 'Max takeoff weight,'  + esc(0) + ' Wing loading')
     print('2. ' + esc('238;2;9') + 'Wing span,' + esc(0) + ' Aspect ratio, Wing area, Max takeoff weight, '  + esc('238;2;9') + 'Wing loading' + esc(0))
     print('3. Wing span, ' + esc('238;2;9') + 'Aspect ratio,' + esc(0) + ' Wing area, ' + esc('238;2;9') + 'Max takeoff weight,'  + esc(0) + ' Wing loading')
     print('4. Wing span, ' + esc('238;2;9') + 'Aspect ratio,' + esc(0) + ' Wing area, Max takeoff weight, ' + esc('238;2;9') + 'Wing loading'  + esc(0))
@@ -129,41 +91,41 @@ def get_airplane_data():
     print('6. Wing span, ' + esc('238;2;9') + 'Aspect ratio,'  + esc(0) + ' ' + esc('238;2;9') + 'Wing area,'  + esc(0) + ' Max takeoff weight'  + esc(0) + ', Wing loading')
     print('7. Wing span, Aspect ratio, ' + esc('238;2;9') + 'Wing area,'  + esc(0) + ' ' + esc('238;2;9') + 'Max takeoff weight,'  + esc(0) + ' Wing loading')
     print('8. Wing span, Aspect ratio, ' + esc('238;2;9') + 'Wing area,' + esc(0) + ' Max takeoff weight, ' + esc('238;2;9') + 'Wing loading'  + esc(0))
-    print('"H" HELP          "M" BACK TO MAIN MENU          "Q" QUIT PROGRAM')
+    print('"H" HELP             "M" BACK TO MAIN MENU             "Q" QUIT PROGRAM')
 
     global selection_sub_menu_dep_variable
     while True:
         selection_sub_menu_dep_variable = input('\nPlease select an alternative by entering a number between 1-8 an H, M or Q:\n')
         if selection_sub_menu_dep_variable == '1':
-            print('\nYou selected to leave out "Wing span" and "Max Takeoff Weight" (replace value with 0). Your data to be entered should therefore have this format:\nairplane_name, manufacturer, country, category, year, 0, aspect_ratio, wing_area, 0, wing_loading (so 10 items including the two zero)\n')
+            print('\nairplane_name, manufacturer, country, category, year, 0, aspect_ratio, wing_area, 0, wing_loading \n(give "0" as placeholder for "Wing span" and "Max Takeoff Weight".)\n')
             break
         elif selection_sub_menu_dep_variable == '2':
-            print('\nYou selected to leave out "Wing span" and "Wing loading" (replace value with 0). Your data to be entered should therefore have this format:\nairplane_name, manufacturer, country, category, year, 0, aspect_ratio, wing_area, max_takeoff_weight, 0 (so 10 items including the two zero)\n')
+            print('\nairplane_name, manufacturer, country, category, year, 0, aspect_ratio, wing_area, max_takeoff_weight, 0 \n(give "0" as placeholder for "Wing span" and "Wing loading".)\n')
             break
         elif selection_sub_menu_dep_variable == '3':
-            print('\nYou selected to leave out "Aspect Ratio" and "Max Takeoff Weight" (replace value with 0). Your data to be entered should therefore have this format:\nairplane_name, manufacturer, country, category, year, wing_span, 0, wing_area, 0, wing_loading (so 10 items including the two zero)\n')
+            print('\nairplane_name, manufacturer, country, category, year, wing_span, 0, wing_area, 0, \n(give "0" as placeholder for "Aspect Ratio" and "Max Takeoff Weight".)\n')
             break
         elif selection_sub_menu_dep_variable == '4':
-            print('\nYou selected to leave out "Aspect Ratio" and "Wing loading" (replace value with 0). Your data to be entered should therefore have this format:\nairplane_name, manufacturer, country, category, year, wing_span, 0, wing_area, max_takeoff_weight, 0 (so 10 items including the two zero)\n')
+            print('\nairplane_name, manufacturer, country, category, year, wing_span, 0, wing_area, max_takeoff_weight, 0 \n(give "0" as placeholder for "Aspect Ratio" and "Wing loading".)\n')
             break
         elif selection_sub_menu_dep_variable == '5':
-            print('\nYou selected to leave out "Wing span" and "Wing Area" (replace value with 0). Your data to be entered should therefore have this format:\nairplane_name, manufacturer, country, category, year, 0, aspect_ratio, 0, max_takeoff_weight, wing_loading (so 10 items including the two zero)\n')
+            print('\nairplane_name, manufacturer, country, category, year, 0, aspect_ratio, 0, max_takeoff_weight, wing_loading \n(give "0" as placeholder for "Wing span" and "Wing Area".)\n')
             break
         elif selection_sub_menu_dep_variable == '6':
-            print('\nYou selected to leave out "Aspect Ratio" and "Wing Area" (replace value with 0). Your data to be entered should therefore have this format:\nairplane_name, manufacturer, country, category, year, wing_span, 0, 0, max_takeoff_weight, wing_loading (so 10 items including the two zero)\n')
-            break
+            print('\nairplane_name, manufacturer, country, category, year, wing_span, 0, 0, max_takeoff_weight, wing_loading \n(give "0" as placeholder for "Aspect Ratio" and "Wing Area".)\n')
+            break 
         elif selection_sub_menu_dep_variable == '7':
-            print('\nYou selected to leave out "Wing Area" and "Max Takeoff Weight" (replace value with 0). Your data to be entered should therefore have this format:\nairplane_name, manufacturer, country, category, year, wing_span, aspect_ratio, 0, 0, wing_loading (so 10 items including the two zero)\n')
+            print('\nairplane_name, manufacturer, country, category, year, wing_span, aspect_ratio, 0, 0, wing_loading \n(give "0" as placeholder for "Wing Area" and "Max Takeoff Weight".)\n')
             break
         elif selection_sub_menu_dep_variable == '8':
-            print('\nYou selected to leave out "Wing Area" and "Wing loading". Your data to be entered should therefore have this format:\nairplane_name, manufacturer, country, category, year, wing_span, aspect_ratio, 0, max_takeoff_weight, 0 (so 10 items including the two zero)\n')
+            print('\nairplane_name, manufacturer, country, category, year, wing_span, aspect_ratio, 0, max_takeoff_weight, 0 \n(give "0" as placeholder for "Wing Area" and "Wing loading".)\n')
             break
         elif selection_sub_menu_dep_variable == 'H':
             help()
-            break  # Should this break be here or is not necessary since it goes to this function anyway!?
+            break
         elif selection_sub_menu_dep_variable == 'M':
             main_menu_select()
-            break  # Should this break be here or is not necessary since it goes to this function anyway!?
+            break
         elif selection_sub_menu_dep_variable == 'Q':
             os.abort()  #Abort the current running process
         else:
@@ -183,26 +145,26 @@ def get_airplane_data():
 
 def validate_airplane_data(values):
     """
-    Validates if user input is valid by checking data types(str and float), if there is exactly 10 values
+    Validates if user input is valid by trying to convert data types
+    (str, int and float), if there is exactly 10 values
     and that they are all positive and larger than zero.
 
-    Inside the try, converts the fifth to tenth string values into integers.
-    Raises ValueError if these strings cannot be converted into int and,
+    Inside the try, converts the fifth to int and sixth to tenth to integers
+    (however only test, it keeps the data with its old types).
+    Raises ValueError if these strings cannot be converted,
     or if there aren't exactly 10 values.
 
-    Based on "validate_data()" in loveSandwiches, AJGreaves at Code Institute https://github.com/Code-Institute-Solutions/love-sandwiches-p5-sourcecode/tree/master/05-deployment/01-deployment-part-1
-
-    Argumemts: airplane_data list (str and float) - incomplete user input data for one airplane.
+    Based on "validate_data()" in loveSandwiches, AJGreaves at Code Institute
+    https://github.com/Code-Institute-Solutions/love-sandwiches-p5-sourcecode/tree/master/05-deployment/01-deployment-part-1
+    
+    Argumemts: values - incomplete user input data for one airplane.
     Returns: true or false
     """
     try:
         if len(values) != 10:  # 10 items in a list starting at index 0 running untill index 9
-            print(values)
             raise ValueError(
                 f"Exactly 10 values required, you provided {len(values)}"
             )
-        # [int(value) for value in values]
-
             int(values[4])  # test if value f (year) can be converted into int
         for i in range(5, 10):  # 10 items in a list starting at index 0 running untill index 9
             float(values[i])  # test if fifth to tenth value can be converted into float
@@ -214,46 +176,33 @@ def validate_airplane_data(values):
 
 
 def convert_to_int_and_float(unconverted_airplane_data):
-    """ Converts the numeric data (year, wing_span, aspect_ratio, wing_area, max_takeoff_weight, wing_loading) to integers
+    """ Converts the str data to integers and floats
+    Before conversion: (str,str,str,str,str,str,str,str,str,str)
+    After conversion: (str,str,str,str,int,float,float,float,float,float)
+    (year, wing_span, aspect_ratio, wing_area, max_takeoff_weight, wing_loading)
 
-    Argumemts: 
-    Returns: 
+    Arguments: unconverted_airplane_data
+    Returns: converted_airplane_data
     """
-    # converted_airplane_data = unconverted_airplane_data  # Looks not so right but it made it work, at least at one point in time!
-    #converted_airplane_data = []
-    #converted_airplane_data[4] = int(unconverted_airplane_data[4])  # Entry of Year
-    #for i in range(5, 10):
-        # print(unconverted_airplane_data)
-    #    converted_value[i] = float(unconverted_airplane_data[i])
-    #    converted_airplane_data.append(converted_value)
-    #    converted_airplane_data = format(converted_airplane_data[i], ".2f")  # Formate floats to two decimals. Note that it is truncated (all the decimals are still there under the hood), not rounded (that would be the round() function) 
-    # return converted_airplane_data
-
-
-    converted_airplane_data = unconverted_airplane_data  # Looks not so right but it made it work, at least at one point in time!
+    converted_airplane_data = unconverted_airplane_data
     converted_airplane_data[4] = int(unconverted_airplane_data[4])  # Entry of Year
     for i in range(5, 10):
-        print(unconverted_airplane_data)
         converted_airplane_data[i] = float(unconverted_airplane_data[i])
-        # converted_airplane_data = format(converted_airplane_data[i], ".2f")  # Formate floats to two decimals. Note that it is truncated (all the decimals are still there under the hood), not rounded (that would be the round() function) 
     return converted_airplane_data
 
 
 def uppdate_dependent_airplane_data(converted_airplane_data):
-    """ Fills in the blank values in the user provided airplane_data-list
-    by function calls to separate functions that calculates these values.
-
-    These values has been intentionaly left blank by the user as instructed 
-    by the function xxxxxxxxxxx. The reason for leaving some values blank
-    is that values are interdependent. Inputting all values would therfore
-    over-define (overdetermine) the airplane-data.
+    """ Calculates and fills in dependent values (inputted with placeholder '0')
+    using equations using the inputed values.
+    If user would input all values it would over-define (overdetermine) the
+    airplane-data.
+    Based on "update_worksheet()" in loveSandwiches, AJGreaves at Code Institute
+    https://github.com/Code-Institute-Solutions/love-sandwiches-p5-sourcecode/tree/master/05-deployment/01-deployment-part-1
 
     https://docs.google.com/spreadsheets/d/186F_QSx24xYlkzunnzrzawt06MJO8GfdPsxGeRoqIa4/edit#gid=1680754323
 
-    Based on "update_worksheet()" in loveSandwiches, AJGreaves at Code Institute https://github.com/Code-Institute-Solutions/love-sandwiches-p5-sourcecode/tree/master/05-deployment/01-deployment-part-1
-
-    Argumemts: airplane_data list (str and float) - incomplete user input data for one airplane.
-    Returns: airplane_data list (str and float) - completed user input data for one airplane.
+    Argumemts: converted_airplane_data
+    Returns: airplane_data
     """
     airplane_data = converted_airplane_data
     if selection_sub_menu_dep_variable == '1':
@@ -288,24 +237,23 @@ def uppdate_dependent_airplane_data(converted_airplane_data):
         os.abort()  #Abort the current running process
     else:
         print('Invalid choice, please enter a number between 1-8 an H, M or Q:\n')
-
-    print(airplane_data)
-
-
+    
+    for i in range(5, 10):
+        airplane_data[i] = format(airplane_data[i], ".2f")
 
     return airplane_data
 
 
 def push_airplane_data_to_worksheet(data):  # loveSandwiches code also have a worksheet as an argument. I took it away since it does not work since it is not defined
     """ Update the correct tab in worksheet with data in the form of
-    a list of string and integer values
+    a list of string, integer and float values
+
+    Arguments: data
     """
-    # print(f"Updating {worksheet} worksheet...\n")
     if data[3] == 'multirole_fighter':
         worksheet_to_update = SHEET.worksheet('multirole_fighter')
         worksheet_to_update.append_row(data)
         print('The "multirole_fighter"-category/tab in our worksheet updated successfully\n')
-        # print(f"{'multirole_fighter'} worksheet updated successfully\n")
     elif data[3] == 'airliner':
         worksheet_to_update = SHEET.worksheet('airliner')
         worksheet_to_update.append_row(data)
@@ -315,29 +263,46 @@ def push_airplane_data_to_worksheet(data):  # loveSandwiches code also have a wo
         worksheet_to_update.append_row(data)
         print('The "general_aviation"-category/tab in our worksheet updated successfully\n')
     else:
-        print('Ouuups, you must have misspelled the fourth entry (category). It should be Multirole Fighter, Airliner or General Aviation. sorry, but this error really should have been caught earlier!')
+        print('Ouuups, you must have misspelled the fourth entry (category). \nIt should be multirole_fighter, airliner or general_aviation. sorry, but this error really should have been caught earlier!') # See if this erro can be checked earlier!!!
 
-    # multirole_fighter = SHEET.worksheet('multirole_fighter')  ???????? Where have I gotten these from? Can I throw them away??????????
-    # data = multirole_fighter.get_all_values()  ???????? Where have I gotten these from? Can I throw them away??????????
 
-    # print(f"Updating {worksheet} worksheet...\n")
-    # worksheet_to_update = SHEET.worksheet(worksheet)
-    # worksheet_to_update.append_row(data)
-    # print(f"{worksheet} worksheet updated successfully\n")
+def post_select():
+    """ Gives the user short menu post a request have been carried out
+    """
+    while True:
+        print('\nH - Help')
+        print('M - Main Menu')
+        print('Q - Quit')
+        select = input('\nPlease select an alternative by entering H, M or Q:\n')
+        if select == 'H':
+            help()
+            break
+        elif select == 'M':
+            main()
+            break
+        elif select == 'Q':
+            os.abort()  #Abort the current running process
+        else:
+            print('Invalid choice, please select an alternative by entering H, M or Q:\n')
+            continue
 
 
 def view_list_of_worksheets():
-    """
-    selecs and collects columns of airplane data from worksheet,
-    and returns the data as a list of lists.
+    """ Displays all sheets (categories) in the worksheets
 
-    https://codingpub.dev/access-google-sheets-in-python-using-gspread/    
+    https://codingpub.dev/access-google-sheets-in-python-using-gspread/   
+    
+    function calls: validate_airplane_data(values)
     """
     list_of_worksheets = SHEET.worksheets()
-    print(list_of_worksheets)
-
+    print(f'\n{list_of_worksheets}')
+    post_select()
 
 def select_airplane_category():
+    """ Allows user to select sheet in worksheet and save selection in variable sheet_select
+    
+    Returns: sheet_select
+    """
     print('1. Multirole fighter')
     print('2. Airliner')
     print('3. General Aviation')
@@ -353,6 +318,7 @@ def select_airplane_category():
         print('Invalid choice, please enter a number between 1-3 an H, M or Q:\n')
     
     return sheet_select
+    post_select()
 
 
 def select_and_view_airplane_data():
@@ -360,7 +326,7 @@ def select_and_view_airplane_data():
     selecs and collects columns of airplane data from worksheet,
     and returns the data as a list of lists.
 
-    https://codingpub.dev/access-google-sheets-in-python-using-gspread/    
+    https://codingpub.dev/access-google-sheets-in-python-using-gspread/
     """
     print('\n1. multirole_fighter')
     print('2. airliner')
@@ -373,7 +339,7 @@ def select_and_view_airplane_data():
         airliner_sheet = SHEET.worksheet("airliner").get_all_values()
         pprint(airliner_sheet)
     elif select_value == '3':
-        general_aviation_sheet = SHEET.worksheet("general_aviation").get_all_values()
+        general_aviation_sheet = SHEET.worksheet("general_aviation").get_all_values()  # Why does this row not work
         pprint(general_aviation_sheet)
     elif select_value == 'H':
         help()
@@ -383,14 +349,18 @@ def select_and_view_airplane_data():
         os.abort()  #Abort the current running process
     else:
         print('Invalid choice, please enter a number between 1-3 an H, M or Q:\n')
+    
+    post_select()
 
 
 def search_data():
-    """
-    search for search words in worksheet
+    """ search for search words in worksheet
     Credit to Code Institute tutor "John" for bugfix
     https://codingpub.dev/access-google-sheets-in-python-using-gspread/
-    https://docs.gspread.org/en/latest/api/models/worksheet.html#gspread.worksheet.Worksheet.findall     middle of page
+    https://docs.gspread.org/en/latest/api/models/worksheet.html#gspread.worksheet.Worksheet.findall (middle of page)
+
+    Functions: select_airplane_category()
+    Returns: sheet_select
     """
     print('\nWhich category do you want to search?:')
     sheet_select = select_airplane_category()
@@ -402,12 +372,10 @@ def search_data():
     cell = 'No results found'
     if select_value == '1':
         search_word = input('\nPlease enter an exact search word (not case sensitive):\n')
-        # cell = worksheet.find('search_word')  # cell = worksheet.find("Mail")
         cell = SHEET.worksheet(sheet_select).find(search_word)
-        # cell = find('search_word', case_sensitive=True)
     elif select_value == '2':
         search_word = input('\nPlease enter a word or a sequence of characters in the word you search for\n')
-        regex = re.compile(rf'{search_word}')  #mail_re = re.compile(r'(Google|Yahoo) Mail')     cell = worksheet.find(mail_re)
+        regex = re.compile(rf'{search_word}')
         cell = SHEET.worksheet(sheet_select).findall(regex)
     elif select_value == 'H':
         help()
@@ -425,49 +393,21 @@ def search_data():
     else:
         print('I guess one always should have an else-statement but what on earth should I write here!?')
 
-def select_and_pull_airplane_data_from_worksheet():
-    """
-    selecs and collects columns of airplane data from worksheet,
-    and returns the data as a list of lists.
-
-    https://codingpub.dev/access-google-sheets-in-python-using-gspread/    
-    """
-    print("Calculating surplus data...\n")
-    stock = SHEET.worksheet("stock").get_all_values()
-
-    values_list = worksheet.col_values(1)
-    sorted()
-
-
-
-#6 - Get Cell Value
-#You can get call value either using cell label or using cell coordinates with the commands given below
-
-#val = worksheet.acell('B1').value # With label
-
-#val = worksheet.cell(1, 2).value # With coords
-#7 - Get all values from row or column
-#If you want to values from an entire row or entire column you can use the following commands
-
-#values_list = worksheet.row_values(1)
-
-#values_list = worksheet.col_values(1)
+    post_select()
 
 
 def calc_meta_data():
-    """ Calculate mean (Arithmetic mean) median and variance for each parameter in each aircraft category.
+    """ Calculate 'mean' (Arithmetic mean) 'median' and 'variance' for each
+    parameter in each aircraft category.
     The function gets the data directly from the worksheet
     
     https://www.w3schools.com/python/ref_stat_mean.asp
     https://www.w3schools.com/python/ref_stat_median.asp
     https://www.w3schools.com/python/ref_stat_variance.asp
-
-    Argumemts:
-    Returns:
     """
     sheets_for_loop =  ['multirole_fighter', 'airliner', 'general_aviation']
     for i in range(len(sheets_for_loop)):
-        for j in range(5,10):
+        for j in range(6,10):
             values_list = SHEET.worksheet(sheets_for_loop[i]).col_values(j)
             # using pop(0) to remove table headline
             values_list.pop(0)
@@ -485,41 +425,44 @@ def calc_meta_data():
             if j == 6:
                 print(f'\nMean "Wing Span" for {sheets_for_loop[i]}s are {mean} m')
                 print(f'Median "Wing Span" for {sheets_for_loop[i]}s are {median} m')
-                print(f'Variance for the "Wing Span" for {sheets_for_loop[i]}s is {variance} m\n')
+                print(f'Variance for the "Wing Span" for {sheets_for_loop[i]}s is {variance} m')
             elif j == 7:
                 print(f'\nMean "Aspect Ratio" for {sheets_for_loop[i]}s are {mean} n/a')
                 print(f'Median "Aspect Ratio" for {sheets_for_loop[i]}s are {median} n/a')
-                print(f'Variance for the "Aspect Ratio" for {sheets_for_loop[i]}s is {variance} n/a\n')
+                print(f'Variance for the "Aspect Ratio" for {sheets_for_loop[i]}s is {variance} n/a')
             elif j == 8:
                 print(f'\nMean "Wing Area" for {sheets_for_loop[i]}s are {mean} m\u00b2')
                 print(f'Median "Wing Area" for {sheets_for_loop[i]}s are {median} m\u00b2')
-                print(f'Variance for the "Wing Area" for {sheets_for_loop[i]}s is {variance} m\u00b2\n')
+                print(f'Variance for the "Wing Area" for {sheets_for_loop[i]}s is {variance} m\u00b2')
             elif j == 9:
                 print(f'\nMean "Max Takeoff Weight" for {sheets_for_loop[i]}s are {mean} kg')
                 print(f'Median "Max Takeoff Weight" for {sheets_for_loop[i]}s are {median} kg')
-                print(f'Variance for the "Max Takeoff Weight" for {sheets_for_loop[i]}s is {variance} kg\n')
+                print(f'Variance for the "Max Takeoff Weight" for {sheets_for_loop[i]}s is {variance} kg')
             elif j == 10:
                 print(f'\nMean "Wing Loading" for {sheets_for_loop[i]}s are {mean} kg/m\u00b2')
                 print(f'Median "Wing Loading" for {sheets_for_loop[i]}s are {median} kg/m\u00b2')
-                print(f'Variance for the "Wing Loading" for {sheets_for_loop[i]}s is {variance} kg/m\u00b2\n')
+                print(f'Variance for the "Wing Loading" for {sheets_for_loop[i]}s is {variance} kg/m\u00b2')
             else:
-                print('index error')
+                print('\nindex error')
+            
+    post_select()
 
 
 def calc_inbetween_outside_point():
-    """ Calculate (interpolate and extrapolate) value for a  for a value in airplane_data[].
+    """ Calculate (interpolate or extrapolate) a value (inbetween the data points
+    in aircraft_data).
 
-    Code snippet for "sorting a list using a second list" (approach 1) https://www.geeksforgeeks.org/python-sort-values-first-list-using-second-list/
-
+    Code snippet for "sorting a list using a second list" (approach 1) 
+    https://www.geeksforgeeks.org/python-sort-values-first-list-using-second-list/
     https://numpy.org/doc/stable/reference/generated/numpy.interp.html
 
-    Argumemts: x
-    Returns: mean wing span value
+    Returns: answer_y_value
     """
     print('\nWhich category do you want to search?:')
     sheet_select = select_airplane_category()
 
-    # Selection of aircraft data parameter (y-coordinates) you wish to calculate an "inbetween"-value for, e.g. wing area.
+    # Selection of aircraft data parameter (y-coordinates) you wish to calculate
+    # an "inbetween"-value for, e.g. wing area.
     print('Aircraft data parameters (y-coord.) to calculate "inbetween"-value, e.g. wing area')
     print('1. Wing span')
     print('2. Aspect ratio')
@@ -548,7 +491,9 @@ def calc_inbetween_outside_point():
         print('Invalid choice, please enter a number between 1-3 an H, M or Q:\n')
 
 
-    # Selection of aircraft data parameter (x-coordinates) to make the above selected parameter dependent on e.g. Max Takeoff Weight. These values must be increasing.   
+    # Selection of aircraft data parameter (x-coordinates) to make the above
+    # selected parameter dependent on e.g. Max Takeoff Weight.
+    # These values must be increasing.   
     print('Aircraft data parameters (x-coord.) to base calulation of "inbetween"-value, e.g. Max Takeoff Weight. You may not select the same parameter as already selected in previous step\n')
     print('1. Wing span')
     print('2. Aspect ratio')
@@ -584,7 +529,8 @@ def calc_inbetween_outside_point():
         print('Invalid choice, please enter a number between 1-3 an H, M or Q:\n')
 
 
-    # Selection of the value (of the above selected aircraft data parameter, x-coordinates) at which to evaluate the interpolated value.
+    # Selection of the value (of the above selected aircraft data parameter,
+    # x-coordinates) at which to evaluate the interpolated value.
     print('Note in the case of extrapolation that the reliability of estimate\nquickly deteriate as estimates moves away from the outermost data points')
     x_value = input('\nPlease select an value of "' + str(print_parameter) + '" to interpolate, e.g. 16500 kg:\n')
 
@@ -681,7 +627,7 @@ def calc_inbetween_outside_point():
     print("Meta data - Please select an option by entering a number between 0-x:")
 
 
-
+    return answer_y_value
 
 
 
@@ -695,52 +641,70 @@ def calc_inbetween_outside_point():
 def help():
 
     """ Display help text
-
-    Argumemts:
-    Returns:
     """
-    input('Do you want to read the instructions? y/n\n')
-    print('HELP text here')
+    print('\nHELP')
+    print(f'Wing Span, m')
+    print(f'Aspect Ratio, n/a')
+    print(f'Wing Area, m\u00b2')
+    print(f'Max Takeoff Weight, kg')
+    print(f'Wing Loading, kg/m\u00b2')
 
 
 def main():
-    """ Run all program functions
-    
-    Lifecycle of the user input alternative nr 1 from the main menu:
-    inputted_airplane_data -> unconverted_airplane_data -> converted_airplane_data -> airplane_data
-
-    Argumemts:
-    Returns:
+    """ Run all program functions by running the main menu
     """
-    main_menu_select()
-    # print('BEFORE get_airplane_data')
-    # unconverted_airplane_data = get_airplane_data()
-    # print('AFTER get_airplane_data')
-    # converted_airplane_data = convert_to_int(unconverted_airplane_data)
-    # THIS = print(converted_airplane_data)
-    # airplane_data = uppdate_dependent_airplane_data(converted_airplane_data)
-    # there_should_not_be_any_holes_now = print(airplane_data)
+    print('\nMAIN MENU')
+    print('1. Add data')
+    print('2. View list of Airplane Categories')
+    print('3. View data')
+    print('4. Search data')
+    print('5. Meta data')
+    print('6. Inbetween points     "H" HELP     "Q" QUIT PROGRAM')
 
-    # data = get_airplane_data()
-    # sales_data = [int(num) for num in data]
-    # update_worksheet(sales_data, "sales")
+    while True:
+        selection_main_menu = input('\nPlease select an option by entering a number between 1-9 an H or Q:\n')
+        if selection_main_menu == '1':
+            unconverted_airplane_data = get_airplane_data()  # row 108
+            converted_airplane_data = convert_to_int_and_float(unconverted_airplane_data)  # row 211
+            airplane_data = uppdate_dependent_airplane_data(converted_airplane_data)   # row 237
+            push_airplane_data_to_worksheet(airplane_data)  # row 299 loveSandwiches code also have a worksheet as an argument. I took it away since it does not work since it is not defined
+            break
+        # Lifecycle of the user input:
+        # inputted_airplane_data -> unconverted_airplane_data -> converted_airplane_data -> airplane_data
+        elif selection_main_menu == '2':
+            view_list_of_worksheets()  # row 329
+            break
+        elif selection_main_menu == '3':
+            select_and_view_airplane_data()  # row 358
+            break
+        elif selection_main_menu == '4':
+            search_data()  # row 368
+            break
+        elif selection_main_menu == '5':
+            calc_meta_data()  # row 457
+            break
+        elif selection_main_menu == '6':
+            calc_inbetween_outside_point()  # row 509
+            break
+        elif selection_main_menu == 'H':
+            help()
+            break
+        elif selection_main_menu == 'Q':
+            os.abort()  #Abort the current running process
+        else:
+            print('Invalid choice, please enter a number between 1-6 an H or Q:\n')
+            continue
 
+print('#----------------------------------------------------------------------*------**')
 
-print('\n')
+print('\nWelcome to SAPPERLOT -                          Copyright: Gustaf Enebog 2024')
+print('Statistical Airplane Potent Parameter Engineering Radical Loaded Oranges Tool')
+
 print('\033[1;34;40m\n\n                                ')
 print('                                                    ')
 print('                                   ')
 print('                                                 ')
 print(f'                                         \n{Colors.ENDC}\n')
 
-print('Welcome to SAPPERLOT -                          Copyright: Gustaf Enebog 2024') # Statistical Airplane Potent Parameter Engineering Radical Loaded Oranges Tool\n')
-print('Statistical Airplane Potent Parameter Engineering Radical Loaded Oranges Tool\n')
 
 main()
-
-
-
-
-# Format these nely calculated dependent values to two decimals
-    #for i in range(5, 10):
-        # airplane_data = format(airplane_data[i], ".2f")  # Formate floats to two decimals. Note that it is truncated (all the decimals are still there under the hood), not rounded (that would be the round() function) 
