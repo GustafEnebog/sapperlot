@@ -287,6 +287,22 @@ def post_select():
             continue
 
 
+def add_data():
+    """ Run all 'option 1. add-data' - functions
+
+    Lifecycle of the user input:
+    inputted_airplane_data -> unconverted_airplane_data -> converted_airplane_data -> airplane_data
+    function calls: get_airplane_data()
+                    convert_to_int_and_float()
+                    uppdate_dependent_airplane_data()
+                    push_airplane_data_to_worksheet()
+    """
+    unconverted_airplane_data = get_airplane_data()  # row 108
+    converted_airplane_data = convert_to_int_and_float(unconverted_airplane_data)  # row 211
+    airplane_data = uppdate_dependent_airplane_data(converted_airplane_data)   # row 237
+    push_airplane_data_to_worksheet(airplane_data)  # row 299 loveSandwiches code also have a worksheet as an argument. I took it away since it does not work since it is not defined
+
+
 def view_list_of_worksheets():
     """ Displays all sheets (categories) in the worksheets
 
@@ -296,7 +312,7 @@ def view_list_of_worksheets():
     """
     list_of_worksheets = SHEET.worksheets()
     print(f'\n{list_of_worksheets}')
-    post_select()
+
 
 def select_airplane_category():
     """ Allows user to select sheet in worksheet and save selection in variable sheet_select
@@ -318,7 +334,8 @@ def select_airplane_category():
         print('Invalid choice, please enter a number between 1-3 an H, M or Q:\n')
     
     return sheet_select
-    post_select()
+
+post_select()
 
 
 def select_and_view_airplane_data():
@@ -349,8 +366,6 @@ def select_and_view_airplane_data():
         os.abort()  #Abort the current running process
     else:
         print('Invalid choice, please enter a number between 1-3 an H, M or Q:\n')
-    
-    post_select()
 
 
 def search_data():
@@ -386,14 +401,13 @@ def search_data():
     else:
         print('Invalid choice, please enter a number between 1-3 an H, M or Q:\n')
 
+    # Handling of case when search word is not found
     if cell != '':
         print(f'{search_word} exist in the worksheet in cell {cell}')
     elif cell == '':
         print(f'No sesults found for {search_word}')
     else:
         print('I guess one always should have an else-statement but what on earth should I write here!?')
-
-    post_select()
 
 
 def calc_meta_data():
@@ -444,8 +458,6 @@ def calc_meta_data():
                 print(f'Variance for the "Wing Loading" for {sheets_for_loop[i]}s is {variance} kg/m\u00b2')
             else:
                 print('\nindex error')
-            
-    post_select()
 
 
 def calc_inbetween_outside_point():
@@ -637,7 +649,6 @@ def calc_inbetween_outside_point():
 
 
 
-
 def help():
 
     """ Display help text
@@ -648,6 +659,8 @@ def help():
     print(f'Wing Area, m\u00b2')
     print(f'Max Takeoff Weight, kg')
     print(f'Wing Loading, kg/m\u00b2')
+   
+    post_select()
 
 
 def main():
@@ -664,13 +677,8 @@ def main():
     while True:
         selection_main_menu = input('\nPlease select an option by entering a number between 1-9 an H or Q:\n')
         if selection_main_menu == '1':
-            unconverted_airplane_data = get_airplane_data()  # row 108
-            converted_airplane_data = convert_to_int_and_float(unconverted_airplane_data)  # row 211
-            airplane_data = uppdate_dependent_airplane_data(converted_airplane_data)   # row 237
-            push_airplane_data_to_worksheet(airplane_data)  # row 299 loveSandwiches code also have a worksheet as an argument. I took it away since it does not work since it is not defined
+            add_data()  # row 289
             break
-        # Lifecycle of the user input:
-        # inputted_airplane_data -> unconverted_airplane_data -> converted_airplane_data -> airplane_data
         elif selection_main_menu == '2':
             view_list_of_worksheets()  # row 329
             break
@@ -694,6 +702,9 @@ def main():
         else:
             print('Invalid choice, please enter a number between 1-6 an H or Q:\n')
             continue
+
+            
+post_select()
 
 print('#----------------------------------------------------------------------*------**')
 
