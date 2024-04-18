@@ -5,72 +5,22 @@ https://sapperlot-8eb16827aadb.herokuapp.com
 https://sapperlot-8eb16827aadb.herokuapp.com/
 
 
+which runs in the Code Institute mock terminal on Heroku.
 
 
+![Flow Chart](assets/images/logo.png)
+
+# SAPPERLOT
+
+SAPPERLOT is a terminal program, written in python, that calculates parameters such as "wing area" and "Max Takeoff Weight" for planned aircrafts using data of existing aircraft. This is achieved by creating and accesing a data base of existing aircrafts and interpolate and extrapolate values. The programs also allows the user to update and search the database as well as analyse the data.
+
+This function is targeting aircraft designers who would like to automate the process of generating start values for Aircraft Design algorithms and methods within the field of Aircraft Conceptual Design.
+
+[View the live project here.](https://sapperlot-8eb16827aadb.herokuapp.com/)
 
 
+Command Line Interface (CLI)
 
-
-
-Welcome USER_NAME,
-
-This is the Code Institute student template for deploying your third portfolio project, the Python command-line project. The last update to this file was: **August 17, 2021**
-
-## Reminders
-
-* Your code must be placed in the `run.py` file
-* Your dependencies must be placed in the `requirements.txt` file
-* Do not edit any of the other files or your code may not deploy properly
-
-## Creating the Heroku app
-
-When you create the app, you will need to add two buildpacks from the _Settings_ tab. The ordering is as follows:
-
-1. `heroku/python`
-2. `heroku/nodejs`
-
-You must then create a _Config Var_ called `PORT`. Set this to `8000`
-
-If you have credentials, such as in the Love Sandwiches project, you must create another _Config Var_ called `CREDS` and paste the JSON into the value field.
-
-Connect your GitHub repository and deploy as normal.
-
-## Constraints
-
-The deployment terminal is set to 80 columns by 24 rows. That means that each line of text needs to be 80 characters or less otherwise it will be wrapped onto a second line.
-
------
-Happy coding!
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# My Hangman Game
-
-This is my third milestone assignment with Code Institute. Hangman game is a Python terminal game, which runs in the Code Institute mock terminal on Heroku.
-This is a classic hangman game, where the user tries to guess the secret word letter by letter.
-The number of incorrect guesses before the game ends is 7.
-
-This site is targeted toward people who have an interest in simple word guessing games and Python.
-
-[View the live project here.](https://hangman-game-mittnamnkenny.herokuapp.com/)
 
 ![Responsice Mockup](documentation/design.png)
 
@@ -89,29 +39,41 @@ This site is targeted toward people who have an interest in simple word guessing
         7. Have a fun time playing the game and that it functions as expected.
 
 ## Flow chart
-  - To explain the game logic, I created a flow chart using Lucidchart:
+  - To explain the program structure and logic, I have created a flow chart using
 
-    ![Flow Chart](documentation/flow.png)
+    ![Flow Chart](assets/images/flowchart_main_menu.png)
 
 ## Features
 
 ### Existing Features
 
-#### 1. Welcome message
+#### 1. Welcome message and main menu
 
-  - This is displayed when the game starts.
+  - This is displayed when the program starts.
+  - Run the program by entering python3 run.py in the command line
   - It will provide a welcome message to the user together with the ASCII hangman.
-  - Then the user will then be prompted to start the game.
+  - The main menu will then be displayed and the user prompted to select to select a function by entering a number or a letter.
 
-  - The user can choose: 
-      - (y) - for yes - continue.
-      - (n) - for no - closing the game.
+
+    print('\nMAIN MENU')
+    print('1. Add data')
+    print('2. View list of Airplane Categories')
+    print('3. View data')
+    print('4. Search data')
+    print('5. Meta data')
+    print('6. Inbetween points     "H" HELP     "Q" QUIT PROGRAM')
+
+Please select an option by entering a number between 1-9 an H or Q:
+
 
     An error message informs the user if their entry is not in the correct format: ”That is not a valid option, Please try again.” The user must enter (y) to continue with the game.
 
     ![Welcome](documentation/welcome.png)
 
-#### 2. Rules
+#### 2. Add data
+
+
+
 
   - After the user has decided to play the game, the user will be asked if they wish to read the rules before proceeding:
 
@@ -123,7 +85,7 @@ This site is targeted toward people who have an interest in simple word guessing
 
     ![Navigation](documentation/rules.png)
 
-#### 3. Setup
+#### 3. View list of Airplane Categories
 
   - In the setup process the user will be asked for: name, age and favourite colour.
   ##### Name
@@ -147,7 +109,7 @@ This site is targeted toward people who have an interest in simple word guessing
 ##### Random Favourite colour:
 ![Colours](documentation/colours.png)
 
-#### 4. Game area
+#### 4. View data
 
   - Once the user has finished the setup process, the game will begin. 
   - Depending on the age of the user, a random word is chosen.
@@ -161,7 +123,7 @@ When the user enters an already guessed letter again, the following message appe
  
 ![Game Area](documentation/game.png)
 
-#### 5. Result
+#### 5. Search data
 
   - The game will end when the user guessed the secret word or failed attempts reaches 7.
   - The user will be presented with a short message and then asked to play again: Do you want to play again? y/n
@@ -171,6 +133,29 @@ When the user enters an already guessed letter again, the following message appe
       - (n) - for no - closing the game.
 
     An error message informs the user if their entry is not in the correct format: ”That is not a valid option, Please try again.” The user must enter (y) or (n) to continue.
+
+#### 6. Meta data
+
+  - The game will end when the user guessed the secret word or failed attempts reaches 7.
+  - The user will be presented with a short message and then asked to play again: Do you want to play again? y/n
+
+  - The user can choose: 
+      - (y) - for yes - this will start a new game, with initial inputs.
+      - (n) - for no - closing the game.
+
+    An error message informs the user if their entry is not in the correct format: ”That is not a valid option, Please try again.” The user must enter (y) or (n) to continue.
+
+#### 7. Inbetween points
+
+  - The game will end when the user guessed the secret word or failed attempts reaches 7.
+  - The user will be presented with a short message and then asked to play again: Do you want to play again? y/n
+
+  - The user can choose: 
+      - (y) - for yes - this will start a new game, with initial inputs.
+      - (n) - for no - closing the game.
+
+    An error message informs the user if their entry is not in the correct format: ”That is not a valid option, Please try again.” The user must enter (y) or (n) to continue.
+
 
 ##### User found the word:
 ![Win](documentation/win.png)
@@ -184,37 +169,47 @@ When the user enters an already guessed letter again, the following message appe
 
 ### Features Left to Implement
 
-- This game is popular in Sweden and in the future I would like to do a translated version of this game: Hänga gubbe.
+- Providing graphic illustrations of aircraft data in general (graphs can be implemented in a CLI via e.g. pandas API)
+- The addition of a Bell curve to the Meta data function
+- Adding an edit_data and an delete_data function
+- Review of complete code structure (espcialy the user selection process) to to evaluate if repeating code patterns could be abstracted away into separate functions in order to decrease complexity
 
-## Design
 
-- To make this game more attractive to the user, I have used the following code to print coloured text:
+## UX Design
 
-  - `<TEXT = "\033[0m">`
-  - `<HIGHLIGHT = "\033[7m">`
-  - `<RESPONSE = "\033[92m">`
-  - `<ALERT = "\033[91m">`
+Structure and navigation
+Upon opening of the program (with command ...) The Program logo with a welcome message appears followed by the Main menu consisting of 9 alternative commands each represented by a number to 
 
-- The favourite colours that are listed in the game:
+Representing user options with a number (as single letters) instead of command words is to make the user selection/typing process more expedient.
 
-  -  `<"red": "\033[31m",>`
-  -  `<"green": "\033[32m",>`
-  -  `<"yellow": "\033[33m",>`
-  -  `<"blue": "\033[34m",>`
-  -  `<"pink": "\033[95m",>`
-  -  `<"cyan": "\033[36m",>`
-  -  `<"purple": "\033[35m">`
+After the completion of a function/option the user will return to the main function.
+
+The user can always get back to the main menu by writing M, quit the program typing Q or go to the Help section typing H. 
+
+Rows and space
+For optimal clearity and ease of ...
+
+Graphics
+ Retro style Command Line Interface graphics using rows of chars and space
+
+Unicode Character “◗” (U+25D7)
+- [Compart:](https://www.compart.com/en/unicode/U+25D7) "Half circle char used for creating retro style ".
+
+- To Style the Welcome screen and to make the instructions to the user more easy to understand I have used the following code (ANSI escape codes and Colorama, built-in Python module) to print coloured text:
+
+  - Blue for SAPPERLOT - logo: 033[1;34;40m
+  - Grey with strikethrough: esc('238;2;9')
 
 ## Technologies Used
 
 - Python.
 - [Am I Responsive:](http://ami.responsivedesign.is) Checking the responsive.
 - [PEP8:](http://pep8online.com/) Check your code for PEP8 requirements.
-- [Lucidchart:](https://www.lucidchart.com/pages/) Was used to create the flow chart.
-- [Writer:](https://writer.com/grammar-checker/) Free Grammar Check.
-- [Git](https://git-scm.com/) Git was used for version control by utilizing the Gitpod terminal to commit to Git and Push to GitHub.
-- [GitHub:](https://github.com/) GitHub is used to store the projects code after being pushed from Git.
-- [Heroku:](https://dashboard.heroku.com/) for deployment of the application.
+- [Lucidchart:](https://www.lucidchart.com/pages/) Used to create flow charts.
+- [Git](https://www.gitpod.io/) Git was used for version control by utilizing the Gitpod terminal to commit to Git and Push to GitHub.
+- [GitHub:](https://github.com/) Used for string code (pushed from GitPod to GitHub)
+- [Heroku:](https://devcenter.heroku.com/articles/heroku-dashboard) Used for deployment of application.
+
 
 ## Testing
 
@@ -245,13 +240,20 @@ The code passed without any errors.
 
 ### Further Testing
 
+  #### I have validated that:
+
+  - the dependent values (calcuated by the program based on user input) are correct 
+  - That all combinations of selections runs as expectedly, e.g. category: opt 1 multirole_fighter -> opt 2. Regular expression (regex)
+  - data in the wrong form, e.g. decimal number inputed as a year,inputted is handled without causing program to crash 
+
   #### I have tested that:
 
-  - All the values in the colours dictionary are displayed properly. 
-  - The text colours in affected print statements are correct.
-  - The new line character “\n” in the print statements is working as expected.
-  - The time sleep function is working and used to add delay.
-  - The feedback list is implemented correctly in chosen print statements.
+  - Logo, welcome text and all printe statements work and displays correctly in terms of:
+    -color
+    -striklethrough
+    -empty rows new row using the new line character “\n”
+  - x.
+  - x.
 
 ### User Stories
 
@@ -311,17 +313,13 @@ Follow the steps below to deploy from your Gitpod workspace:
 
 ## Credits
 
-- [Am I Responsive:](http://ami.responsivedesign.is) Checking the responsive.
-- [Lucidchart:](https://www.lucidchart.com/pages/) Was used to create the flow chart.
-- [Writer:](https://writer.com/grammar-checker/) Free Grammar Check.
-- [NeuralNine:](https://www.youtube.com/watch?v=5x6iAKdJB6U) Inspiration for creating A Simple Hangman Game in Python.
+- [REPLACE!!!!!!!!!!!!:](http://ami.responsivedesign.is) Checking the responsive.
 - [Stackoverflow:](https://stackoverflow.com/questions/287871/how-do-i-print-colored-text-to-the-terminal) How do I print colored text to the terminal.
-- [Invent with python:](https://inventwithpython.com/invent4thed/chapter8.html) Hangman ASCII art.
-- [Powerlanguage:](https://github.com/powerlanguage/word-lists/blob/master/1000-most-common-words.txt) 1000 most common words.
+
 
 ### Acknowledgements
 
-- My mentor at Code Institute Brian Macharia for code review, help and feedback. Very much appreciated!
+- My mentor Brian Macharia for his review of the code and feedback!
 
 
 
