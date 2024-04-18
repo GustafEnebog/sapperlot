@@ -28,6 +28,16 @@ Command Line Interface (CLI)
 
 - ### User stories
 
+It is 1982 and the Swedish government has just given the national Airplane manufacturer Saab its go ahead for designing Swedens new multirole fighter Jas 39 Gripen.........Just a few weeks earlier a young computer scientist finished his degree and started at the Aerodynamics department at Saab in Linköping Sweden. One day he.... and a young newly employed programmer and mathematician overhears a conversation in the lunch room where some of the older engineers discusses what would be good start values for the algorithms that calculates performance for their
+
+Eager to impress his new colleges he calls his girlfriend saying that he cant make it this weekend. Instead he huddles over his Commadore 64 and on when he leaves his apartment in the suburb of Ryd on Monday morning he has a 3+1⁄2-inch floppy disk saying SAPPERLOT on its label. 
+His collegous silent sceptisim turns to raised eyebrows and ... as the command line prompt spits out start values just as good as the collegious guesses.
+His idea is to look up gather historical performance data of similar already existing fighter and assume that these airplanes would provide a pretty good starting value for .....and simply interpolate and extrapolate between these data   
+So his idea is to treat this problem much like any statistical issue.
+Today computers have developed far beyond these humble beginnings and the Gripen have already been protected the peace for decades however on of the small long forgotten small puzzles was xxxx
+ an performance engineers Vera's Vegan Pizzas is a popular South Manchester based food truck. The popularity of this delicious "can't believe it's vegan" pizza often leads to long wait times to order. Whilst most customers are happy to wait, Vera feels she is losing customers before they order due to an absence of online ordering. Currently, there is a single point of contact to place orders by phone, and if this is frequently engaged, some customers order elsewhere.
+
+
     -   #### As a User, I want to be able to:
 
         1. Clearly understand how to navigate and start the game.
@@ -68,12 +78,30 @@ Please select an option by entering a number between 1-9 an H or Q:
 
     An error message informs the user if their entry is not in the correct format: ”That is not a valid option, Please try again.” The user must enter (y) to continue with the game.
 
-    ![Welcome](documentation/welcome.png)
+    ![CLI Logo with Welcome Message and Main Menu](assets/images/cli_logo_welcome_message_main_menu.png)
+
+    ![CLI Logo and data step 1](assets/images/cli_logo_add_data_step_1.png)
+
+    ![CLI add data step 2](assets/images/cli_logo_add_data_step_2.png)
+
+    ![invalid data](assets/images/cli_logo_add_data_step_2_invalid_data.png)
+
+    ![thousand divider](assets/images/cli_error_message_thousand_divider.png)
+    
+    ![numpy instal](assets/images/cli_numpy_instal.png)
+
+    ![equations](assets/images/equations.png)
+    
+    ![airliner tab](assets/images/google_sheet_airliner_tab.png)
+
+    ![google sheet](assets/images/google_sheet.png)
+
+    ![logo](assets/images/logo.png)
 
 #### 2. Add data
 
 
-
+There are two ways to add data to the library/google sheets: input one by one with the command line or directly into the sheet
 
   - After the user has decided to play the game, the user will be asked if they wish to read the rules before proceeding:
 
@@ -146,6 +174,8 @@ When the user enters an already guessed letter again, the following message appe
     An error message informs the user if their entry is not in the correct format: ”That is not a valid option, Please try again.” The user must enter (y) or (n) to continue.
 
 #### 7. Inbetween points
+
+Explain NumPy using C++ code for faster run time
 
   - The game will end when the user guessed the secret word or failed attempts reaches 7.
   - The user will be presented with a short message and then asked to play again: Do you want to play again? y/n
@@ -278,8 +308,18 @@ User stories are numbered 1 to 7 and the features are:
 
 ### Known bugs
 
-- This is not a bug, but I've noticed that the background colour on the Heroku app is #000. On the GitPod terminal it is #171717.
-  Therefor the text colours will look a bit different on Heroku, in my opinion it looks better with background colour #171717.
+- When the search function yields no result the only way to understand that is that the result is empty but the text still says that the result IS found
+
+### Solved bugs
+
+- Remove "thousands separator" (added by google sheet) to allow conversion to float and int
+values_list[k] = values_list[k].replace(',', '')
+- For loops not adding 1 to max index thus failing to run last loop
+- Using the index of the second nested loop instead of the index of the third nested loop
+- Stop styling to continue after the place it was supposed to be applied too.
+- Not able to convert year to int
+
+
 
 ## Deployment
 
@@ -313,6 +353,7 @@ Follow the steps below to deploy from your Gitpod workspace:
 
 ## Credits
 
+- Credit Love Sandwiches
 - [REPLACE!!!!!!!!!!!!:](http://ami.responsivedesign.is) Checking the responsive.
 - [Stackoverflow:](https://stackoverflow.com/questions/287871/how-do-i-print-colored-text-to-the-terminal) How do I print colored text to the terminal.
 
@@ -320,6 +361,18 @@ Follow the steps below to deploy from your Gitpod workspace:
 ### Acknowledgements
 
 - My mentor Brian Macharia for his review of the code and feedback!
+
+
+
+
+
+
+
+
+Tried to avoid global variables
+
+
+
 
 
 

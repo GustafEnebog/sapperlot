@@ -390,7 +390,7 @@ def search_data():
         search_word = input('\nPlease enter an exact search word (not case sensitive):\n')
         cell = SHEET.worksheet(sheet_select).find(search_word)
     elif select_value == '2':
-        search_word = input('\nPlease enter a word or a sequence of characters in the word you search for\n')
+        search_word = input('\nPlease enter a word or a sequence of characters in the word you search for (case sensitive):\n')
         regex = re.compile(rf'{search_word}')
         cell = SHEET.worksheet(sheet_select).findall(regex)
     elif select_value == 'H':
@@ -403,9 +403,9 @@ def search_data():
         print('Invalid choice, please enter a number between 1-3 an H, M or Q:\n')
 
     # Handling of case when search word is not found
-    if cell != '':
+    if cell != 'null':
         print(f'{search_word} exist in the worksheet in cell {cell}')
-    elif cell == '':
+    elif cell == 'null':
         print(f'No sesults found for {search_word}')
     else:
         print('I guess one always should have an else-statement but what on earth should I write here!?')
