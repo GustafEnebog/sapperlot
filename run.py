@@ -422,12 +422,21 @@ def calc_meta_data():
     """
     sheets_for_loop =  ['multirole_fighter', 'airliner', 'general_aviation']
     for i in range(len(sheets_for_loop)):
-        for j in range(6,10):
+        for j in range(6,11):
             values_list = SHEET.worksheet(sheets_for_loop[i]).col_values(j)
             # using pop(0) to remove table headline
             values_list.pop(0)
+            
+            # Remove "thousands separator" (added by google sheet) to allow conversion to float and int
+            # for i in range(0, len(values_list)):
+            #    values_list[i] = values_list[i].replace(',', '')
+            #print(values_list[i])  #  remove ---------------
+
+            # values_list[j] = values_list[j].replace(',', '')
+
             for k in range(len(values_list)):
                 # using float to convert str to float
+                values_list[k] = values_list[k].replace(',', '')
                 values_list[k] = float(values_list[k])
             # using math.statistics module 
             mean = statistics.mean(values_list)
@@ -438,7 +447,7 @@ def calc_meta_data():
             variance = format(variance, ".2f")
             # Print out calculated meta data
             if j == 6:
-                print(f'\nMean "Wing Span" for {sheets_for_loop[i]}s are {mean} m')
+                print(f'\n\nMean "Wing Span" for {sheets_for_loop[i]}s are {mean} m')
                 print(f'Median "Wing Span" for {sheets_for_loop[i]}s are {median} m')
                 print(f'Variance for the "Wing Span" for {sheets_for_loop[i]}s is {variance} m')
             elif j == 7:
@@ -567,7 +576,7 @@ def calc_inbetween_outside_point():
     values_list_x_for_zip = values_list_x
     values_list_y_for_zip = values_list_y
     zipped_pairs = zip(values_list_x_for_zip, values_list_y_for_zip)
-    values_list_y_sort_1 = [x for _, x in sorted(zipped_pairs)]
+    values_list_y_sort_1 = [x for _, x in sorted(zipped_pairs)]  # list comprehension 
     print('values_list_y_1_sort' + str(values_list_y_sort_1))
 
 # Sort list SECOND STAGE------------------------------------------------------------
@@ -578,24 +587,33 @@ def calc_inbetween_outside_point():
     # x-coordinates) at which to evaluate the interpolated value.
     print('\nNote that the reliability of the estimated "inbetween"-value highly depend on the distance of this value to the data points in the set.\n especialy in the case of extrapolating (case of value outside of the datapoints)\nwhere the accuracy/reliability quickly deteriates as this value is chosen far away outside of data points')
     max_index = len(values_list_x_sort_2) - 1
-    x_value = input('\nThe lowest data point is: ' + str(values_list_x_sort_2[0]) + '" and the uppermost data point is '  + str(values_list_x_sort_2[max_index]) + '\n')
+    x_value = input('\nThe lowest data point is: ' + str(values_list_x_sort_2[0]) + ' and the uppermost data point is '  + str(values_list_x_sort_2[max_index]) + '\n')
 
 # Interpolate/extrapolate-----------------------------------------------------------
     x = float(x_value)
     
+    # Remove "thousands separator" (added by google sheet) to allow conversion to float and int
     xp = values_list_x_sort_2
+    for i in range(0, len(xp)):
+        xp[i] = values_list_x_sort_2[i].replace(',', '')
+
     for i in range(0, len(xp)):
         xp[i] = float(values_list_x_sort_2[i])
     print('xp' + str(xp))  # REMOVE LATER!!!!!!!!!!!!!!!!!!!!!!!
 
+    # Remove "thousands separator" (added by google sheet) to allow conversion to float and int
     fp = values_list_y_sort_1
+    for i in range(0, len(fp)):
+        fp[i] = values_list_y_sort_1[i].replace(',', '')
+
+    # fp = values_list_y_sort_1.replace(',', '')  REMOVE LATER!!!!!!!!!!!!!!!!!!!!!!!
     for i in range(0, len(fp)):
         fp[i] = float(values_list_y_sort_1[i])
     print('fp' + str(fp))   # REMOVE LATER!!!!!!!!!!!!!!!!!!!!!!!
     
     # Original: interpolated_y = numpy.interp(x, xp, fp, left=None, right=None, period=None)
     interpolated_y = numpy.interp(x, xp, fp)
-    print('The ' + str(y_parameter_print) + '"-inbetween"-value, interpolated with respect to ' + str(x_parameter_print) + ', is: ' + str(interpolated_y))
+    print('The ' + str(y_parameter_print) + ' "inbetween"-value, interpolated with respect to ' + str(x_parameter_print) + ', is: ' + str(interpolated_y))
 
 
 def help():
