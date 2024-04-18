@@ -476,7 +476,7 @@ def calc_inbetween_outside_point():
     print('\nWhich category do you want to search?:')
     sheet_select = select_airplane_category()
 
-    # Selection of aircraft data parameter (y-coordinates) you wish to calculate
+    # USER INPUT - Selection of aircraft data parameter (y-coordinates) you wish to calculate
     # an "inbetween"-value for, e.g. wing area.
     print('\nAircraft data parameters (y-coord.) to calculate "inbetween"-value, e.g. wing area')
     print('1. Wing span')
@@ -511,7 +511,7 @@ def calc_inbetween_outside_point():
         print('Invalid choice, please enter a number between 1-3 an H, M or Q:\n')
 
 
-    # Selection of aircraft data parameter (x-coordinates) to make the above
+    # USER INPUT - Selection of aircraft data parameter (x-coordinates) to make the above
     # selected parameter dependent on e.g. Max Takeoff Weight.
     # These values must be increasing.   
     print('\nAircraft data parameters (x-coord.) to base calulation of "inbetween"-value, e.g. Max Takeoff Weight. You may not select the same parameter as already selected in previous step\n')
@@ -549,13 +549,6 @@ def calc_inbetween_outside_point():
         print('Invalid choice, please enter a number between 1-3 an H, M or Q:\n')
 
 
-    # Selection of the value (of the above selected aircraft data parameter,
-    # x-coordinates) at which to evaluate the interpolated value.
-    print('\nNote that the reliability of the estimated "inbetween"-value highly depend on the distance of this value to the data points in the set.\n especialy in the case of extrapolating (case of value outside of the datapoints)\nwhere the accuracy/reliability quickly deteriates as this value is chosen far away outside of data points')
-    x_value = input('\nPlease select an value of "' + str(y_parameter_print) + '" to interpolate, e.g. 16500 kg:\n')
-
-    #print('y_parameter_index "' + str(y_parameter_index) + '" x_parameter_index "' + str(x_parameter_index) + '" x_value "' + str(x_value) + '"')
-
     # Fetch list and "pop"-away first index---------------------------------------
     # Get correct list for popping, transform to floats, sorting and then interpolating
   
@@ -574,24 +567,30 @@ def calc_inbetween_outside_point():
     values_list_x_for_zip = values_list_x
     values_list_y_for_zip = values_list_y
     zipped_pairs = zip(values_list_x_for_zip, values_list_y_for_zip)
-    values_list_y_1_sort = [x for _, x in sorted(zipped_pairs)]
-    print('values_list_y_1_sort' + str(values_list_y_1_sort))
+    values_list_y_sort_1 = [x for _, x in sorted(zipped_pairs)]
+    print('values_list_y_1_sort' + str(values_list_y_sort_1))
 
 # Sort list SECOND STAGE------------------------------------------------------------
-    values_list_x_2_sort = sorted(values_list_x)
-    print('values_list_x_2_sort' + str(values_list_x_2_sort))
+    values_list_x_sort_2 = sorted(values_list_x)
+    print('values_list_x_2_sort' + str(values_list_x_sort_2))
+
+# USER INPUT - Selection of the value (of the above selected aircraft data parameter,
+    # x-coordinates) at which to evaluate the interpolated value.
+    print('\nNote that the reliability of the estimated "inbetween"-value highly depend on the distance of this value to the data points in the set.\n especialy in the case of extrapolating (case of value outside of the datapoints)\nwhere the accuracy/reliability quickly deteriates as this value is chosen far away outside of data points')
+    max_index = len(values_list_x_sort_2) - 1
+    x_value = input('\nThe lowest data point is: ' + str(values_list_x_sort_2[0]) + '" and the uppermost data point is '  + str(values_list_x_sort_2[max_index]) + '\n')
 
 # Interpolate/extrapolate-----------------------------------------------------------
     x = float(x_value)
     
-    xp = values_list_x_2_sort
-    for i in range(0, 5):
-        xp[i] = float(values_list_x_2_sort[i])
+    xp = values_list_x_sort_2
+    for i in range(0, len(xp)):
+        xp[i] = float(values_list_x_sort_2[i])
     print('xp' + str(xp))  # REMOVE LATER!!!!!!!!!!!!!!!!!!!!!!!
 
-    fp = values_list_y_1_sort
-    for i in range(0, 5):
-        fp[i] = float(values_list_y_1_sort[i])
+    fp = values_list_y_sort_1
+    for i in range(0, len(fp)):
+        fp[i] = float(values_list_y_sort_1[i])
     print('fp' + str(fp))   # REMOVE LATER!!!!!!!!!!!!!!!!!!!!!!!
     
     # Original: interpolated_y = numpy.interp(x, xp, fp, left=None, right=None, period=None)
