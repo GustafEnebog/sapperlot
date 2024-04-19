@@ -402,13 +402,15 @@ def search_data():
     else:
         print('Invalid choice, please enter a number between 1-3 an H, M or Q:\n')
 
+    print(cell)
+
     # Handling of case when search word is not found
-    if cell != 'null':
+    if cell != []:
         print(f'{search_word} exist in the worksheet in cell {cell}')
-    elif cell == 'null':
+    else:  # cell == 'null':
         print(f'No sesults found for {search_word}')
-    else:
-        print('I guess one always should have an else-statement but what on earth should I write here!?')
+    # else:
+    #    print('I guess one always should have an else-statement but what on earth should I write here!?')
 
 
 def calc_meta_data():

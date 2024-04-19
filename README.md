@@ -53,6 +53,10 @@ Today computers have developed far beyond these humble beginnings and the Gripen
 
     ![Flow Chart](assets/images/flowchart_main_menu.png)
 
+<p align="center">
+    <img src="assets/images/flowchart_main_menu.png" alt="Program structure"/>
+</p>
+
 ## Features
 
 ### Existing Features
@@ -78,25 +82,25 @@ Please select an option by entering a number between 1-9 an H or Q:
 
     An error message informs the user if their entry is not in the correct format: ”That is not a valid option, Please try again.” The user must enter (y) to continue with the game.
 
-    ![CLI Logo with Welcome Message and Main Menu](assets/images/cli_logo_welcome_message_main_menu.png)
+![CLI Logo with Welcome Message and Main Menu](assets/images/cli_logo_welcome_message_main_menu.png)
 
-    ![CLI Logo and data step 1](assets/images/cli_logo_add_data_step_1.png)
+![CLI Logo and data step 1](assets/images/cli_logo_add_data_step_1.png)
 
-    ![CLI add data step 2](assets/images/cli_logo_add_data_step_2.png)
+![CLI add data step 2](assets/images/cli_logo_add_data_step_2.png)
 
-    ![invalid data](assets/images/cli_logo_add_data_step_2_invalid_data.png)
+![invalid data](assets/images/cli_logo_add_data_step_2_invalid_data.png)
 
-    ![thousand divider](assets/images/cli_error_message_thousand_divider.png)
+![thousand divider](assets/images/cli_error_message_thousand_divider.png)
     
-    ![numpy instal](assets/images/cli_numpy_instal.png)
+![numpy instal](assets/images/cli_numpy_instal.png)
 
-    ![equations](assets/images/equations.png)
+![equations](assets/images/equations.png)
     
-    ![airliner tab](assets/images/google_sheet_airliner_tab.png)
+![airliner tab](assets/images/google_sheet_airliner_tab.png)
 
-    ![google sheet](assets/images/google_sheet.png)
+![google sheet](assets/images/google_sheet.png)
 
-    ![logo](assets/images/logo.png)
+![logo](assets/images/logo.png)
 
 #### 2. Add data
 
@@ -186,6 +190,22 @@ Explain NumPy using C++ code for faster run time
 
     An error message informs the user if their entry is not in the correct format: ”That is not a valid option, Please try again.” The user must enter (y) or (n) to continue.
 
+#### In Scope Features
+* Create an online interface for customers to place orders.
+* A welcome message.
+* Options for ordering different pizza sizes.
+* Options for ordering different pizza toppings.
+* On screen confirmation of the order before placing with Vera.
+* Provide the order details in a spreadsheet to Vera as they are received.
+* Provide the customer with a cost to be paid on collection.
+* Add the value of each order within the spreadsheet.
+
+#### Out of Scope Features (for a future release)
+* Develop application for smartphones. 
+* Options for ordering custom toppings.
+* Email confirmation when the order is placed.
+* Provide the customer with the opportunity to pay online.
+* Provide the customer with an expected wait time dependent on current live orders.
 
 ##### User found the word:
 ![Win](documentation/win.png)
@@ -229,6 +249,14 @@ Unicode Character “◗” (U+25D7)
 
   - Blue for SAPPERLOT - logo: 033[1;34;40m
   - Grey with strikethrough: esc('238;2;9')
+
+## Data-Model 
+
+I have based the model on functions used as the steps to request, validate and return data from the customer. These functions are called from within the 'Place Order' function. As each function is executed, return values are collated and confirmed back to the user before sending to the kitchen. 
+
+An external Google Sheet is used to receive this data in a format the kitchen can read, execute and update the order status. The Owner also uses this Sheet to update the menu for the day, and any cost changes. Pandas DataFrames is used to receive the data into the application. DataFrames are formatted using Tabulate for customer views.
+
+The Google Sheet can be viewed online at [VV Pizzas](https://docs.google.com/spreadsheets/d/1-0Hu5_4mXknpqb36h5K3NuboPPn9xHJsGvmpaZjTMtU/edit#gid=1680754323). Data within is for the purposes of the MVP and therefore fictitious.
 
 ## Technologies Used
 
@@ -363,7 +391,49 @@ Follow the steps below to deploy from your Gitpod workspace:
 - My mentor Brian Macharia for his review of the code and feedback!
 
 
+## Credit
 
+### People
+
+* Mentor Brian Macharia for guiding and advising throughout the projects lifecycle on how to improve UX and my code.
+
+Support with how to develop ideas into code also came from various online resources:
+
+* [Validating Mobile Phone Number Format](https://stackoverflow.com/questions/16135069/how-do-i-validate-a-mobile-number-using-python)
+* [Converting String Inputs to Integers](https://stackoverflow.com/questions/13207697/how-to-remove-square-brackets-from-list-in-python)
+* [Applying Date and Time to Orders](https://www.programiz.com/python-programming/datetime/current-datetime)
+* [Clearing Screen Between Menus](https://www.geeksforgeeks.org/clear-screen-python/)
+* [Adding Time Delay to Function Calls](https://www.pythoncentral.io/pythons-time-sleep-pause-wait-sleep-stop-your-code/)
+* [Visualising a Progress Bar](https://www.freecodecamp.org/news/use-the-rich-library-in-python/)
+* [Providing System Exit Method](https://stackoverflow.com/questions/543309/programmatically-stop-execution-of-python-script)
+
+
+### Python Library Dependencies and Packages
+
+* [Google Sheet](https://docs.google.com/spreadsheets/d/1-0Hu5_4mXknpqb36h5K3NuboPPn9xHJsGvmpaZjTMtU/edit#gid=1680754323) to display the orders for the kitchen, and to allow the Owner to update the menu and cost.
+* [Rich Console](https://rich.readthedocs.io/en/stable/console.html) to style terminal text, provide a Progress Bar when sending orders, and as formatted traceback for development.
+* [Pandas](https://pandas.pydata.org/) to receive data from the external Google Sheet into a DataFrame.
+* [Tabulate](https://pypi.org/project/tabulate/) to render pandas DataFrames.
+* [Regular Expression (or RE)](https://docs.python.org/3/library/re.html) to validate the customers mobile number structure
+* [Datetime](https://docs.python.org/3/library/datetime.html) to add the date and time to the order before sending to the kitchen.
+* [Time](https://docs.python.org/3/library/time.html) in conjunction with [Sleep](https://realpython.com/python-sleep/) to delay functions executing which for the customer provides time to read messages before moving to the next screen. 
+
+
+### Software & Web Applications
+
+* [Balsamiq](https://balsamiq.com/) - Used to build wireframes in the Skelton phase.
+* [LucidChart](https://www.lucidchart.com/pages/) - To map out the flow of data.
+* This website was coded primarily using Python3, HTML5, CCS3 with [GitPod](https://gitpod.io/) used for the IDE and [GitHub](https://github.com/) as a hosting repository.
+* [W3schools](https://www.w3schools.com/) - Source of 'How to...' information throughout the build.
+* [Stack Overflow](https://stackoverflow.com/) - Source of 'How to...' information on Python code.
+* [Python Tutor](https://pythontutor.com/) - For testing sections of code.
+* [Wave](https://wave.webaim.org/) - Accessibility Testing to ensure content is readable for all users.
+* [HTML Validator](https://validator.w3.org/) - For validating HMTL code.
+* [W3 CSS Validator](https://jigsaw.w3.org/css-validator/validator) - For validating CSS code.
+* [PEP8 Validator](http://pep8online.com/)  - For validating Python code.
+* [Code Beautify](https://codebeautify.org/) - For validating the layout of code.
+* [IE NetREnderer](https://netrenderer.com/index.php) - For browser testing on Microsoft IE versions 7-10.
+* [LambdaTest](https://www.lambdatest.com/) - For cross browser testing including, macOS Safari and Opera.
 
 
 
@@ -639,13 +709,6 @@ Meta data is included within the HTML head element to increase the traffic to th
 ***
 
 
-## Data-Model 
-
-I have based the model on functions used as the steps to request, validate and return data from the customer. These functions are called from within the 'Place Order' function. As each function is executed, return values are collated and confirmed back to the user before sending to the kitchen. 
-
-An external Google Sheet is used to receive this data in a format the kitchen can read, execute and update the order status. The Owner also uses this Sheet to update the menu for the day, and any cost changes. Pandas DataFrames is used to receive the data into the application. DataFrames are formatted using Tabulate for customer views.
-
-The Google Sheet can be viewed online at [VV Pizzas](https://docs.google.com/spreadsheets/d/1-0Hu5_4mXknpqb36h5K3NuboPPn9xHJsGvmpaZjTMtU/edit#gid=1680754323). Data within is for the purposes of the MVP and therefore fictitious.
 
 ***
 
@@ -883,47 +946,3 @@ Enable API within IDE
 
 ***
 
-
-## Credit
-
-### People
-
-* Mentor Brian Macharia for guiding and advising throughout the projects lifecycle on how to improve UX and my code.
-
-Support with how to develop ideas into code also came from various online resources:
-
-* [Validating Mobile Phone Number Format](https://stackoverflow.com/questions/16135069/how-do-i-validate-a-mobile-number-using-python)
-* [Converting String Inputs to Integers](https://stackoverflow.com/questions/13207697/how-to-remove-square-brackets-from-list-in-python)
-* [Applying Date and Time to Orders](https://www.programiz.com/python-programming/datetime/current-datetime)
-* [Clearing Screen Between Menus](https://www.geeksforgeeks.org/clear-screen-python/)
-* [Adding Time Delay to Function Calls](https://www.pythoncentral.io/pythons-time-sleep-pause-wait-sleep-stop-your-code/)
-* [Visualising a Progress Bar](https://www.freecodecamp.org/news/use-the-rich-library-in-python/)
-* [Providing System Exit Method](https://stackoverflow.com/questions/543309/programmatically-stop-execution-of-python-script)
-
-
-### Python Library Dependencies and Packages
-
-* [Google Sheet](https://docs.google.com/spreadsheets/d/1-0Hu5_4mXknpqb36h5K3NuboPPn9xHJsGvmpaZjTMtU/edit#gid=1680754323) to display the orders for the kitchen, and to allow the Owner to update the menu and cost.
-* [Rich Console](https://rich.readthedocs.io/en/stable/console.html) to style terminal text, provide a Progress Bar when sending orders, and as formatted traceback for development.
-* [Pandas](https://pandas.pydata.org/) to receive data from the external Google Sheet into a DataFrame.
-* [Tabulate](https://pypi.org/project/tabulate/) to render pandas DataFrames.
-* [Regular Expression (or RE)](https://docs.python.org/3/library/re.html) to validate the customers mobile number structure
-* [Datetime](https://docs.python.org/3/library/datetime.html) to add the date and time to the order before sending to the kitchen.
-* [Time](https://docs.python.org/3/library/time.html) in conjunction with [Sleep](https://realpython.com/python-sleep/) to delay functions executing which for the customer provides time to read messages before moving to the next screen. 
-
-
-### Software & Web Applications
-
-* [Balsamiq](https://balsamiq.com/) - Used to build wireframes in the Skelton phase.
-* [LucidChart](https://www.lucidchart.com/pages/) - To map out the flow of data.
-* This website was coded primarily using Python3, HTML5, CCS3 with [GitPod](https://gitpod.io/) used for the IDE and [GitHub](https://github.com/) as a hosting repository.
-* [W3schools](https://www.w3schools.com/) - Source of 'How to...' information throughout the build.
-* [Stack Overflow](https://stackoverflow.com/) - Source of 'How to...' information on Python code.
-* [Python Tutor](https://pythontutor.com/) - For testing sections of code.
-* [Wave](https://wave.webaim.org/) - Accessibility Testing to ensure content is readable for all users.
-* [HTML Validator](https://validator.w3.org/) - For validating HMTL code.
-* [W3 CSS Validator](https://jigsaw.w3.org/css-validator/validator) - For validating CSS code.
-* [PEP8 Validator](http://pep8online.com/)  - For validating Python code.
-* [Code Beautify](https://codebeautify.org/) - For validating the layout of code.
-* [IE NetREnderer](https://netrenderer.com/index.php) - For browser testing on Microsoft IE versions 7-10.
-* [LambdaTest](https://www.lambdatest.com/) - For cross browser testing including, macOS Safari and Opera.
