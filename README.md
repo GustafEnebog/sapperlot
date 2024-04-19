@@ -1,34 +1,27 @@
-![CI logo]()
-
-https://sapperlot-8eb16827aadb.herokuapp.com
-
-https://sapperlot-8eb16827aadb.herokuapp.com/
-
-
-which runs in the Code Institute mock terminal on Heroku.
-
-
-![Flow Chart](assets/images/logo.png)
-
+Welcome screen not showing in below image due to delayed loading time as mentioned in the bug section
+![cli_heroku_logo_welcome_message_main_men](assets/images/am_i_responsive.png)
 # SAPPERLOT
 
-SAPPERLOT is a terminal program, written in python, that calculates parameters such as "wing area" and "Max Takeoff Weight" for planned aircrafts using data of existing aircraft. This is achieved by creating and accesing a data base of existing aircrafts and interpolate and extrapolate values. The programs also allows the user to update and search the database as well as analyse the data.
+SAPPERLOT is a terminal program, written in python, that calculates parameters such as "wing area" and "Max Takeoff Weight" for planned aircraft designs using data from existing aircrafts. This generation of "start values" is achieved by creating and accesing a data base with aircrafts and interpolate/extrapolate these values. The programs also allows the user to update, search the database and analyse the data.
 
 This function is targeting aircraft designers who would like to automate the process of generating start values for Aircraft Design algorithms and methods within the field of Aircraft Conceptual Design.
 
+The program name of SAPPERLOT is a german interjection used to exclaime surprise, similar to "Oh my goodness!" It is also an acronym:
+"Statistical Airplane Potent Parameter Engineering Radical Loaded Oranges Tool"
+to parody industries often contrived projects acronyms 
+
+## <span style="color:orange">IMPORTANT! There is a 3 min + long delay for the program to run (for the welcome screen to appear) just be patient! We sincerely appologize for this frustrating inconvenience. For more information see section: "Unsolved bugs"</span>
+
+
 [View the live project here.](https://sapperlot-8eb16827aadb.herokuapp.com/)
-
-
-Command Line Interface (CLI)
-
-
-![Responsice Mockup](documentation/design.png)
 
 ##  User Experience (UX)
 
-- ### User stories
+- ### Fictive stories
 
-It is 1982 and the Swedish government has just given the national Airplane manufacturer Saab its go ahead for designing Swedens new multirole fighter Jas 39 Gripen.........Just a few weeks earlier a young computer scientist finished his degree and started at the Aerodynamics department at Saab in Linköping Sweden. One day he.... and a young newly employed programmer and mathematician overhears a conversation in the lunch room where some of the older engineers discusses what would be good start values for the algorithms that calculates performance for their
+The year is 1982 and the Swedish government has just given the go ahead for the development of a new national fighter aircraft. Just a few month prior a newly gratuated computer Engineer has just a few month prior has just recieved his first employment at the conceptual design department at the national airplane manufacturer Saab in Linköping.
+
+ is 1982 and , terminal programs is all the rage! the Swedish government has just given the national Airplane manufacturer Saab its go ahead for designing Swedens new multirole fighter Jas 39 Gripen.........Just a few weeks earlier a young computer scientist finished his degree and started at the Aerodynamics department at Saab in Linköping Sweden. One day he.... and a young newly employed programmer and mathematician overhears a conversation in the lunch room where some of the older engineers discusses what would be good start values for the algorithms that calculates performance for their
 
 Eager to impress his new colleges he calls his girlfriend saying that he cant make it this weekend. Instead he huddles over his Commadore 64 and on when he leaves his apartment in the suburb of Ryd on Monday morning he has a 3+1⁄2-inch floppy disk saying SAPPERLOT on its label. 
 His collegous silent sceptisim turns to raised eyebrows and ... as the command line prompt spits out start values just as good as the collegious guesses.
@@ -51,58 +44,70 @@ Today computers have developed far beyond these humble beginnings and the Gripen
 ## Flow chart
   - To explain the program structure and logic, I have created a flow chart using
 
-    ![Flow Chart](assets/images/flowchart_main_menu.png)
+    ![ProgRam structure (Flow Chart)](assets/images/program_structure_main_menu.png)
 
 <p align="center">
     <img src="assets/images/flowchart_main_menu.png" alt="Program structure"/>
 </p>
 
 ## Features
+### 1. Cloud based spread sheet with aircraft data 
+- Google sheet is an "excel clone" spreadsheet perfect to use as a library to store the aircraft data. The sheet can be accessed via commands in the python code. We can update and retrieve the whole sheet, individual tabs, columns, rows or specidic cells. We have named the file: aircraft_data. The sheet can, apart from being updated in SAPPERLOT, be updated directly in the sheet. Currently deleting or editing the data in the sheet needs to be done directly in the sheet since no function exist yet for this in SAPPERLOT. 
 
-### Existing Features
+[View aircraft_data sheet here.](https://docs.google.com/spreadsheets/d/186F_QSx24xYlkzunnzrzawt06MJO8GfdPsxGeRoqIa4/edit#gid=960221585)
 
-#### 1. Welcome message and main menu
 
-  - This is displayed when the program starts.
+![google sheet](assets/images/google_sheet.png)
+
+![airliner tab](assets/images/google_sheet_airliner_tab.png)
+### 2. Welcome message and main menu
+
   - Run the program by entering python3 run.py in the command line
-  - It will provide a welcome message to the user together with the ASCII hangman.
-  - The main menu will then be displayed and the user prompted to select to select a function by entering a number or a letter.
+  - 
+  The Programm name/logo displays upon the start of the program together with a welcome message and the main menu. As displayed in the deployed version in Heroku
 
+![cli_heroku_logo_welcome_message_main_men](assets/images/cli_heroku_logo_welcome_message_main_menu.png)
 
-    print('\nMAIN MENU')
-    print('1. Add data')
-    print('2. View list of Airplane Categories')
-    print('3. View data')
-    print('4. Search data')
-    print('5. Meta data')
-    print('6. Inbetween points     "H" HELP     "Q" QUIT PROGRAM')
-
-Please select an option by entering a number between 1-9 an H or Q:
-
-
-    An error message informs the user if their entry is not in the correct format: ”That is not a valid option, Please try again.” The user must enter (y) to continue with the game.
+and in gitpod (right)
 
 ![CLI Logo with Welcome Message and Main Menu](assets/images/cli_logo_welcome_message_main_menu.png)
+
+Below the main menu user is prompted to select a number or a letter that will take him to his desired function. Apart from the six functions:
+
+1. Add data
+2. View list of Airplane Categories
+3. View data
+4. Search data
+5. Meta data
+6. Inbetween points
+
+The user can always choose "H" to be taken to the HELP section, "M" for going back to the main menu or "Q" if you had enough and want to QUIT the program, no matter where he is (in what submenu) he is in the program!
+
+### 1. User input validation and handling errors
+An error message informs the user if their entry is not in the correct format: ”That is not a valid option, Please try again.” 
+The following user inputs errors are checked for:
+- Number of inputs (should be 10)
+- No commas in year
+- input Category (multirole_fighter, airliner or general_aviation) need to be spelled correctly (including underscore)
+
+
+### 3. Add data (main menu option 1.)
+The add_data() is the most complicated function using four subfunctions called by the main function (in the order they are written below):
+
+get_airplane_data() - Prompts and recieves airplane user input
+convert_to_int_and_float() - Leave the first four values as strings, Convert year (fifth value, index 4) to an int and the rest (sixth to ten, index 5 to 9) to float
+uppdate_dependent_airplane_data() - Calculates the two missing parameters (inputed as zero by the user). If these would be inputed it would overdefine the user data
+push_airplane_data_to_worksheet() - Updates the inputed values as a new row in correct category/tab in the google worksheet
+
+get_airplane_data() also in turn calls the
+validate_airplane_data() which test (without changing) the data 
 
 ![CLI Logo and data step 1](assets/images/cli_logo_add_data_step_1.png)
 
 ![CLI add data step 2](assets/images/cli_logo_add_data_step_2.png)
 
-![invalid data](assets/images/cli_logo_add_data_step_2_invalid_data.png)
 
-![thousand divider](assets/images/cli_error_message_thousand_divider.png)
-    
-![numpy instal](assets/images/cli_numpy_instal.png)
 
-![equations](assets/images/equations.png)
-    
-![airliner tab](assets/images/google_sheet_airliner_tab.png)
-
-![google sheet](assets/images/google_sheet.png)
-
-![logo](assets/images/logo.png)
-
-#### 2. Add data
 
 
 There are two ways to add data to the library/google sheets: input one by one with the command line or directly into the sheet
@@ -115,80 +120,40 @@ There are two ways to add data to the library/google sheets: input one by one wi
 
     An error message informs the user if their entry is not in the correct format: ”That is not a valid option, Please try again.” The user must enter (y) or (n) to continue.
 
-    ![Navigation](documentation/rules.png)
+![equations](assets/images/equations.png)
 
-#### 3. View list of Airplane Categories
+### 4. View list of Airplane Categories (main menu option 2.)
 
-  - In the setup process the user will be asked for: name, age and favourite colour.
-  ##### Name
-  - The name input is used to interact with the user in various print statements.
-  - The user must enter a name before proceeding, only alphabet letters, 2 characters or more is accepted.
-  ##### Age
-  - The age input is used to determine which random word is chosen for the game.
-  - If the user's age is under 16, a word from the easier words list is presented.
-  - The user must be 5 years or older to play the game.
-  - The user will have to enter a number here to proceed.
-  ##### Favourite colour
-  - Lastly, the user will be asked for their favourite colour.
-  - This is used to change the colour of the ASCII hangman.
-  - If the user input matches with any key in the colours dictionary, otherwise a random colour is chosen.
+  - This simple function simply display all the categories in the sheet aircraft_data. The function does not require any additional selection steps
+![View list of Airplane Categories](assets/images/cli_2_view_list_of_airplane_categories.png)
 
-  If the user enters an incorrect value in the setup process, an error message is displayed: ”That is not a valid option, Please try again.”
 
-##### Matching Favourite colour:
-![Setup](documentation/setup.png)
+### 5. View data (main menu option 3.)
 
-##### Random Favourite colour:
-![Colours](documentation/colours.png)
+  - This simpel function retrieve all data in the aircraft_data-sheet and display it as a simple printout to the screen. The function require the user one additional selection of "aircraft category".
+![View data with selection airliner](assets/images/cli_3_view_data_airliner.png)
 
-#### 4. View data
+### 6. Search data(main menu option 4.)
 
-  - Once the user has finished the setup process, the game will begin. 
-  - Depending on the age of the user, a random word is chosen.
-  - The word to guess is represented by a row of dashes representing each letter of the word. The user will then try to guess the secret word letter by letter.
-  - When the user enters a letter that is not in the secret word, the failed attempts count will increment by 1 and the terminal will print one element of the ASCII hangman.
-  - The number of tries before the game ends is 7.
+  - xxxx
 
-Only one alphabet letter is accepted or an error message is displayed: ”That is not a valid option, Please try again.”
+for case of Exact word search (not case sensitive)
+![Search data Exact word search (opt 1.)](assets/images/cli_4_search_data_opt_1.png)
 
-When the user enters an already guessed letter again, the following message appears: You already tried: (letter). This will not increment the failed attempts count.
- 
-![Game Area](documentation/game.png)
+and for case of Regular expression, regex (case sensitive)
 
-#### 5. Search data
+![Regular expression, regex (opt 2.)](assets/images/cli_4_search_data_opt_2_short.png)
 
-  - The game will end when the user guessed the secret word or failed attempts reaches 7.
-  - The user will be presented with a short message and then asked to play again: Do you want to play again? y/n
+### 7. Meta data (main menu option 5.)
 
-  - The user can choose: 
-      - (y) - for yes - this will start a new game, with initial inputs.
-      - (n) - for no - closing the game.
+  - This function is simple to user (yet slightly more complex under the hood) and give the user info about the charactersitics of the "data base". The function does not require any additional selection steps. The three parameters: mean, median and variance is calculated using a built-in statistics module in python.
+![Meta data](assets/images/cli_5_meta_data.png)
 
-    An error message informs the user if their entry is not in the correct format: ”That is not a valid option, Please try again.” The user must enter (y) or (n) to continue.
-
-#### 6. Meta data
-
-  - The game will end when the user guessed the secret word or failed attempts reaches 7.
-  - The user will be presented with a short message and then asked to play again: Do you want to play again? y/n
-
-  - The user can choose: 
-      - (y) - for yes - this will start a new game, with initial inputs.
-      - (n) - for no - closing the game.
-
-    An error message informs the user if their entry is not in the correct format: ”That is not a valid option, Please try again.” The user must enter (y) or (n) to continue.
-
-#### 7. Inbetween points
+### 8. Inbetween points (main menu option 6.)
 
 Explain NumPy using C++ code for faster run time
-
-  - The game will end when the user guessed the secret word or failed attempts reaches 7.
-  - The user will be presented with a short message and then asked to play again: Do you want to play again? y/n
-
-  - The user can choose: 
-      - (y) - for yes - this will start a new game, with initial inputs.
-      - (n) - for no - closing the game.
-
-    An error message informs the user if their entry is not in the correct format: ”That is not a valid option, Please try again.” The user must enter (y) or (n) to continue.
+  - xxxx
+![View list of Airplane Categories]()
 
 #### In Scope Features
 * Create an online interface for customers to place orders.
@@ -206,26 +171,25 @@ Explain NumPy using C++ code for faster run time
 * Email confirmation when the order is placed.
 * Provide the customer with the opportunity to pay online.
 * Provide the customer with an expected wait time dependent on current live orders.
-
-##### User found the word:
-![Win](documentation/win.png)
-
-##### Failed attempts reached 7:
-![Lose](documentation/lose.png)
+- Providing graphic illustrations of aircraft data in general (graphs can be implemented in a CLI via e.g. pandas API)
+- The addition of a Bell curve to the Meta data function
+- Adding an edit_data and an delete_data function
+- Review of complete code structure (espcialy the user selection process) to to evaluate if repeating code patterns could be abstracted away into separate functions in order to decrease complexity
+- Create function to allow user to create new airplane categories/new tabs in google sheet
 
 #### Additional features
 
   - A feedback list was created to generate random text messages; this was implemented in various print statements to make the game more interesting and improve the overall experience.
 
+
+![logo](assets/images/logo.png)
+
 ### Features Left to Implement
 
-- Providing graphic illustrations of aircraft data in general (graphs can be implemented in a CLI via e.g. pandas API)
-- The addition of a Bell curve to the Meta data function
-- Adding an edit_data and an delete_data function
-- Review of complete code structure (espcialy the user selection process) to to evaluate if repeating code patterns could be abstracted away into separate functions in order to decrease complexity
-
-
 ## UX Design
+
+![cli_gitpod_logo](assets/images/cli_gitpod_logo.png)
+![logo](assets/images/logo.png)
 
 Structure and navigation
 Upon opening of the program (with command ...) The Program logo with a welcome message appears followed by the Main menu consisting of 9 alternative commands each represented by a number to 
@@ -281,20 +245,7 @@ The code passed without any errors.
 ![PEP8 online](documentation/validator.png)
 
 ### Functionality
-
-| ID | Test Label                              | Test Action                                                                                                                                                                                | Expected Outcome                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Test Outcome                                                                        |                                                                                                                                                                                                                                                                                                            
-|----|---------------------------------------- |--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------|
-|  1 | Welcome To My Hangman Game!             | Run program                                                                                                                                                                                | The user is presented with a welcome message and the ASCII hangman. The user is then prompted to start the game.                                                                                                                                                                                                                                                                                                                                                       | PASS                                                                                |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
-|  2 | Start / Do you want to play? y/n        | User is required to input (y or Y) / (n or N), invalid input will result in an error message to the user.                                                                                  | (y or Y) - The user is presented with the following message: (feedback) you have decided to play. (n or N) - The user is presented with the following message: Exiting Game. - The game closes. An error message informs the user if their entry is not in the correct format: ”That is not a valid option, Please try again.”                                                                                                                                         | PASS                                                                                |                                                                                                                                                                                                                                                                                                           
-|  3 | Rules / Read the rules? y/n             | User is required to input (y or Y) / (n or N), invalid input will result in an error message to the user.                                                                                  | (y or Y) - The user is presented with the rules of the game. (n or N) - The user is presented with the following message: (feedback), no rules. An error message informs the user if their entry is not in the correct format: ”That is not a valid option, Please try again.”                                                                                                                                                                                         | PASS                                                                                |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
-|  4 | Setup / Name and Favourite colour       | User is required to input name and favourite colour only alphabet letters, 2 characters or more is accepted.                                                                               | The user is then prompted to enter name and favourite colour. A short print statement will be presented to the user after each validated input. An error message informs the user if their entry is not in the correct format: ”That is not a valid option, Please try again.”                                                                                                                                                                                         | PASS                                                                                |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
-|  5 | Setup / Age                             | User is required to input age, user must enter a number here to proceed.                                                                                                                   | The user is prompted to enter age. A short print statement will be presented to the user after validated age input. An error message informs the user if their entry is not in the correct format: ”That is not a valid option, Please try again.” If age < 5 the following message will be presented to the user: You are too young to play this game! - The game closes.                                                                                             | PASS                                                                                |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
-|  6 | Display / Favourite colour              | If the user input matches with any key in the colours dictionary otherwise a random colour is chosen. Used to display the ASCII hangman in different colours depending on user input.      | User choice matches with a key in the colours dictionary, the following message is presented: (colour) is (feedback). Otherwise a random colour is chosen and the message is: (colour) not listed. (colour) was chosen instead. Both the ASCII hangman and the secret word will be printed in the chosen favourite colour.                                                                                                                                             | PASS                                                                                |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
-|  7 | Game Area / Chosen Word                 | The word to guess is represented by a row of dashes representing each letter of the word. The difficulty of the word depends on age input.                                                 | If user age is below 16 years a word from the easy_words file is presented otherwise a word from hard_words file is chosen.                                                                                                                                                                                                                                                                                                                                            | PASS                                                                                |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
-|  8 | Game Area / Choose A Letter             | User is prompted to choose a letter to guess.                                                                                                                                              | Only one alphabet letter is accepted or an error message is displayed: ”That is not a valid option, Please try again.” When the user enters an already guessed letter again the following message appears: You already tried: (letter). This will not increment the failed attempts count.                                                                                                                                                                             | PASS                                                                                |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
-|  9 | Game Area / Failed Attempts             | User enters a letter that is not in the secret word to guess.                                                                                                                              | Failed Attempts count should increment by 1 and the terminal will print one element of the ASCII hangman. The number of tries before the game ends is 7.                                                                                                                                                                                                                                                                                                               | PASS                                                                                |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
-| 10 | Game Area / Result                      | The user finds the secret word or failed attempts count reaches 7.                                                                                                                         | The user is presented with a short message and what the secret word was. Then the user is prompted to play again.                                                                                                                                                                                                                                                                                                                                                      | PASS                                                                                |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
-| 11 | Result / Play Again? y/n                | User is required to input (y or Y) / (n or N), invalid input will result in an error message to the user.                                                                                  | (y or Y) - The user is presented with the following message: (feedback) you have decided to play again. - The user will be presented with a new word to guess. (n or N) - The user is presented with the following message: Exiting Game. - The game closes. An error message informs the user if their entry is not in the correct format: ”That is not a valid option, Please try again.”                                                                            | PASS                                                                                |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+large lifted out table
 
 ### Further Testing
 
@@ -324,19 +275,10 @@ User stories are numbered 1 to 7 and the features are:
   4. Game area
   5. Result
 
-| ID | User Stories                                                                                                                                                   | Features      |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
-|----|----------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|
-|  1 | Clearly understand how to navigate and start the game.                                                                                                         | 1, 2, 3       | 
-|  2 | Easily find instructions on how to play the game.                                                                                                              | 2             |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
-|  3 | Understand what input is required to proceed and that any exception is returned with a message to the user without causing the game to crash.                  | 1, 2, 3, 4, 5 |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
-|  4 | Clearly see the number of incorrect guesses before the game ends.                                                                                              | 4             |   
-|  5 | Clearly see what the secret word was if the user fails to guess it before the game ends.                                                                       | 5             |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
-|  6 | Continue playing the game once the game has finished without having to reenter the initial inputs from when the game started.                                  | 5             |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
-|  7 | Have a fun time playing the game and that it functions as expected.                                                                                            | 1, 2, 3, 4, 5 |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+| ID | User 
 
-### Known bugs
 
-- When the search function yields no result the only way to understand that is that the result is empty but the text still says that the result IS found
+large lifted out table (below)
 
 ### Solved bugs
 
@@ -346,10 +288,31 @@ values_list[k] = values_list[k].replace(',', '')
 - Using the index of the second nested loop instead of the index of the third nested loop
 - Stop styling to continue after the place it was supposed to be applied too.
 - Not able to convert year to int
+- numpy dependency had not been included in the deployment to Heroku since it was not included in the requirements.txt - file. Solution: run pip freeze --local > requirements.txt in the command line to include numpy (numpy==1.26.4) in the requirements.txt - file and then push to gitHub.
 
+
+![numpy instal](assets/images/cli_numpy_instal.png)
+![thousand divider](assets/images/cli_error_message_thousand_divider.png)
+![invalid data](assets/images/cli_logo_add_data_step_2_invalid_data.png)
+
+### Known bugs
+
+- When the search function yields no result the only way to understand that is that the result is empty but the text still says that the result IS found
+- Relating to deployment on Heroku:
+  - The most serious bug is a 3 min + delay for the program to run (for the welcome screen to appear) loading the heroku URL (or after clickign the orange "run program" -button). This might be due to a slow loading time for some library or similar. The equvilant loading time in gitpod was 3 seconds which is also out of the norm. Testing with removing libaries and test loading has been carried out with no solution.  
+  - When the search function yields no result the only way to understand that is that the result is empty but the text still says that the result IS found
+  - This is not really a bug however since colorama api does not works with heroku the logo displays with a a wrong character and a grey background (instead of black)
+  - Also not a bug is that Heroku display the text with no left margin.
+
+![cli_gitpod and Heroku logo side by side](assets/images/cli_gitpod_heroku_logo_side_by_side.png)
+![cli_gitpod and Heroku strike through side by side](assets/images/cli_gitpod_heroku_strike_through_side_by_side.png)
 
 
 ## Deployment
+
+which runs in the Code Institute mock terminal on Heroku.
+
+https://sapperlot-8eb16827aadb.herokuapp.com/
 
 The site was deployed to Heroku. The steps to deploy are as follows:
   1. Log in to Heroku.
@@ -440,6 +403,148 @@ Support with how to develop ideas into code also came from various online resour
 
 
 Tried to avoid global variables
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+| ID | Test Label                              | Test Action                                                                                                                                                                                | Expected Outcome                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Test Outcome                                                                        |                                                                                                                                                                                                                                                                                                            
+|----|---------------------------------------- |--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------|
+|  1 | Welcome To My Hangman Game!             | Run program                                                                                                                                                                                | The user is presented with a welcome message and the ASCII hangman. The user is then prompted to start the game.                                                                                                                                                                                                                                                                                                                                                       | PASS                                                                                |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+|  2 | Start / Do you want to play? y/n        | User is required to input (y or Y) / (n or N), invalid input will result in an error message to the user.                                                                                  | (y or Y) - The user is presented with the following message: (feedback) you have decided to play. (n or N) - The user is presented with the following message: Exiting Game. - The game closes. An error message informs the user if their entry is not in the correct format: ”That is not a valid option, Please try again.”                                                                                                                                         | PASS                                                                                |                                                                                                                                                                                                                                                                                                           
+|  3 | Rules / Read the rules? y/n             | User is required to input (y or Y) / (n or N), invalid input will result in an error message to the user.                                                                                  | (y or Y) - The user is presented with the rules of the game. (n or N) - The user is presented with the following message: (feedback), no rules. An error message informs the user if their entry is not in the correct format: ”That is not a valid option, Please try again.”                                                                                                                                                                                         | PASS                                                                                |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+|  4 | Setup / Name and Favourite colour       | User is required to input name and favourite colour only alphabet letters, 2 characters or more is accepted.                                                                               | The user is then prompted to enter name and favourite colour. A short print statement will be presented to the user after each validated input. An error message informs the user if their entry is not in the correct format: ”That is not a valid option, Please try again.”                                                                                                                                                                                         | PASS                                                                                |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+|  5 | Setup / Age                             | User is required to input age, user must enter a number here to proceed.                                                                                                                   | The user is prompted to enter age. A short print statement will be presented to the user after validated age input. An error message informs the user if their entry is not in the correct format: ”That is not a valid option, Please try again.” If age < 5 the following message will be presented to the user: You are too young to play this game! - The game closes.                                                                                             | PASS                                                                                |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+|  6 | Display / Favourite colour              | If the user input matches with any key in the colours dictionary otherwise a random colour is chosen. Used to display the ASCII hangman in different colours depending on user input.      | User choice matches with a key in the colours dictionary, the following message is presented: (colour) is (feedback). Otherwise a random colour is chosen and the message is: (colour) not listed. (colour) was chosen instead. Both the ASCII hangman and the secret word will be printed in the chosen favourite colour.                                                                                                                                             | PASS                                                                                |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+|  7 | Game Area / Chosen Word                 | The word to guess is represented by a row of dashes representing each letter of the word. The difficulty of the word depends on age input.                                                 | If user age is below 16 years a word from the easy_words file is presented otherwise a word from hard_words file is chosen.                                                                                                                                                                                                                                                                                                                                            | PASS                                                                                |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+|  8 | Game Area / Choose A Letter             | User is prompted to choose a letter to guess.                                                                                                                                              | Only one alphabet letter is accepted or an error message is displayed: ”That is not a valid option, Please try again.” When the user enters an already guessed letter again the following message appears: You already tried: (letter). This will not increment the failed attempts count.                                                                                                                                                                             | PASS                                                                                |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+|  9 | Game Area / Failed Attempts             | User enters a letter that is not in the secret word to guess.                                                                                                                              | Failed Attempts count should increment by 1 and the terminal will print one element of the ASCII hangman. The number of tries before the game ends is 7.                                                                                                                                                                                                                                                                                                               | PASS                                                                                |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+| 10 | Game Area / Result                      | The user finds the secret word or failed attempts count reaches 7.                                                                                                                         | The user is presented with a short message and what the secret word was. Then the user is prompted to play again.                                                                                                                                                                                                                                                                                                                                                      | PASS                                                                                |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+| 11 | Result / Play Again? y/n                | User is required to input (y or Y) / (n or N), invalid input will result in an error message to the user.                                                                                  | (y or Y) - The user is presented with the following message: (feedback) you have decided to play again. - The user will be presented with a new word to guess. (n or N) - The user is presented with the following message: Exiting Game. - The game closes. An error message informs the user if their entry is not in the correct format: ”That is not a valid option, Please try again.”                                                                            | PASS                                                                                |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Stories                                                                                                                                                   | Features      |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+|----|----------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|
+|  1 | Clearly understand how to navigate and start the game.                                                                                                         | 1, 2, 3       | 
+|  2 | Easily find instructions on how to play the game.                                                                                                              | 2             |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+|  3 | Understand what input is required to proceed and that any exception is returned with a message to the user without causing the game to crash.                  | 1, 2, 3, 4, 5 |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+|  4 | Clearly see the number of incorrect guesses before the game ends.                                                                                              | 4             |   
+|  5 | Clearly see what the secret word was if the user fails to guess it before the game ends.                                                                       | 5             |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+|  6 | Continue playing the game once the game has finished without having to reenter the initial inputs from when the game started.                                  | 5             |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+|  7 | Have a fun time playing the game and that it functions as expected.                                                                                            | 1, 2, 3, 4, 5 |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+
+
+
+
+
 
 
 

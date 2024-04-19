@@ -69,7 +69,7 @@ def esc(code):
     """
     return f'\033[{code}m'
 
-#----------------------------------------------------------------------*------**
+
 def get_airplane_data():
     """ Get and validate (via function call) inputed airplane data.
     Run a while loop to collect a valid string of data from the user
@@ -84,11 +84,18 @@ def get_airplane_data():
     Returns: airplane_data list (str, int and float) - 
     incomplete user input data for one airplane.
     """
+    #----------------------------------------------------------------------*------**
     # Sub menu - FIRST choise
-    print('\nSets of Aircraft parameters to input (S̶t̶r̶i̶k̶e̶t̶h̶r̶o̶u̶g̶h̶ parameters will be calculated for you!)')
-    print('1. ' + esc('238;2;9') + 'Wing span,' + esc(0) + ' Aspect ratio, Wing area, ' + esc('238;2;9') + 'Max takeoff weight,'  + esc(0) + ' Wing loading')
-    print('2. ' + esc('238;2;9') + 'Wing span,' + esc(0) + ' Aspect ratio, Wing area, Max takeoff weight, '  + esc('238;2;9') + 'Wing loading' + esc(0))
-    print('3. Wing span, ' + esc('238;2;9') + 'Aspect ratio,' + esc(0) + ' Wing area, ' + esc('238;2;9') + 'Max takeoff weight,'  + esc(0) + ' Wing loading')
+    print('\nSets of Aircraft parameters to input (S̶t̶r̶i̶k̶e̶t̶h̶r̶o̶u̶g̶h̶ parameters will' 
+    'be calculated for you!)')
+    print('1. ' + esc('238;2;9') + 'Wing span,' + esc(0) + ' Aspect ratio, '
+    'Wing area, ' + esc('238;2;9') + 'Max takeoff weight,'  + esc(0) + ' '
+    'Wing loading')
+    print('2. ' + esc('238;2;9') + 'Wing span,' + esc(0) + ' Aspect ratio, '
+    'Wing area, Max takeoff weight, '  + esc('238;2;9') + 'Wing loading' + esc(0))
+    print('3. Wing span, ' + esc('238;2;9') + 'Aspect ratio,' + esc(0) + ' '
+    'Wing area, ' + esc('238;2;9') + 'Max takeoff weight,'  + esc(0) + ' '
+    'Wing loading')
     print('4. Wing span, ' + esc('238;2;9') + 'Aspect ratio,' + esc(0) + ' Wing area, Max takeoff weight, ' + esc('238;2;9') + 'Wing loading'  + esc(0))
     print('5. ' + esc('238;2;9') + 'Wing span,' + esc(0) + ' Aspect ratio, ' + esc('238;2;9') + 'Wing area,'  + esc(0) + ' Max takeoff weight, Wing loading')
     print('6. Wing span, ' + esc('238;2;9') + 'Aspect ratio,'  + esc(0) + ' ' + esc('238;2;9') + 'Wing area,'  + esc(0) + ' Max takeoff weight'  + esc(0) + ', Wing loading')
@@ -132,6 +139,7 @@ def get_airplane_data():
         elif selection_sub_menu_dep_variable == 'Q':
             os.abort()  #Abort the current running process
         else:
+#----------------------------------------------------------------------*------**
             print('Invalid choice, please enter a number between 1-8 an H, M or Q:\n')
             continue
 
@@ -163,6 +171,7 @@ def validate_airplane_data(values):
     Argumemts: values - incomplete user input data for one airplane.
     Returns: true or false
     """
+    #----------------------------------------------------------------------*------**
     try:
         if len(values) != 10:  # 10 items in a list starting at index 0 running untill index 9
             raise ValueError(
@@ -207,6 +216,7 @@ def uppdate_dependent_airplane_data(converted_airplane_data):
     Argumemts: converted_airplane_data
     Returns: airplane_data
     """
+#----------------------------------------------------------------------*------**
     airplane_data = converted_airplane_data
     if selection_sub_menu_dep_variable == '1':
         airplane_data[5] = math.sqrt(converted_airplane_data[6] * converted_airplane_data[7])
@@ -239,6 +249,7 @@ def uppdate_dependent_airplane_data(converted_airplane_data):
     elif selection_sub_menu_dep_variable == 'Q':
         os.abort()  #Abort the current running process
     else:
+#----------------------------------------------------------------------*------**
         print('Invalid choice, please enter a number between 1-8 an H, M or Q:\n')
     
     for i in range(5, 10):
@@ -246,13 +257,14 @@ def uppdate_dependent_airplane_data(converted_airplane_data):
 
     return airplane_data
 
-
+#----------------------------------------------------------------------*------**
 def push_airplane_data_to_worksheet(data):  # loveSandwiches code also have a worksheet as an argument. I took it away since it does not work since it is not defined
     """ Update the correct tab in worksheet with data in the form of
     a list of string, integer and float values
 
     Arguments: data
     """
+#----------------------------------------------------------------------*------**
     if data[3] == 'multirole_fighter':
         worksheet_to_update = SHEET.worksheet('multirole_fighter')
         worksheet_to_update.append_row(data)
@@ -316,7 +328,7 @@ def view_list_of_worksheets():
     list_of_worksheets = SHEET.worksheets()
     print(f'\n{list_of_worksheets}')
 
-
+#----------------------------------------------------------------------*------**
 def select_airplane_category():
     """ Allows user to select sheet in worksheet and save selection in variable sheet_select
     
@@ -346,6 +358,7 @@ def select_and_view_airplane_data():
 
     https://codingpub.dev/access-google-sheets-in-python-using-gspread/
     """
+#----------------------------------------------------------------------*------**
     print('\n1. multirole_fighter')
     print('2. airliner')
     print('3. general aviation     "M" MAIN MENU     "H" HELP     "Q" QUIT PROGRAM')
@@ -380,7 +393,7 @@ def search_data():
     """
     print('\nWhich category do you want to search?:')
     sheet_select = select_airplane_category()
-
+#----------------------------------------------------------------------*------**
     print('\n1. Exact word search')
     print('2. Regular expression (regex)     "M" MAIN MENU     "H" HELP     "Q" QUIT PROGRAM')
     select_value = input('\nPlease select an option by entering a number between 1-2 an H, M or Q:\n')
@@ -402,7 +415,7 @@ def search_data():
     else:
         print('Invalid choice, please enter a number between 1-3 an H, M or Q:\n')
 
-    print(cell)
+    #print(cell)
 
     # Handling of case when search word is not found
     if cell != []:
@@ -448,6 +461,7 @@ def calc_meta_data():
             median = format(median, ".2f")
             variance = format(variance, ".2f")
             # Print out calculated meta data
+#----------------------------------------------------------------------*------**
             if j == 6:
                 print(f'\n\nMean "Wing Span" for {sheets_for_loop[i]}s are {mean} m')
                 print(f'Median "Wing Span" for {sheets_for_loop[i]}s are {median} m')
@@ -483,6 +497,7 @@ def calc_inbetween_outside_point():
 
     Returns: answer_y_value
     """
+#----------------------------------------------------------------------*------**
     # Code for getting the correct list--------------------------------------------------
     print('\nWhich category do you want to search?:')
     sheet_select = select_airplane_category()
@@ -524,7 +539,8 @@ def calc_inbetween_outside_point():
 
     # USER INPUT - Selection of aircraft data parameter (x-coordinates) to make the above
     # selected parameter dependent on e.g. Max Takeoff Weight.
-    # These values must be increasing.   
+    # These values must be increasing.
+#----------------------------------------------------------------------*------**  
     print('\nAircraft data parameters (x-coord.) to base calulation of "inbetween"-value, e.g. Max Takeoff Weight. You may not select the same parameter as already selected in previous step\n')
     print('1. Wing span')
     print('2. Aspect ratio')
@@ -558,7 +574,7 @@ def calc_inbetween_outside_point():
         os.abort()  #Abort the current running process
     else:
         print('Invalid choice, please enter a number between 1-3 an H, M or Q:\n')
-
+#----------------------------------------------------------------------*------**
 
     # Fetch list and "pop"-away first index---------------------------------------
     # Get correct list for popping, transform to floats, sorting and then interpolating
@@ -585,6 +601,7 @@ def calc_inbetween_outside_point():
     values_list_x_sort_2 = sorted(values_list_x)
     print('values_list_x_2_sort' + str(values_list_x_sort_2))
 
+#----------------------------------------------------------------------*------**
 # USER INPUT - Selection of the value (of the above selected aircraft data parameter,
     # x-coordinates) at which to evaluate the interpolated value.
     print('\nNote that the reliability of the estimated "inbetween"-value highly depend on the distance of this value to the data points in the set.\n especialy in the case of extrapolating (case of value outside of the datapoints)\nwhere the accuracy/reliability quickly deteriates as this value is chosen far away outside of data points')
@@ -616,7 +633,7 @@ def calc_inbetween_outside_point():
     # Original: interpolated_y = numpy.interp(x, xp, fp, left=None, right=None, period=None)
     interpolated_y = numpy.interp(x, xp, fp)
     print('The ' + str(y_parameter_print) + ' "inbetween"-value, interpolated with respect to ' + str(x_parameter_print) + ', is: ' + str(interpolated_y))
-
+#----------------------------------------------------------------------*------**
 
 def help():
 
@@ -640,7 +657,7 @@ def main():
     print('4. Search data')
     print('5. Meta data')
     print('6. Inbetween points     "H" HELP     "Q" QUIT PROGRAM')
-
+#----------------------------------------------------------------------*------**
     while True:
         selection_main_menu = input('\nPlease select an option by entering a number between 1-9 an H or Q:\n')
         if selection_main_menu == '1':
@@ -669,7 +686,7 @@ def main():
         else:
             print('Invalid choice, please enter a number between 1-6 an H or Q:\n')
             continue
-
+#----------------------------------------------------------------------*------**
 
 # print('#----------------------------------------------------------------------*------**')
 
