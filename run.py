@@ -1,6 +1,5 @@
 # Heroku terminal 80 char wide, 24 rows high
 # PEP8 code 79 char wide (72 for comments)
-#----------------------------------------------------------------------*------**
 # Run program: python3 run.py
 
 import gspread
@@ -32,10 +31,8 @@ import statistics
 import re
 
 # Used for interpolation in function: calc_inbetween_outside_point()
+# https://numpy.org/doc/stable/user/absolute_beginners.html
 import numpy
-
-# Import NumPy https://numpy.org/doc/stable/user/absolute_beginners.html
-# import numpy as np
 
 # NOTICE: The google sheets are formated (in the sheets, not in run.py) down to
 # row 200, unsure if it is important but it might cause errors after this,
@@ -48,10 +45,11 @@ SCOPE = [
     "https://www.googleapis.com/auth/drive"
     ]
 
-CREDS = Credentials.from_service_account_file('creds.json')
-SCOPED_CREDS = CREDS.with_scopes(SCOPE)
-GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
-SHEET = GSPREAD_CLIENT.open('aircraft_data')
+#CREDS = Credentials.from_service_account_file('creds.json')
+#SCOPED_CREDS = CREDS.with_scopes(SCOPE)
+#GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
+#SHEET = GSPREAD_CLIENT.open('aircraft_data')
+
 
 class Colors:
     BLUE = '\033[94m'
@@ -79,12 +77,10 @@ def get_airplane_data():
 
     Based on "get_sales_data()" in loveSandwiches, AJGreaves at Code Institute
     https://github.com/Code-Institute-Solutions/love-sandwiches-p5-sourcecode/tree/master/05-deployment/01-deployment-part-1
-    
     function calls: validate_airplane_data(values)
     Returns: airplane_data list (str, int and float) - 
     incomplete user input data for one airplane.
     """
-#----------------------------------------------------------------------*------**
     # Sub menu - FIRST choise
     print('\nSets of Aircraft parameters to input (S̶t̶r̶i̶k̶e̶t̶h̶r̶o̶u̶g̶h̶ parameters '
     'will' 
@@ -116,7 +112,7 @@ def get_airplane_data():
     print('"H" HELP             "M" BACK TO MAIN MENU             '
     '"Q" QUIT PROGRAM')
 
-#----------------------------------------------------------------------*------**
+
     global selection_sub_menu_dep_variable
     while True:
         selection_sub_menu_dep_variable = input('\nPlease select an '
@@ -177,7 +173,7 @@ def get_airplane_data():
         elif selection_sub_menu_dep_variable == 'Q':
             os.abort()  #Abort the current running process
         else:
-#----------------------------------------------------------------------*------**
+
             print('Invalid choice, please enter a number between 1-8 an H, M '
             'or Q:\n')
             continue
@@ -210,7 +206,6 @@ def validate_airplane_data(values):
     Argumemts: values - incomplete user input data for one airplane.
     Returns: true or false
     """
-    #----------------------------------------------------------------------*------**
     try:
         # 10 items in a list starting at index 0 running untill index 9
         if len(values) != 10:
@@ -260,7 +255,6 @@ def uppdate_dependent_airplane_data(converted_airplane_data):
     Argumemts: converted_airplane_data
     Returns: airplane_data
     """
-#----------------------------------------------------------------------*------**
     airplane_data = converted_airplane_data
     if selection_sub_menu_dep_variable == '1':
         airplane_data[5] = math.sqrt(converted_airplane_data[6] *\
@@ -313,7 +307,6 @@ def uppdate_dependent_airplane_data(converted_airplane_data):
     elif selection_sub_menu_dep_variable == 'Q':
         os.abort()  #Abort the current running process
     else:
-#----------------------------------------------------------------------*------**
         print('Invalid choice, please enter a number between 1-8 an '
         'H, M or Q:\n')
     
@@ -322,7 +315,7 @@ def uppdate_dependent_airplane_data(converted_airplane_data):
 
     return airplane_data
 
-#----------------------------------------------------------------------*------**
+
 # loveSandwiches code also have a worksheet as an argument. I took it away 
 # since it does not work since it is not defined
 def push_airplane_data_to_worksheet(data):
@@ -331,7 +324,6 @@ def push_airplane_data_to_worksheet(data):
 
     Arguments: data
     """
-#----------------------------------------------------------------------*------**
     if data[3] == 'multirole_fighter':
         worksheet_to_update = SHEET.worksheet('multirole_fighter')
         worksheet_to_update.append_row(data)
@@ -375,7 +367,7 @@ def post_select():
             print('Invalid choice, please select an alternative by entering '
             'H, M or Q:\n')
             continue
-#----------------------------------------------------------------------*------**
+
 
 def add_data():
     """ Run all 'option 1. add-data' - functions
@@ -410,7 +402,7 @@ def view_list_of_worksheets():
     list_of_worksheets = SHEET.worksheets()
     print(f'\n{list_of_worksheets}')
 
-#----------------------------------------------------------------------*------**
+
 def select_airplane_category():
     """ Allows user to select sheet in worksheet and save selection in 
     variable sheet_select
@@ -443,7 +435,6 @@ def select_and_view_airplane_data():
 
     https://codingpub.dev/access-google-sheets-in-python-using-gspread/
     """
-#----------------------------------------------------------------------*------**
     print('\n1. multirole_fighter')
     print('2. airliner')
     print('3. general aviation     "M" MAIN MENU     "H" HELP     '
@@ -483,7 +474,6 @@ def search_data():
     """
     print('\nWhich category do you want to search?:')
     sheet_select = select_airplane_category()
-#----------------------------------------------------------------------*------**
     print('\n1. Exact word search')
     print('2. Regular expression (regex)     "M" MAIN MENU     "H" HELP     '
     '"Q" QUIT PROGRAM')
@@ -546,7 +536,6 @@ def calc_meta_data():
             median = format(median, ".2f")
             variance = format(variance, ".2f")
             # Print out calculated meta data
-#----------------------------------------------------------------------*------**
             if j == 6:
                 print(f'\n\nMean "Wing Span" for {sheets_for_loop[i]}s are'
                 ' {mean} m')
@@ -584,7 +573,7 @@ def calc_meta_data():
                 '{sheets_for_loop[i]}s is {variance} kg/m\u00b2')
             else:
                 print('\nindex error')
-#----------------------------------------------------------------------*------**
+
 
 def calc_inbetween_outside_point():
     """ Calculate (interpolate or extrapolate) a value (inbetween the 
@@ -597,8 +586,7 @@ def calc_inbetween_outside_point():
 
     Returns: answer_y_value
     """
-#----------------------------------------------------------------------*------**
-    # Code for getting the correct list--------------------------------------------------
+    # Code for getting the correct list-----
     print('\nWhich category do you want to search?:')
     sheet_select = select_airplane_category()
 
@@ -643,7 +631,6 @@ def calc_inbetween_outside_point():
     # USER INPUT - Selection of aircraft data parameter (x-coordinates) to 
     # make the above selected parameter dependent on e.g. Max Takeoff Weight.
     # These values must be increasing.
-#----------------------------------------------------------------------*------**  
     print('\nAircraft data parameters (x-coord.) to base calulation of '
     '"inbetween"-value, e.g. Max Takeoff Weight. You may not select the same '
     'parameter as already selected in previous step\n')
@@ -682,7 +669,6 @@ def calc_inbetween_outside_point():
     else:
         print('Invalid choice, please enter a number between 1-3 an '
         'H, M or Q:\n')
-#----------------------------------------------------------------------*------**
 
     # Fetch list and "pop"-away first index-----
     # Get correct list for popping, transform to floats, sorting and 
@@ -710,7 +696,6 @@ def calc_inbetween_outside_point():
     values_list_x_sort_2 = sorted(values_list_x)
     print('values_list_x_2_sort' + str(values_list_x_sort_2))
 
-#----------------------------------------------------------------------*------**
 # USER INPUT - Selection of the value (of the above selected aircraft data 
 # parameter, x-coordinates) at which to evaluate the interpolated value.
     print('\nNote that the reliability of the estimated "inbetween"-value '
@@ -754,7 +739,7 @@ def calc_inbetween_outside_point():
     print('The ' + str(y_parameter_print) + ' "inbetween"-value, interpolated '
     'with respect to ' + str(x_parameter_print) + ', is: '
     '' + str(interpolated_y))
-#----------------------------------------------------------------------*------**
+
 
 def help():
 
@@ -778,7 +763,7 @@ def main():
     print('4. Search data')
     print('5. Meta data')
     print('6. Inbetween points     "H" HELP     "Q" QUIT PROGRAM')
-#----------------------------------------------------------------------*------**
+
     while True:
         selection_main_menu = input('\nPlease select an option by entering a '
         'number between 1-9 an H or Q:\n')
@@ -809,7 +794,7 @@ def main():
             print('Invalid choice, please enter a number between 1-6 an '
             'H or Q:\n')
             continue
-#----------------------------------------------------------------------*------**
+
 
 print('\n\n\nWelcome to SAPPERLOT -                          Copyright: Gustaf '
 'Enebog 2024')
