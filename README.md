@@ -19,16 +19,12 @@ to parody industries often contrived projects acronyms
 
 - ### Fictive stories
 
-The year is 1982 and the Swedish government has just given the go ahead for the development of a new national fighter aircraft. Just a few month prior a newly gratuated computer Engineer has just a few month prior has just recieved his first employment at the conceptual design department at the national airplane manufacturer Saab in Linköping.
+The year is 1982 and the Swedish government has just given the go ahead for the development of a new national fighter aircraft. A few month earlier a newly graduated computer Scientist from Linköping University has started his first job at the conceptual design department at the national airplane manufacturer Saab in Linköping.
 
- is 1982 and , terminal programs is all the rage! the Swedish government has just given the national Airplane manufacturer Saab its go ahead for designing Swedens new multirole fighter Jas 39 Gripen.........Just a few weeks earlier a young computer scientist finished his degree and started at the Aerodynamics department at Saab in Linköping Sweden. One day he.... and a young newly employed programmer and mathematician overhears a conversation in the lunch room where some of the older engineers discusses what would be good start values for the algorithms that calculates performance for their
+During a coffeebreak a friday afternoon he overhears some collegiues discussing how the design process is slowed down from having to manually guesstimate start values for the design algorithms. Eager to impress he calls his girlfriend saying that he cant make it this weekend. Instead he huddles over his Commadore 64 and when he leaves his apartment in the suburb of Ryd Monday morning, in his back pack, has a golden 3+1⁄2-inch floppy disk with a carefully written name: SAPPERLOT on its label. He bicycles with a new stride through the forrest and walks into the deparment with a swagger feeling he is hot shit.
 
-Eager to impress his new colleges he calls his girlfriend saying that he cant make it this weekend. Instead he huddles over his Commadore 64 and on when he leaves his apartment in the suburb of Ryd on Monday morning he has a 3+1⁄2-inch floppy disk saying SAPPERLOT on its label. 
-His collegous silent sceptisim turns to raised eyebrows and ... as the command line prompt spits out start values just as good as the collegious guesses.
-His idea is to look up gather historical performance data of similar already existing fighter and assume that these airplanes would provide a pretty good starting value for .....and simply interpolate and extrapolate between these data   
-So his idea is to treat this problem much like any statistical issue.
-Today computers have developed far beyond these humble beginnings and the Gripen have already been protected the peace for decades however on of the small long forgotten small puzzles was xxxx
- an performance engineers Vera's Vegan Pizzas is a popular South Manchester based food truck. The popularity of this delicious "can't believe it's vegan" pizza often leads to long wait times to order. Whilst most customers are happy to wait, Vera feels she is losing customers before they order due to an absence of online ordering. Currently, there is a single point of contact to place orders by phone, and if this is frequently engaged, some customers order elsewhere.
+His collegous initial silent sceptisim turns to raised eyebrows and happy chuckles as the command line prompt spits out the start values they need for the day. Today he is close to retirment but remembering that code and the early planning of JAS 39 Gripen still puts a sweet smile on his face 
+
 
 
     -   #### As a User, I want to be able to:
@@ -227,6 +223,7 @@ The Google Sheet can be viewed online at [VV Pizzas](https://docs.google.com/spr
 - Python.
 - [Am I Responsive:](http://ami.responsivedesign.is) Checking the responsive.
 - [PEP8:](http://pep8online.com/) Check your code for PEP8 requirements.
+- [autopep8:](https://pypi.org/project/autopep8/) Check your code for PEP8 requirements (command: autopep8 --in-place --aggressive --aggressive -r *.py)
 - [Lucidchart:](https://www.lucidchart.com/pages/) Used to create flow charts.
 - [Git](https://www.gitpod.io/) Git was used for version control by utilizing the Gitpod terminal to commit to Git and Push to GitHub.
 - [GitHub:](https://github.com/) Used for string code (pushed from GitPod to GitHub)
@@ -280,6 +277,8 @@ User stories are numbered 1 to 7 and the features are:
 
 large lifted out table (below)
 
+![CI Python Linter](assets/images/ci_python_linter.png)
+
 ### Solved bugs
 
 - Remove "thousands separator" (added by google sheet) to allow conversion to float and int
@@ -300,15 +299,17 @@ values_list[k] = values_list[k].replace(',', '')
 <span style="color:orange">IMPORTANT! There is a 3 min + long delay for the program to run (for the welcome screen to appear) just be patient! We sincerely appologize for this frustrating inconvenience. For more information see section: "Unsolved bugs"</span>
 - When the search function yields no result the only way to understand that is that the result is empty but the text still says that the result IS found
 - Relating to deployment on Heroku:
-  - The most serious bug is a 3 min + delay for the program to run (for the welcome screen to appear) loading the heroku URL (or after clickign the orange "run program" -button). This might be due to a slow loading time for some library or similar. The equvilant loading time in gitpod was 3 seconds which is also out of the norm. Testing with removing libaries and test loading has been carried out with no solution.  
+  - The most serious bug is a 3 min + delay for the program to run (for the welcome screen to appear) loading the heroku URL (or after clickign the orange "run program" -button). This might be due to a slow loading time for some library or similar. The equvilant loading time in gitpod was 3 seconds which is also out of the norm. Testing with removing libaries and test loading has been carried out with no solution. Solution was probably after linting!
   - When the search function yields no result the only way to understand that is that the result is empty but the text still says that the result IS found
   - This is not really a bug however since colorama api does not works with heroku the logo displays with a a wrong character and a grey background (instead of black)
   - Also not a bug is that Heroku display the text with no left margin.
   - Can not go to help, main menu or quit when in in option 1 Add data's second submenu: Please enter the data here:
 
 ![cli_gitpod and Heroku logo side by side](assets/images/cli_gitpod_heroku_logo_side_by_side.png)
+
 ![cli_gitpod and Heroku strike through side by side](assets/images/cli_gitpod_heroku_strike_through_side_by_side.png)
 
+![a slight improvemenet with commenting these away in gitpod yet not in Heroku](assets/images/heroku_bug_slight_improve.png)
 
 ## Deployment
 <span style="color:orange">IMPORTANT! There is a 3 min + long delay for the program to run (for the welcome screen to appear) just be patient! We sincerely appologize for this frustrating inconvenience. For more information see section: "Unsolved bugs"</span>
