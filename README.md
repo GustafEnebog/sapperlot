@@ -1,31 +1,26 @@
-Welcome screen not showing in below image due to delayed loading time as mentioned in the bug section
+Welcome screen displayed on different devices
 ![cli_heroku_logo_welcome_message_main_men](assets/images/am_i_responsive.png)
 # SAPPERLOT
 
-SAPPERLOT is a terminal program, written in python, that calculates parameters such as "wing area" and "Max Takeoff Weight" for planned aircraft designs using data from existing aircrafts. This generation of "start values" is achieved by creating and accesing a data base with aircrafts and interpolate/extrapolate these values. The programs also allows the user to update, search the database and analyse the data.
+SAPPERLOT is a terminal program, written in python, that calculates parameters such as "Wing Area" and "Max Takeoff Weight" for planned aircraft designs using data from existing aircrafts. This generation of "start values" is achieved by creating and accessing a data base with aircrafts and interpolate/extrapolate these values. The programs also allow the user to update, search the database and analyse the data.
 
 This function is targeting aircraft designers who would like to automate the process of generating start values for Aircraft Design algorithms and methods within the field of Aircraft Conceptual Design.
 
-The program name of SAPPERLOT is a german interjection used to exclaime surprise, similar to "Oh my goodness!" It is also an acronym:
-"Statistical Airplane Potent Parameter Engineering Radical Loaded Oranges Tool"
-to parody industries often contrived projects acronyms 
+The program name SAPPERLOT is a German interjection to exclaimed surprise, similar to "Oh my goodness!" It is also an acronym: "Statistical Airplane Potent Parameter Engineering Radical Loaded Oranges Tool" to parody industries often contrived projects acronyms.
 
 ## <span style="color:orange">IMPORTANT! There is a 3 min + long delay for the program to run (for the welcome screen to appear) just be patient! We sincerely appologize for this frustrating inconvenience. For more information see section: "Unsolved bugs"</span>
-
 
 [View the live project here.](https://sapperlot-8eb16827aadb.herokuapp.com/)
 
 ##  User Experience (UX)
 
-- ### Fictive stories
+- ### Fictive inspirational background story
 
-The year is 1982 and the Swedish government has just given the go ahead for the development of a new national fighter aircraft. A few month earlier a newly graduated computer Scientist from Linköping University has started his first job at the conceptual design department at the national airplane manufacturer Saab in Linköping.
+The year is 1982 and the Swedish government has just given the go ahead for the development of a new national fighter aircraft. A few months earlier a newly graduated computer Scientist from Linköping University has started his first job at the conceptual design department at the national airplane manufacturer Saab in Linköping.
 
-During a coffeebreak a friday afternoon he overhears some collegiues discussing how the design process is slowed down from having to manually guesstimate start values for the design algorithms. Eager to impress he calls his girlfriend saying that he cant make it this weekend. Instead he huddles over his Commadore 64 and when he leaves his apartment in the suburb of Ryd Monday morning, in his back pack, has a golden 3+1⁄2-inch floppy disk with a carefully written name: SAPPERLOT on its label. He bicycles with a new stride through the forrest and walks into the deparment with a swagger feeling he is hot shit.
+During a coffee break in the afternoon on a Friday he overhears some colleagues discussing the time-consuming process of manually guesstimating all start values for the design algorithms. Eager to impress he calls his girlfriend saying that he can’t make it this weekend. Instead, he huddles over his Commadore 64 and when he leaves his apartment in the suburbs of Ryd Monday morning, in his backpack, has a golden 3+1⁄2-inch floppy disk with a carefully written name: SAPPERLOT on its label. He bicycles with a new stride through the forest and walks into the department with a swagger feeling he is hot shit.
 
-His collegous initial silent sceptisim turns to raised eyebrows and happy chuckles as the command line prompt spits out the start values they need for the day. Today he is close to retirment but remembering that code and the early planning of JAS 39 Gripen still puts a sweet smile on his face 
-
-
+His colleague’s initial silent skepticism turns to raised eyebrows and happy chuckles as the command line prompt spits out the start values, they need for the day. Today he is close to retirement but remembering that code and the early planning of JAS 39 Gripen still puts a sweet smile on his face.
 
     -   #### As a User, I want to be able to:
 
@@ -47,28 +42,32 @@ His collegous initial silent sceptisim turns to raised eyebrows and happy chuckl
 </p>
 
 ## Features
-### 1. Cloud based spread sheet with aircraft data 
-- Google sheet is an "excel clone" spreadsheet perfect to use as a library to store the aircraft data. The sheet can be accessed via commands in the python code. We can update and retrieve the whole sheet, individual tabs, columns, rows or specidic cells. We have named the file: aircraft_data. The sheet can, apart from being updated in SAPPERLOT, be updated directly in the sheet. Currently deleting or editing the data in the sheet needs to be done directly in the sheet since no function exist yet for this in SAPPERLOT. 
-
-[View aircraft_data sheet here.](https://docs.google.com/spreadsheets/d/186F_QSx24xYlkzunnzrzawt06MJO8GfdPsxGeRoqIa4/edit#gid=960221585)
+### Existing Features (In Scope Features)
+#### 1. Cloud based spread sheet with aircraft data
+[View the aircraft_data - sheet here.](https://docs.google.com/spreadsheets/d/186F_QSx24xYlkzunnzrzawt06MJO8GfdPsxGeRoqIa4/edit#gid=960221585)
+- Google sheet is an "excel clone" spreadsheet that SAPPERLOT use as a library to store aircraft data. The sheet can be accessed from the python code which can update and retrieve the whole sheet, individual tabs, columns, rows or specific cells.
+- The filename of the sheet is: aircraft_data and it has three tabs at the bottom of the sheet:
+  - multirole_fighter
+  - airliner
+  - general_aviation
+- The user can also update the aircraft data directly into the sheet without running SAPPERLOT
+- Currently deleting or editing data in the sheet needs to be done directly in the sheet since no function exist for this yet in SAPPERLOT.
 
 
 ![google sheet](assets/images/google_sheet.png)
 
-![airliner tab](assets/images/google_sheet_airliner_tab.png)
-### 2. Welcome message and main menu
-
-  - Run the program by entering python3 run.py in the command line
-  - 
-  The Programm name/logo displays upon the start of the program together with a welcome message and the main menu. As displayed in the deployed version in Heroku
-
-![cli_heroku_logo_welcome_message_main_men](assets/images/cli_heroku_logo_welcome_message_main_menu.png)
-
-and in gitpod (right)
+#### 2. Welcome message and main menu
+  - Run the program by entering python3 run.py in the command line or click the orange "run programm"-button
+  - The Programm name/logo displays upon the start of the program together with a welcome message and the main menu.
+The Welcome screen in gitpod:
 
 ![CLI Logo with Welcome Message and Main Menu](assets/images/cli_logo_welcome_message_main_menu.png)
 
-Below the main menu user is prompted to select a number or a letter that will take him to his desired function. Apart from the six functions:
+ The Welcome screen in Heroku:
+
+![cli_heroku_logo_welcome_message_main_men](assets/images/cli_heroku_logo_welcome_message_main_menu.png)
+
+Below the main menu user is prompted to select a number or a letter that will take him to one of SAPPERLOT six functions functions.
 
 1. Add data
 2. View list of Airplane Categories
@@ -77,91 +76,86 @@ Below the main menu user is prompted to select a number or a letter that will ta
 5. Meta data
 6. Inbetween points
 
-The user can always choose "H" to be taken to the HELP section, "M" for going back to the main menu or "Q" if you had enough and want to QUIT the program, no matter where he is (in what submenu) he is in the program!
-
-### 1. User input validation and handling errors
-An error message informs the user if their entry is not in the correct format: ”That is not a valid option, Please try again.” 
-The following user inputs errors are checked for:
-- Number of inputs (should be 10)
-- No commas in year
-- input Category (multirole_fighter, airliner or general_aviation) need to be spelled correctly (including underscore)
+- The user can also always choose "H" to be taken to the HELP section, "M" for going back to the main menu or "Q" if you had enough and want to QUIT the program, no matter from what submenu.
 
 
-### 3. Add data (main menu option 1.)
-The add_data() is the most complicated function using four subfunctions called by the main function (in the order they are written below):
+#### 3. Add data (main menu option 1.)
+- The add_data() is the most complicated function using four subfunctions called by the add_data() (in the order they are written below):
+1. get_airplane_data() - Prompts and recieves airplane user input
+  - get_airplane_data() also in turn calls the validate_airplane_data() which test the inputed data (without changing) with the purpose of validating it. 
+2. convert_to_int_and_float() - Leave the first four values as strings, Convert year (fifth value, index 4) to an int and the rest (sixth to ten, index 5 to 9) to float
+3. uppdate_dependent_airplane_data() - Calculates the two missing parameters (inputed as zero by the user). If these would be inputed it would overdefine the user data. See below the equations used to calculate the dependent values.
 
-get_airplane_data() - Prompts and recieves airplane user input
-convert_to_int_and_float() - Leave the first four values as strings, Convert year (fifth value, index 4) to an int and the rest (sixth to ten, index 5 to 9) to float
-uppdate_dependent_airplane_data() - Calculates the two missing parameters (inputed as zero by the user). If these would be inputed it would overdefine the user data
-push_airplane_data_to_worksheet() - Updates the inputed values as a new row in correct category/tab in the google worksheet
+![equations](assets/images/equations.png)
 
-get_airplane_data() also in turn calls the
-validate_airplane_data() which test (without changing) the data 
+4. push_airplane_data_to_worksheet() - Updates the inputed values as a new row in correct category/tab in the google worksheet
 
-![CLI Logo and data step 1](assets/images/cli_logo_add_data_step_1.png)
+- The five aircraft parameters are interdependent and inputting more than three parameters would therefore overdefine the data. For this reason the user need to first select which set of parameters to input. The rest of the parameters will be calculated by SAPPERLOT.
+- After this the user can input the data for an aircraft as a Comma Separated Values (CSV).
+- The user will be given feedback on which parameters to leave out (entering "0" as placeholders for these values) based on his selection.
+
+![CLI data step 1](assets/images/cli_logo_add_data_step_1.png)
 
 ![CLI add data step 2](assets/images/cli_logo_add_data_step_2.png)
 
 
+#### 4. View list of Airplane Categories (main menu option 2.)
+- This function display all the categories in the sheet aircraft_data (tabs in aircraft_data sheet).
+- The function does not require any additional selection steps.
 
-
-
-There are two ways to add data to the library/google sheets: input one by one with the command line or directly into the sheet
-
-  - After the user has decided to play the game, the user will be asked if they wish to read the rules before proceeding:
-
-  - The user can choose: 
-      - (y) - for yes - read the rules. 
-      - (n) - for no - continue without reading the rules.
-
-    An error message informs the user if their entry is not in the correct format: ”That is not a valid option, Please try again.” The user must enter (y) or (n) to continue.
-
-![equations](assets/images/equations.png)
-
-### 4. View list of Airplane Categories (main menu option 2.)
-
-  - This simple function simply display all the categories in the sheet aircraft_data. The function does not require any additional selection steps
 ![View list of Airplane Categories](assets/images/cli_2_view_list_of_airplane_categories.png)
 
 
-### 5. View data (main menu option 3.)
+#### 5. View data (main menu option 3.)
+- This function retrieve all data in the aircraft_data-sheet and display it as a simple printout to the screen.
+- The function require the user only one selection namly that of "aircraft category".
 
-  - This simpel function retrieve all data in the aircraft_data-sheet and display it as a simple printout to the screen. The function require the user one additional selection of "aircraft category".
 ![View data with selection airliner](assets/images/cli_3_view_data_airliner.png)
 
-### 6. Search data(main menu option 4.)
 
-  - xxxx
+#### 6. Search data(main menu option 4.)
+- This function allows the user to search the aircraft_data sheet for entries
+- The user need to make two selection steps before he can enter the search term:
+  1. category
+  2. Exact word search or Regular expression (regex) search
 
-for case of Exact word search (not case sensitive)
 ![Search data Exact word search (opt 1.)](assets/images/cli_4_search_data_opt_1.png)
 
 and for case of Regular expression, regex (case sensitive)
 
 ![Regular expression, regex (opt 2.)](assets/images/cli_4_search_data_opt_2_short.png)
 
-### 7. Meta data (main menu option 5.)
 
-  - This function is simple to user (yet slightly more complex under the hood) and give the user info about the charactersitics of the "data base". The function does not require any additional selection steps. The three parameters: mean, median and variance is calculated using a built-in statistics module in python.
+#### 7. Meta data (main menu option 5.)
+- This function is simple to use (yet slightly more complex under the hood) and give the user info about the charactersitics of the "data base".
+- The function does not require any additional selection steps.
+- The three parameters: mean, median and variance is calculated using a built-in statistics module in python.
+
 ![Meta data](assets/images/cli_5_meta_data.png)
 
-### 8. Inbetween points (main menu option 6.)
 
-Explain NumPy using C++ code for faster run time
-  - xxxx
-![View list of Airplane Categories]()
+#### 8. Inbetween points (main menu option 6.)
+- The function of interpolating points that lie between the datapoints really is the main purpose of SAPPERLOT.
+- numpy.interp is used to interpolate the data. Numpy is a python module handling everything math and since it is written in C++ it is faster than Python's native list operations.
+- The user need to make four selections/values before the "inbetween"-value is displayed
+  1. category
+  2. Aircraft data parameters (y-coord.) to calculate "inbetween"-value3
+  3. Aircraft data parameters (x-coord.) to base "inbetween"-value on. Feedback on which parameter the user is not allowed to select is given.
+  4. The interpolation value (y-coord.). Feed back on data set bounds are given
 
-#### In Scope Features
-* Create an online interface for customers to place orders.
-* A welcome message.
-* Options for ordering different pizza sizes.
-* Options for ordering different pizza toppings.
-* On screen confirmation of the order before placing with Vera.
-* Provide the order details in a spreadsheet to Vera as they are received.
-* Provide the customer with a cost to be paid on collection.
-* Add the value of each order within the spreadsheet.
+![View list of Airplane Categories](assets/images/cli_6_inbetween_points.png)
 
-#### Out of Scope Features (for a future release)
+
+#### 9. Error handling
+- All user selection processes tries to take care of incorrect user input without crashing by testing using a try and except-statement.
+- The following user inputs errors are checked for:
+  - Number of inputs (should be 10)
+  - No commas in year
+  - input Category (multirole_fighter, airliner or general_aviation) need to be spelled correctly (including underscore)
+
+![Soft handling of wrong user input](assets/images/cli_error_handling.png)
+
+### Features Left to Implement (Out of Scope Features for a future release)
 * Develop application for smartphones. 
 * Options for ordering custom toppings.
 * Email confirmation when the order is placed.
@@ -172,18 +166,11 @@ Explain NumPy using C++ code for faster run time
 - Adding an edit_data and an delete_data function
 - Review of complete code structure (espcialy the user selection process) to to evaluate if repeating code patterns could be abstracted away into separate functions in order to decrease complexity
 - Create function to allow user to create new airplane categories/new tabs in google sheet
-
-#### Additional features
-
-  - A feedback list was created to generate random text messages; this was implemented in various print statements to make the game more interesting and improve the overall experience.
+- Add units to answer in interpolation function 
 
 
-![logo](assets/images/logo.png)
-
-### Features Left to Implement
 
 ## UX Design
-
 ![cli_gitpod_logo](assets/images/cli_gitpod_logo.png)
 ![logo](assets/images/logo.png)
 

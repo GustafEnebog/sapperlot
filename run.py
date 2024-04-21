@@ -622,7 +622,7 @@ def calc_inbetween_outside_point():
     # wish to calculate an "inbetween"-value for, e.g. wing area.
     while True:
         print('\nAircraft data parameters (y-coord.) to calculate "inbetween"-'
-              'value, e.g. wing area')
+              'value')
         print('1. Wing span')
         print('2. Aspect ratio')
         print('3. Wing area')
@@ -668,10 +668,10 @@ def calc_inbetween_outside_point():
     # make the above selected parameter dependent on e.g. Max Takeoff Weight.
     # These values must be increasing.
     while True:
-        print(
-            '\nAircraft data parameters (x-coord.) to base calulation of '
-            '"inbetween"-value, e.g. Max Takeoff Weight. You may not select the '
-            'same parameter as already selected in previous step\n')
+        print('\nAircraft data parameters (x-coord.) to base '
+              '"inbetween"-value on. \nYou cant select the same parameter '
+              'as in \nthe previous step which was option '
+              'nr: "'  + str(select_value_1) + '"\n')
         print('1. Wing span')
         print('2. Aspect ratio')
         print('3. Wing area')
@@ -737,29 +737,23 @@ def calc_inbetween_outside_point():
     values_list_y_for_zip = values_list_y
     zipped_pairs = zip(values_list_x_for_zip, values_list_y_for_zip)
     values_list_y_sort_1 = [x for _, x in sorted(zipped_pairs)]
-    print('values_list_y_1_sort' + str(values_list_y_sort_1))
+    #print('values_list_y_1_sort' + str(values_list_y_sort_1))
 
 # Sort list SECOND STAGE------
     values_list_x_sort_2 = sorted(values_list_x)
-    print('values_list_x_2_sort' + str(values_list_x_sort_2))
+    #print('values_list_x_2_sort' + str(values_list_x_sort_2))
 
 # USER INPUT - Selection of the value (of the above selected
 # aircraft data parameter, x-coordinates)
 # at which to evaluate the interpolated value.
-# ----------------------------------------------------------------------*------**
-    print('\nNote that the reliability of the estimated "inbetween"-value '
-          'highly depend on the distance of this value to the data points in '
-          'the set.\n especialy in the case of extrapolating (case of value '
-          'outside of the datapoints)\nwhere the accuracy/reliability quickly '
-          'deteriates as this value is chosen far away outside of data points')
+            # ----------------------------------------------------------------------*------**
+    print('\nNote: This function only interpolate (no extrapolate) within the data points.\n' 
+          'Outside of the data points it only returns the value for the "last" data point')
     max_index = len(values_list_x_sort_2) - 1
-    x_value = input('\nThe lowest data point is: '
-                    '' +
-                    str(values_list_x_sort_2[0]) +
-                    ' and the uppermost data point is '
-                    '' +
-                    str(values_list_x_sort_2[max_index]) +
-                    '\n')
+    print('The lowest data point is: ' + str(values_list_x_sort_2[0]) +
+          ' and the uppermost data point is ' + str(values_list_x_sort_2[max_index]) + '\n')
+
+    x_value = input('Please enter a value:\n')
 
 # Interpolate/extrapolate-----
     x = float(x_value)
@@ -772,7 +766,7 @@ def calc_inbetween_outside_point():
 
     for i in range(0, len(xp)):
         xp[i] = float(values_list_x_sort_2[i])
-    print('xp' + str(xp))  # REMOVE LATER!!!!!!!!!!!!!!!!!!!!!!!
+    #print('xp' + str(xp))  # REMOVE LATER!!!!!!!!!!!!!!!!!!!!!!!
 
     # Remove "thousands separator" (added by google sheet) to allow conversion
     # to float and int
@@ -783,15 +777,15 @@ def calc_inbetween_outside_point():
     # fp = values_list_y_sort_1.replace(',', '')  REMOVE LATER!!!!!!!!
     for i in range(0, len(fp)):
         fp[i] = float(values_list_y_sort_1[i])
-    print('fp' + str(fp))   # REMOVE LATER!!!!!!!!!!!!!!!!!!!!!!!
+    #print('fp' + str(fp))   # REMOVE LATER!!!!!!!!!!!!!!!!!!!!!!!
 
     # Original:
     # interpolated_y
     # = numpy.interp(x, xp, fp, left=None, right=None, period=None)
     interpolated_y = numpy.interp(x, xp, fp)
     interpolated_y_round = round(interpolated_y, 4)
-    print('The ' + str(y_parameter_print) + ' "inbetween"-value, interpolated '
-          'with respect to ' + str(x_parameter_print) + ', is: '
+    print('\nThe ' + str(y_parameter_print) + ' "inbetween"-value, interpolated '
+          'with respect to ' + str(x_parameter_print) + ', \nis: '
           '' + str(interpolated_y_round))
 
 
