@@ -45,10 +45,10 @@ SCOPE = [
     "https://www.googleapis.com/auth/drive"
     ]
 
-#CREDS = Credentials.from_service_account_file('creds.json')
-#SCOPED_CREDS = CREDS.with_scopes(SCOPE)
-#GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
-#SHEET = GSPREAD_CLIENT.open('aircraft_data')
+CREDS = Credentials.from_service_account_file('creds.json')
+SCOPED_CREDS = CREDS.with_scopes(SCOPE)
+GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
+SHEET = GSPREAD_CLIENT.open('aircraft_data')
 
 
 class Colors:
@@ -118,49 +118,49 @@ def get_airplane_data():
         selection_sub_menu_dep_variable = input('\nPlease select an '
         'alternative by entering a number between 1-8 an H, M or Q:\n')
         if selection_sub_menu_dep_variable == '1':
-            print('\nairplane_name, manufacturer, country, category, year, 0, '
+            print('\nairplane_name, manufacturer, country, category, year, \n0, '
             'aspect_ratio[n/a], wing_area[m\u00b2], 0, wing_loading[kg/m\u00b2]'
             ' \n(give "0" as placeholder for "Wing span" and "Max Takeoff '
             'Weight".)\n')
             break
         elif selection_sub_menu_dep_variable == '2':
             print('\nairplane_name, manufacturer, country, category, year, '
-            '0, aspect_ratio[n/a], wing_area[m\u00b2], max_takeoff_weight[kg],'
+            '\n0, aspect_ratio[n/a], wing_area[m\u00b2], max_takeoff_weight[kg],'
             ' 0 \n(give "0" as placeholder for "Wing span" and '
             '"Wing loading".)\n')
             break
         elif selection_sub_menu_dep_variable == '3':
             print('\nairplane_name, manufacturer, country, category, year, '
-            'wing_span[m], 0, wing_area[m\u00b2], 0, \n(give "0" as '
+            '\nwing_span[m], 0, wing_area[m\u00b2], 0, \n(give "0" as '
             'placeholder for "Aspect Ratio" and "Max Takeoff Weight".)\n')
             break
         elif selection_sub_menu_dep_variable == '4':
             print('\nairplane_name, manufacturer, country, category, year, '
-            'wing_span[m], 0, wing_area[m\u00b2], max_takeoff_weight[kg], '
+            '\nwing_span[m], 0, wing_area[m\u00b2], max_takeoff_weight[kg], '
             '0 \n(give "0" as placeholder for "Aspect Ratio" and "'
             'Wing loading".)\n')
             break
         elif selection_sub_menu_dep_variable == '5':
-            print('\nairplane_name, manufacturer, country, category, year, 0,'
+            print('\nairplane_name, manufacturer, country, category, year, \n0,'
             ' aspect_ratio[n/a], 0, max_takeoff_weight[kg], wing_loading'
             '[kg/m\u00b2] \n(give "0" as placeholder for "Wing span" and '
             '"Wing Area".)\n')
             break
         elif selection_sub_menu_dep_variable == '6':
             print('\nairplane_name, manufacturer, country, category, year, '
-            'wing_span[m], 0, 0, max_takeoff_weight[kg], wing_loading'
+            '\nwing_span[m], 0, 0, max_takeoff_weight[kg], wing_loading'
             '[kg/m\u00b2] \n(give "0" as placeholder for "Aspect Ratio" '
             'and "Wing Area".)\n')
             break 
         elif selection_sub_menu_dep_variable == '7':
             print('\nairplane_name, manufacturer, country, category, year, '
-            'wing_span[m], aspect_ratio[n/a], 0, 0, wing_loading[kg/m\u00b2] '
+            '\nwing_span[m], aspect_ratio[n/a], 0, 0, wing_loading[kg/m\u00b2] '
             '\n(give "0" as placeholder for "Wing Area" and '
             '"Max Takeoff Weight".)\n')
             break
         elif selection_sub_menu_dep_variable == '8':
             print('\nairplane_name, manufacturer, country, category, '
-            'year, wing_span, aspect_ratio[n/a], 0, max_takeoff_weight, '
+            'year, \nwing_span, aspect_ratio[n/a], 0, max_takeoff_weight, '
             '0 \n(give "0" as placeholder for "Wing Area" and '
             '"Wing loading".)\n')
             break
@@ -173,7 +173,6 @@ def get_airplane_data():
         elif selection_sub_menu_dep_variable == 'Q':
             os.abort()  #Abort the current running process
         else:
-
             print('Invalid choice, please enter a number between 1-8 an H, M '
             'or Q:\n')
             continue
@@ -236,6 +235,7 @@ def convert_to_int_and_float(unconverted_airplane_data):
     """
     converted_airplane_data = unconverted_airplane_data
     # Entry of Year
+    print(unconverted_airplane_data[4])
     converted_airplane_data[4] = int(unconverted_airplane_data[4])
     for i in range(5, 10):
         converted_airplane_data[i] = float(unconverted_airplane_data[i])
@@ -383,8 +383,7 @@ def add_data():
     # row 108
     unconverted_airplane_data = get_airplane_data()
     # row 211
-    converted_airplane_data = convert_to_int_and_float(
-    unconverted_airplane_data)
+    converted_airplane_data = convert_to_int_and_float(unconverted_airplane_data)
     # row 237
     airplane_data = uppdate_dependent_airplane_data(converted_airplane_data)
     # row 299 loveSandwiches code also have a worksheet as an argument. 
@@ -421,9 +420,18 @@ def select_airplane_category():
         sheet_select = 'airliner'
     elif select_value == '3':
         sheet_select = 'general_aviation'
+    elif selection_sub_menu_dep_variable == 'H':
+        help()
+        # break
+    elif selection_sub_menu_dep_variable == 'M':
+        main_menu_select()
+        # break
+    elif selection_sub_menu_dep_variable == 'Q':
+        os.abort()  #Abort the current running process
     else:
-        print('Invalid choice, please enter a number between 1-3 an '
-        'H, M or Q:\n')
+        print('Invalid choice, please enter a number between 1-3 an H, M '
+        'or Q:\n')
+        # continue
     
     return sheet_select
 
@@ -440,7 +448,8 @@ def select_and_view_airplane_data():
     print('3. general aviation     "M" MAIN MENU     "H" HELP     '
     '"Q" QUIT PROGRAM')
     select_value = input('\nPlease select an option by entering a number '
-    'between 1-3 an H, M or Q:\n')
+    'between 1-3 an H, M or Q:\n\n')
+    print('\n')
     if select_value == '1':
         multirole_fighter_sheet = SHEET.worksheet("multirole_fighter").\
         get_all_values()
@@ -572,7 +581,9 @@ def calc_meta_data():
                 print(f'Variance for the "Wing Loading" for '
                 '{sheets_for_loop[i]}s is {variance} kg/m\u00b2')
             else:
-                print('\nindex error')
+                print('index error!'
+                'or Q:\n')
+                continue
 
 
 def calc_inbetween_outside_point():
@@ -617,11 +628,11 @@ def calc_inbetween_outside_point():
     elif select_value_1 == '5':
         y_parameter_index = 10
         y_parameter_print = 'Wing loading'
-    elif selection_sub_menu_dep_variable == 'H':
+    elif select_value_1  == 'H':
         help()
-    elif selection_sub_menu_dep_variable == 'M':
+    elif select_value_1  == 'M':
         main_menu_select()
-    elif selection_sub_menu_dep_variable == 'Q':
+    elif select_value_1  == 'Q':
         os.abort()  #Abort the current running process
     else:
         print('Invalid choice, please enter a number between 1-3 an '
@@ -660,11 +671,11 @@ def calc_inbetween_outside_point():
     elif select_value_2 == '5':
         x_parameter_index = 10
         x_parameter_print = 'Wing Loading'
-    elif selection_sub_menu_dep_variable == 'H':
+    elif select_value_2 == 'H':
         help()
-    elif selection_sub_menu_dep_variable == 'M':
+    elif select_value_2 == 'M':
         main_menu_select()
-    elif selection_sub_menu_dep_variable == 'Q':
+    elif select_value_2 == 'Q':
         os.abort()  #Abort the current running process
     else:
         print('Invalid choice, please enter a number between 1-3 an '
@@ -736,9 +747,10 @@ def calc_inbetween_outside_point():
     # interpolated_y 
     # = numpy.interp(x, xp, fp, left=None, right=None, period=None)
     interpolated_y = numpy.interp(x, xp, fp)
+    interpolated_y_round = round(interpolated_y, 4)
     print('The ' + str(y_parameter_print) + ' "inbetween"-value, interpolated '
     'with respect to ' + str(x_parameter_print) + ', is: '
-    '' + str(interpolated_y))
+    '' + str(interpolated_y_round))
 
 
 def help():
@@ -769,24 +781,31 @@ def main():
         'number between 1-9 an H or Q:\n')
         if selection_main_menu == '1':
             add_data()  # row 289
+            main()
             break
         elif selection_main_menu == '2':
             view_list_of_worksheets()  # row 329
+            main()
             break
         elif selection_main_menu == '3':
             select_and_view_airplane_data()  # row 358
+            main()
             break
         elif selection_main_menu == '4':
             search_data()  # row 368
+            main()
             break
         elif selection_main_menu == '5':
             calc_meta_data()  # row 457
+            main()
             break
         elif selection_main_menu == '6':
             calc_inbetween_outside_point()  # row 509
+            main()
             break
         elif selection_main_menu == 'H':
             help()
+            main()
             break
         elif selection_main_menu == 'Q':
             os.abort()  #Abort the current running process

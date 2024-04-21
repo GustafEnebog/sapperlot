@@ -297,18 +297,21 @@ values_list[k] = values_list[k].replace(',', '')
 
 ### Known bugs
 
+<span style="color:orange">IMPORTANT! There is a 3 min + long delay for the program to run (for the welcome screen to appear) just be patient! We sincerely appologize for this frustrating inconvenience. For more information see section: "Unsolved bugs"</span>
 - When the search function yields no result the only way to understand that is that the result is empty but the text still says that the result IS found
 - Relating to deployment on Heroku:
   - The most serious bug is a 3 min + delay for the program to run (for the welcome screen to appear) loading the heroku URL (or after clickign the orange "run program" -button). This might be due to a slow loading time for some library or similar. The equvilant loading time in gitpod was 3 seconds which is also out of the norm. Testing with removing libaries and test loading has been carried out with no solution.  
   - When the search function yields no result the only way to understand that is that the result is empty but the text still says that the result IS found
   - This is not really a bug however since colorama api does not works with heroku the logo displays with a a wrong character and a grey background (instead of black)
   - Also not a bug is that Heroku display the text with no left margin.
+  - Can not go to help, main menu or quit when in in option 1 Add data's second submenu: Please enter the data here:
 
 ![cli_gitpod and Heroku logo side by side](assets/images/cli_gitpod_heroku_logo_side_by_side.png)
 ![cli_gitpod and Heroku strike through side by side](assets/images/cli_gitpod_heroku_strike_through_side_by_side.png)
 
 
 ## Deployment
+<span style="color:orange">IMPORTANT! There is a 3 min + long delay for the program to run (for the welcome screen to appear) just be patient! We sincerely appologize for this frustrating inconvenience. For more information see section: "Unsolved bugs"</span>
 
 which runs in the Code Institute mock terminal on Heroku.
 
