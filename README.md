@@ -2,49 +2,42 @@ Welcome screen displayed on different devices
 ![cli_heroku_logo_welcome_message_main_men](assets/images/am_i_responsive.png)
 # SAPPERLOT
 
-SAPPERLOT is a terminal program, written in python, that calculates parameters such as "Wing Area" and "Max Takeoff Weight" for planned aircraft designs using data from existing aircrafts. This generation of "start values" is achieved by creating and accessing a data base with aircrafts and interpolate/extrapolate these values. The programs also allow the user to update, search the database and analyse the data.
+SAPPERLOT is a retro-style terminal program, written in python, that calculates parameters such as "Wing Area" and "Max Takeoff Weight" for planned aircraft designs using data from existing aircrafts. This generation of "start values" is achieved by creating and accessing a data base with aircrafts and interpolate/extrapolate these values. The programs also allow the user to update, search the database and analyse the data.
 
-This function is targeting aircraft designers who would like to automate the process of generating start values for Aircraft Design algorithms and methods within the field of Aircraft Conceptual Design.
+This program is targeting aircraft designers who would like to automate the process of generating start values for Design algorithms and methods within the field of Aircraft Conceptual Design.
 
 The program name SAPPERLOT is a German interjection to exclaimed surprise, similar to "Oh my goodness!" It is also an acronym: "Statistical Airplane Potent Parameter Engineering Radical Loaded Oranges Tool" to parody industries often contrived projects acronyms.
 
-## <span style="color:orange">IMPORTANT! There is a 3 min + long delay for the program to run (for the welcome screen to appear) just be patient! We sincerely appologize for this frustrating inconvenience. For more information see section: "Unsolved bugs"</span>
+### Fictive inspirational background story
+The year is 1982 and the Swedish government has just given the go ahead for the development of a new national fighter aircraft. A few months earlier a newly graduated computer Scientist from Linköping University has started his first job at the conceptual design department at the national airplane manufacturer Saab in Linköping.
+
+During a coffee break on a Friday afternoon he overhears some colleagues discussing the time-consuming process of manually guesstimating start values for the design algorithms. Eager to impress he calls his girlfriend saying that he can’t make it this weekend. Instead, he huddles over his Commadore 64 and when he leaves his apartment in the suburbs of Ryd Monday morning there is, in his backpack, a golden 3+1⁄2-inch floppy disk with a carefully written name: SAPPERLOT on its label. He bicycles with a new stride through the forest and walks into the department with a swagger feeling he is hot shit!
+
+His colleague’s initial silent skepticism turns to raised eyebrows and happy chuckles as the command line prompt spits out the start values for the day. Today he is close to retirement but remembering that code and the early planning of JAS 39 Gripen still puts a sweet smile on his face.
+
+<span style="color:orange">Please note: There is sometimes a delay of a few seconds before the welcome screen appears. We sincerely appologize for this inconvenience. For more information see section: "Unsolved bugs"</span>
 
 [View the live project here.](https://sapperlot-8eb16827aadb.herokuapp.com/)
 
 ##  User Experience (UX)
 
-- ### Fictive inspirational background story
+- ### As a User, I want to be able to:
+1. Clearly understand how to use and navigate the program.
+2. Easily find a help-section with technical background info on how the results are being calculated.
+3. Recieve feedback and help for my selections based on my previous selections, e.g. recieve info on data-set boundaries before inputting my interpolate-value.
+4. Always be able to return to the main menu, the help section or to quit the program directly from where I am.
+5. Be able to give invalid input without causing the program to crash.
+6. Recieve valuable data with little effort.
 
-The year is 1982 and the Swedish government has just given the go ahead for the development of a new national fighter aircraft. A few months earlier a newly graduated computer Scientist from Linköping University has started his first job at the conceptual design department at the national airplane manufacturer Saab in Linköping.
+## Program Structure
+The program structure/flow chart below shows the overal structure and logic of SAPPERLOT. Some subfunctions/subroutines have been omitted in the chart for sake of clarity.
 
-During a coffee break in the afternoon on a Friday he overhears some colleagues discussing the time-consuming process of manually guesstimating all start values for the design algorithms. Eager to impress he calls his girlfriend saying that he can’t make it this weekend. Instead, he huddles over his Commadore 64 and when he leaves his apartment in the suburbs of Ryd Monday morning, in his backpack, has a golden 3+1⁄2-inch floppy disk with a carefully written name: SAPPERLOT on its label. He bicycles with a new stride through the forest and walks into the department with a swagger feeling he is hot shit.
-
-His colleague’s initial silent skepticism turns to raised eyebrows and happy chuckles as the command line prompt spits out the start values, they need for the day. Today he is close to retirement but remembering that code and the early planning of JAS 39 Gripen still puts a sweet smile on his face.
-
-    -   #### As a User, I want to be able to:
-
-        1. Clearly understand how to navigate and start the game.
-        2. Easily find instructions on how to play the game.
-        3. Understand what input is required to proceed and that any exception is returned with a message to the user without causing the game to crash.
-        4. Clearly see the number of incorrect guesses before the game ends.
-        5. Clearly see what the secret word was if the user fails to guess it before the game ends.
-        6. Continue playing the game once the game has finished without having to reenter the initial inputs from when the game started.
-        7. Have a fun time playing the game and that it functions as expected.
-
-## Flow chart
-  - To explain the program structure and logic, I have created a flow chart using
-
-    ![ProgRam structure (Flow Chart)](assets/images/program_structure_main_menu.png)
-
-<p align="center">
-    <img src="assets/images/flowchart_main_menu.png" alt="Program structure"/>
-</p>
+![Program structure/Flow Chart)](assets/images/program_structure_main_menu.png)
 
 ## Features
 ### Existing Features (In Scope Features)
 #### 1. Cloud based spread sheet with aircraft data
-[View the aircraft_data - sheet here.](https://docs.google.com/spreadsheets/d/186F_QSx24xYlkzunnzrzawt06MJO8GfdPsxGeRoqIa4/edit#gid=960221585)
+[View the aircraft_data - sheet here.](https://docs.google.com/spreadsheets/d/186F_QSx24xYlkzunnzrzawt06MJO8GfdPsxGeRoqIa4/edit#gid=1680754323)
 - Google sheet is an "excel clone" spreadsheet that SAPPERLOT use as a library to store aircraft data. The sheet can be accessed from the python code which can update and retrieve the whole sheet, individual tabs, columns, rows or specific cells.
 - The filename of the sheet is: aircraft_data and it has three tabs at the bottom of the sheet:
   - multirole_fighter
@@ -57,18 +50,7 @@ His colleague’s initial silent skepticism turns to raised eyebrows and happy c
 ![google sheet](assets/images/google_sheet.png)
 
 #### 2. Welcome message and main menu
-  - Run the program by entering python3 run.py in the command line or click the orange "run programm"-button
-  - The Programm name/logo displays upon the start of the program together with a welcome message and the main menu.
-The Welcome screen in gitpod:
-
-![CLI Logo with Welcome Message and Main Menu](assets/images/cli_logo_welcome_message_main_menu.png)
-
- The Welcome screen in Heroku:
-
-![cli_heroku_logo_welcome_message_main_men](assets/images/cli_heroku_logo_welcome_message_main_menu.png)
-
-Below the main menu user is prompted to select a number or a letter that will take him to one of SAPPERLOT six functions functions.
-
+- The program has six functions all accessed from the main menu:
 1. Add data
 2. View list of Airplane Categories
 3. View data
@@ -77,6 +59,16 @@ Below the main menu user is prompted to select a number or a letter that will ta
 6. Inbetween points
 
 - The user can also always choose "H" to be taken to the HELP section, "M" for going back to the main menu or "Q" if you had enough and want to QUIT the program, no matter from what submenu.
+- Run the program by entering python3 run.py in the command line or click the orange "run programm"-button
+- The Programm name/logo displays upon the start of the program together with a welcome message and the main menu.
+
+The Welcome screen as it appear in gitpod:
+
+![CLI Logo with Welcome Message and Main Menu](assets/images/cli_logo_welcome_message_main_menu.png)
+
+And the same Welcome screen as it appear in Heroku:
+
+![cli_heroku_logo_welcome_message_main_men](assets/images/cli_heroku_logo_welcome_message_main_menu.png)
 
 
 #### 3. Add data (main menu option 1.)
@@ -84,10 +76,7 @@ Below the main menu user is prompted to select a number or a letter that will ta
 1. get_airplane_data() - Prompts and recieves airplane user input
   - get_airplane_data() also in turn calls the validate_airplane_data() which test the inputed data (without changing) with the purpose of validating it. 
 2. convert_to_int_and_float() - Leave the first four values as strings, Convert year (fifth value, index 4) to an int and the rest (sixth to ten, index 5 to 9) to float
-3. uppdate_dependent_airplane_data() - Calculates the two missing parameters (inputed as zero by the user). If these would be inputed it would overdefine the user data. See below the equations used to calculate the dependent values.
-
-![equations](assets/images/equations.png)
-
+3. uppdate_dependent_airplane_data() - Calculates the two missing parameters (inputed as zero by the user).
 4. push_airplane_data_to_worksheet() - Updates the inputed values as a new row in correct category/tab in the google worksheet
 
 - The five aircraft parameters are interdependent and inputting more than three parameters would therefore overdefine the data. For this reason the user need to first select which set of parameters to input. The rest of the parameters will be calculated by SAPPERLOT.
@@ -98,22 +87,39 @@ Below the main menu user is prompted to select a number or a letter that will ta
 
 ![CLI add data step 2](assets/images/cli_logo_add_data_step_2.png)
 
+#### 4. Equations for calculation of dependent parables
+- The uppdate_dependent_airplane_data() function calculates the two missing parameters (inputed as zero by the user). 
+- This function display all the categories in the sheet aircraft_data (tabs in aircraft_data sheet).
+- The function does not require any additional selection steps.
+- If these would be inputed it would overdefine the user data. See the below equations used to calculate the dependent values.
+wing_span, aspect_ratio, wing_area, take_off_gross_weight, wing_loading
+wing_span, aspect_ratio, wing_area, take_off_gross_weight, wing_loading
+wing_span, aspect_ratio, wing_area, take_off_gross_weight, wing_loading
+wing_span, aspect_ratio, wing_area, take_off_gross_weight, wing_loading
+wing_span, aspect_ratio, wing_area, take_off_gross_weight, wing_loading
+wing_span, aspect_ratio, wing_area, take_off_gross_weight, wing_loading
+wing_span, aspect_ratio, wing_area, take_off_gross_weight, wing_loading
+wing_span, aspect_ratio, wing_area, take_off_gross_weight, wing_loading
 
-#### 4. View list of Airplane Categories (main menu option 2.)
+
+![equations](assets/images/equations.png)
+
+
+#### 5. View list of Airplane Categories (main menu option 2.)
 - This function display all the categories in the sheet aircraft_data (tabs in aircraft_data sheet).
 - The function does not require any additional selection steps.
 
 ![View list of Airplane Categories](assets/images/cli_2_view_list_of_airplane_categories.png)
 
 
-#### 5. View data (main menu option 3.)
+#### 6. View data (main menu option 3.)
 - This function retrieve all data in the aircraft_data-sheet and display it as a simple printout to the screen.
 - The function require the user only one selection namly that of "aircraft category".
 
 ![View data with selection airliner](assets/images/cli_3_view_data_airliner.png)
 
 
-#### 6. Search data(main menu option 4.)
+#### 7. Search data (main menu option 4.)
 - This function allows the user to search the aircraft_data sheet for entries
 - The user need to make two selection steps before he can enter the search term:
   1. category
@@ -126,15 +132,15 @@ and for case of Regular expression, regex (case sensitive)
 ![Regular expression, regex (opt 2.)](assets/images/cli_4_search_data_opt_2_short.png)
 
 
-#### 7. Meta data (main menu option 5.)
+#### 8. Meta data (main menu option 5.)
 - This function is simple to use (yet slightly more complex under the hood) and give the user info about the charactersitics of the "data base".
 - The function does not require any additional selection steps.
 - The three parameters: mean, median and variance is calculated using a built-in statistics module in python.
 
 ![Meta data](assets/images/cli_5_meta_data.png)
 
-
-#### 8. Inbetween points (main menu option 6.)
+ 
+#### 9. Inbetween points (main menu option 6.)
 - The function of interpolating points that lie between the datapoints really is the main purpose of SAPPERLOT.
 - numpy.interp is used to interpolate the data. Numpy is a python module handling everything math and since it is written in C++ it is faster than Python's native list operations.
 - The user need to make four selections/values before the "inbetween"-value is displayed
@@ -146,7 +152,7 @@ and for case of Regular expression, regex (case sensitive)
 ![View list of Airplane Categories](assets/images/cli_6_inbetween_points.png)
 
 
-#### 9. Error handling
+#### 10. Error handling
 - All user selection processes tries to take care of incorrect user input without crashing by testing using a try and except-statement.
 - The following user inputs errors are checked for:
   - Number of inputs (should be 10)
@@ -156,18 +162,18 @@ and for case of Regular expression, regex (case sensitive)
 ![Soft handling of wrong user input](assets/images/cli_error_handling.png)
 
 ### Features Left to Implement (Out of Scope Features for a future release)
-* Develop application for smartphones. 
-* Options for ordering custom toppings.
-* Email confirmation when the order is placed.
-* Provide the customer with the opportunity to pay online.
-* Provide the customer with an expected wait time dependent on current live orders.
+- Develop application for smartphones. 
+- Options for ordering custom toppings.
+- Email confirmation when the order is placed.
+- Provide the customer with the opportunity to pay online.
+- Provide the customer with an expected wait time dependent on current live orders.
 - Providing graphic illustrations of aircraft data in general (graphs can be implemented in a CLI via e.g. pandas API)
 - The addition of a Bell curve to the Meta data function
 - Adding an edit_data and an delete_data function
 - Review of complete code structure (espcialy the user selection process) to to evaluate if repeating code patterns could be abstracted away into separate functions in order to decrease complexity
 - Create function to allow user to create new airplane categories/new tabs in google sheet
 - Add units to answer in interpolation function 
-
+- Store calculated interpolated values in a new tab in aircraft_data sheet
 
 
 ## UX Design
@@ -275,6 +281,8 @@ values_list[k] = values_list[k].replace(',', '')
 - Stop styling to continue after the place it was supposed to be applied too.
 - Not able to convert year to int
 - numpy dependency had not been included in the deployment to Heroku since it was not included in the requirements.txt - file. Solution: run pip freeze --local > requirements.txt in the command line to include numpy (numpy==1.26.4) in the requirements.txt - file and then push to gitHub.
+- PROBLEM: Printout statement typing variable name (in f-string placeholder) instead of its value
+  - SOLUTION: Repeating the f in the f-strings on each new line after wraping long lines.
 
 
 ![numpy instal](assets/images/cli_numpy_instal.png)

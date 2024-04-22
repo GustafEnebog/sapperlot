@@ -83,7 +83,7 @@ def get_airplane_data():
     """
     # Sub menu - FIRST choise
     print('\nSets of Aircraft parameters to input (S̶t̶r̶i̶k̶e̶t̶h̶r̶o̶u̶g̶h̶ '
-          'parameters will be calculated for you!)')
+          'parameters \nwill be calculated for you!)')
     print('1. ' + esc('238;2;9') + 'Wing span,' + esc(0) + ' Aspect ratio, '
           'Wing area, ' + esc('238;2;9') + 'Max takeoff weight,' + esc(0) + ' '
           'Wing loading')
@@ -199,7 +199,7 @@ def get_airplane_data():
         inputted_airplane_data_str = input("Please enter the data here:\n")
         inputted_airplane_data = inputted_airplane_data_str.split(",")
         if validate_airplane_data(inputted_airplane_data):
-            print("Data is valid!")
+            print("\nData is valid!")
             break
 
     return inputted_airplane_data
@@ -495,7 +495,7 @@ def search_data():
     sheet_select = select_airplane_category()
     while True:
         print('\n1. Exact word search')
-        print('2. Regular expression (regex)     "M" MAIN MENU     "H" HELP     '
+        print('2. Regular expression (regex)   "M" MAIN MENU   "H" HELP     '
               '"Q" QUIT PROGRAM')
         select_value = input('\nPlease select an option by entering a number '
                          'between 1-2 an H, M or Q:\n')
@@ -508,7 +508,7 @@ def search_data():
         elif select_value == '2':
             search_word = input(
                 '\nPlease enter a word or a sequence of characters '
-                'in the word you search for (case sensitive):\n')
+                'in \nthe word you search for (case sensitive):\n')
             regex = re.compile(rf'{search_word}')
             cell = SHEET.worksheet(sheet_select).findall(regex)
             break
@@ -561,42 +561,43 @@ def calc_meta_data():
             median = format(median, ".2f")
             variance = format(variance, ".2f")
             # Print out calculated meta data
+#----------------------------------------------------------------------*------**
+            
             if j == 6:
-                print(f'\n\nMean "Wing Span" for {sheets_for_loop[i]}s are'
-                      ' {mean} m')
-                print(f'Median "Wing Span" for {sheets_for_loop[i]}s are '
-                      '{median} m')
-                print(
-                    f'Variance for the "Wing Span" for {sheets_for_loop[i]}s '
-                    'is {variance} m')
+                print(f'\n\nMean "Wing Span" for {sheets_for_loop[i]}s '
+                f'are {mean} m')
+                print(f'Median "Wing Span" for {sheets_for_loop[i]}s '
+                f'are {median} m')
+                print(f'Variance for the "Wing Span" for '
+                f'{sheets_for_loop[i]}s is {variance} m')
             elif j == 7:
                 print(f'\nMean "Aspect Ratio" for {sheets_for_loop[i]}s are '
-                      '{mean} n/a')
+                      f'{mean} n/a')
                 print(f'Median "Aspect Ratio" for {sheets_for_loop[i]}s are '
-                      '{median} n/a')
+                      f'{median} n/a')
                 print(f'Variance for the "Aspect Ratio" for '
-                      '{sheets_for_loop[i]}s is {variance} n/a')
+                      f'{sheets_for_loop[i]}s is {variance} n/a')
             elif j == 8:
                 print(f'\nMean "Wing Area" for {sheets_for_loop[i]}s are '
-                      '{mean} m\u00b2')
+                      f'{mean} m\u00b2')
                 print(f'Median "Wing Area" for {sheets_for_loop[i]}s are '
-                      '{median} m\u00b2')
+                      f'{median} m\u00b2')
                 print(f'Variance for the "Wing Area" for {sheets_for_loop[i]}s'
-                      ' is {variance} m\u00b2')
+                      f' is {variance} m\u00b2')
             elif j == 9:
                 print(f'\nMean "Max Takeoff Weight" for {sheets_for_loop[i]}s'
-                      ' are {mean} kg')
+                      f' are {mean} kg')
                 print(f'Median "Max Takeoff Weight" for {sheets_for_loop[i]}s'
-                      ' are {median} kg')
+                      f' are {median} kg')
                 print(f'Variance for the "Max Takeoff Weight" for '
-                      '{sheets_for_loop[i]}s is {variance} kg')
+                      f'{sheets_for_loop[i]}s is {variance} kg')
             elif j == 10:
                 print(f'\nMean "Wing Loading" for {sheets_for_loop[i]}s are '
-                      '{mean} kg/m\u00b2')
+                      f'{mean} kg/m\u00b2')
                 print(f'Median "Wing Loading" for {sheets_for_loop[i]}s are '
-                      '{median} kg/m\u00b2')
+                      f'{median} kg/m\u00b2')
                 print(f'Variance for the "Wing Loading" for '
-                      '{sheets_for_loop[i]}s is {variance} kg/m\u00b2')
+                      f'{sheets_for_loop[i]}s is {variance} kg/m\u00b2')
             else:
                 print('index error!'
                       'or Q:\n')
@@ -798,6 +799,7 @@ def help():
     print(f'Wing Area, m\u00b2')
     print(f'Max Takeoff Weight, kg')
     print(f'Wing Loading, kg/m\u00b2')
+    print('\nPress enter to return to the main menu:')
 
 
 def main():
