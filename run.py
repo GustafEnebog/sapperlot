@@ -449,9 +449,9 @@ def select_and_view_airplane_data():
         print('\n1. multirole_fighter')
         print('2. airliner')
         print('3. general aviation     "M" MAIN MENU     "H" HELP     '
-          '"Q" QUIT PROGRAM')
+              '"Q" QUIT PROGRAM')
         select_value = input('\nPlease select an option by entering a number '
-                         'between 1-3 an H, M or Q:\n')
+                             'between 1-3 an H, M or Q:\n')
         print('\n')
         if select_value == '1':
             multirole_fighter_sheet = SHEET.worksheet("multirole_fighter").\
@@ -498,12 +498,13 @@ def search_data():
         print('2. Regular expression (regex)   "M" MAIN MENU   "H" HELP     '
               '"Q" QUIT PROGRAM')
         select_value = input('\nPlease select an option by entering a number '
-                         'between 1-2 an H, M or Q:\n')
+                             'between 1-2 an H, M or Q:\n')
         cell = 'No results found'
         if select_value == '1':
-            search_word = input('\nPlease enter an exact search word (not case '
-                                'sensitive):\n')
-            cell = SHEET.worksheet(sheet_select).find(search_word)
+            search_word = input(
+                '\nPlease enter an exact search word (not case '
+                'sensitive):\n')
+            cell = SHEET.worksheet(sheet_select).findall(search_word)
             break
         elif select_value == '2':
             search_word = input(
@@ -525,9 +526,9 @@ def search_data():
                   'H, M or Q:')
             continue
 
-    # print(cell)
-
     # Handling of case when search word is not found
+    # Use cell != None as criteria for below row if changing to find
+    # instead of findall in function above
     if cell != []:
         print(f'{search_word} exist in the worksheet in cell {cell}')
     else:  # cell == 'null':
@@ -561,15 +562,15 @@ def calc_meta_data():
             median = format(median, ".2f")
             variance = format(variance, ".2f")
             # Print out calculated meta data
-#----------------------------------------------------------------------*------**
-            
+# ----------------------------------------------------------------------*------**
+
             if j == 6:
                 print(f'\n\nMean "Wing Span" for {sheets_for_loop[i]}s '
-                f'are {mean} m')
+                      f'are {mean} m')
                 print(f'Median "Wing Span" for {sheets_for_loop[i]}s '
-                f'are {median} m')
+                      f'are {median} m')
                 print(f'Variance for the "Wing Span" for '
-                f'{sheets_for_loop[i]}s is {variance} m')
+                      f'{sheets_for_loop[i]}s is {variance} m')
             elif j == 7:
                 print(f'\nMean "Aspect Ratio" for {sheets_for_loop[i]}s are '
                       f'{mean} n/a')
@@ -629,8 +630,9 @@ def calc_inbetween_outside_point():
         print('3. Wing area')
         print('4. Max takeoff weight')
         print('5. Wing loading')
-        select_value_1 = input('\nPlease select an option by entering a number '
-                               'between 1-5 an H, M or Q:\n')
+        select_value_1 = input(
+            '\nPlease select an option by entering a number '
+            'between 1-5 an H, M or Q:\n')
 
         if select_value_1 == '1':
             y_parameter_index = 6
@@ -672,18 +674,20 @@ def calc_inbetween_outside_point():
         print('\nAircraft data parameters (x-coord.) to base '
               '"inbetween"-value on. \nYou cant select the same parameter '
               'as in \nthe previous step which was option '
-              'nr: "'  + str(select_value_1) + '"\n')
+              'nr: "' + str(select_value_1) + '"\n')
         print('1. Wing span')
         print('2. Aspect ratio')
         print('3. Wing area')
         print('4. Max takeoff weight')
         print('5. Wing loading')
-        select_value_2 = input('\nPlease select an option by entering a number '
-                               'between 1-5 an H, M or Q:\n')
+        select_value_2 = input(
+            '\nPlease select an option by entering a number '
+            'between 1-5 an H, M or Q:\n')
 
         if select_value_2 == select_value_1:
-            print('Invalid choice, You may not chose the same parameter as you '
-                  'made in your previous selection (y-coord.) 1-3 an H, M or Q:\n')
+            print('Invalid choice, You may not chose the same '
+                  'parameter as you made in your previous '
+                  'selection (y-coord.) 1-3 an H, M or Q:\n')
             continue
         elif select_value_2 == '1':
             x_parameter_index = 6
@@ -738,21 +742,26 @@ def calc_inbetween_outside_point():
     values_list_y_for_zip = values_list_y
     zipped_pairs = zip(values_list_x_for_zip, values_list_y_for_zip)
     values_list_y_sort_1 = [x for _, x in sorted(zipped_pairs)]
-    #print('values_list_y_1_sort' + str(values_list_y_sort_1))
+    # print('values_list_y_1_sort' + str(values_list_y_sort_1))
 
 # Sort list SECOND STAGE------
     values_list_x_sort_2 = sorted(values_list_x)
-    #print('values_list_x_2_sort' + str(values_list_x_sort_2))
+    # print('values_list_x_2_sort' + str(values_list_x_sort_2))
 
 # USER INPUT - Selection of the value (of the above selected
 # aircraft data parameter, x-coordinates)
 # at which to evaluate the interpolated value.
-            # ----------------------------------------------------------------------*------**
-    print('\nNote: This function only interpolate (no extrapolate) within the data points.\n' 
-          'Outside of the data points it only returns the value for the "last" data point')
+    # ----------------------------------------------------------------------*------**
+    print(
+        '\nNote: This function only interpolate (no extrapolate) '
+        'within the data points.\n Outside of the data points it '
+        'only returns the value for the "last" data point')
     max_index = len(values_list_x_sort_2) - 1
-    print('The lowest data point is: ' + str(values_list_x_sort_2[0]) +
-          ' and the uppermost data point is ' + str(values_list_x_sort_2[max_index]) + '\n')
+    print('The lowest data point is: ' +
+          str(values_list_x_sort_2[0]) +
+          ' and the uppermost data point is ' +
+          str(values_list_x_sort_2[max_index]) +
+          '\n')
 
     x_value = input('Please enter a value:\n')
 
@@ -767,7 +776,7 @@ def calc_inbetween_outside_point():
 
     for i in range(0, len(xp)):
         xp[i] = float(values_list_x_sort_2[i])
-    #print('xp' + str(xp))  # REMOVE LATER!!!!!!!!!!!!!!!!!!!!!!!
+    # print('xp' + str(xp))  # REMOVE LATER!!!!!!!!!!!!!!!!!!!!!!!
 
     # Remove "thousands separator" (added by google sheet) to allow conversion
     # to float and int
@@ -778,16 +787,22 @@ def calc_inbetween_outside_point():
     # fp = values_list_y_sort_1.replace(',', '')  REMOVE LATER!!!!!!!!
     for i in range(0, len(fp)):
         fp[i] = float(values_list_y_sort_1[i])
-    #print('fp' + str(fp))   # REMOVE LATER!!!!!!!!!!!!!!!!!!!!!!!
+    # print('fp' + str(fp))   # REMOVE LATER!!!!!!!!!!!!!!!!!!!!!!!
 
     # Original:
     # interpolated_y
     # = numpy.interp(x, xp, fp, left=None, right=None, period=None)
     interpolated_y = numpy.interp(x, xp, fp)
     interpolated_y_round = round(interpolated_y, 4)
-    print('\nThe ' + str(y_parameter_print) + ' "inbetween"-value, interpolated '
-          'with respect to ' + str(x_parameter_print) + ', \nis: '
-          '' + str(interpolated_y_round))
+    print(
+        '\nThe ' +
+        str(y_parameter_print) +
+        ' "inbetween"-value, interpolated '
+        'with respect to ' +
+        str(x_parameter_print) +
+        ', \nis: '
+        '' +
+        str(interpolated_y_round))
 
 
 def help():
