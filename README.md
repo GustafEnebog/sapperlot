@@ -273,6 +273,7 @@ Testing the code for all combinations of selections and input (including invalid
 - Delay of program startup:
   - P - A delay (3 sec in gitpod, 3 min in Heroku) before Welcome screen appears.
   - S - There is sometimes a delay of a few seconds before the welcome screen appears.
+- Last second before submission (to late to solve) it was discovered that the return to main menu inputting 'M' cause program to crash.
 - Remaining Issues relating to deployment on Heroku:
   - Since colorama api does not works with Heroku the logo displays with a wrong character and a grey background instead of black.
   - Heroku display the text with no left margin.
