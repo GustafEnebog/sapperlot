@@ -87,15 +87,6 @@ And the same Welcome screen as it appear in Heroku:
 - This function displays all the categories in the sheet aircraft_data (tabs in aircraft_data sheet).
 - The function does not require any additional selection steps.
 - If these would be inputted it would overdefine the user data. See the below equations used to calculate the dependent values.
-wing_span, aspect_ratio, wing_area, take_off_gross_weight, wing_loading
-wing_span, aspect_ratio, wing_area, take_off_gross_weight, wing_loading
-wing_span, aspect_ratio, wing_area, take_off_gross_weight, wing_loading
-wing_span, aspect_ratio, wing_area, take_off_gross_weight, wing_loading
-wing_span, aspect_ratio, wing_area, take_off_gross_weight, wing_loading
-wing_span, aspect_ratio, wing_area, take_off_gross_weight, wing_loading
-wing_span, aspect_ratio, wing_area, take_off_gross_weight, wing_loading
-wing_span, aspect_ratio, wing_area, take_off_gross_weight, wing_loading
-
 
 ![equations](assets/images/equations.png)
 
@@ -147,6 +138,11 @@ and for case of Regular expression, regex (case sensitive)
 ![View list of Airplane Categories](assets/images/cli_6_inbetween_points.png)
 
 
+#### 9. Help section (main menu option H)
+- This section gives some general information and more specific advice for selecting parameters in the inbetween points function
+
+![View list of Airplane Categories](assets/images/cli_help_section.png)
+
 #### 10. Error handling
 - All user selection processes try to take care of incorrect user input without crashing by testing using a try and except-statement.
 - The following user inputs errors are checked for:
@@ -166,7 +162,7 @@ and for case of Regular expression, regex (case sensitive)
   - Function to allow user to create new airplane categories/new tabs in google sheet
   - Units to answers in interpolation function
   - Ability to store calculated interpolated values in a new tab in aircraft_data sheet
-
+  - Add to Help section
 
 ## UX Design
 ### Graphics
@@ -325,7 +321,8 @@ Follow the steps below to deploy from your Gitpod workspace:
 
 - [loveSandwiches, AJGreaves at Code Institute](https://github.com/Code-Institute-Solutions/love-sandwiches-p5-sourcecode/tree/master/05-deployment/01-deployment-part-1) for code based on validation and pushing and pulling data between python code and google sheet
 - [Stackoverflow](https://stackoverflow.com/questions/287871/how-do-i-print-colored-text-to-the-terminal) How do I print colored text to the terminal.
-- [mittnamnkenny ](https://github.com/mittnamnkenny/hangman-game) for the deployment section and general inspiration of layup
+- Codesnippet from [geeksforgeeks](https://www.geeksforgeeks.org/python-sort-values-first-list-using-second-list/) making data to be ascending which is a requirment for the interpolate function
+- [mittnamnkenny](https://github.com/mittnamnkenny/hangman-game) for the deployment section and general inspiration of layup
 
 
 ### Acknowledgements

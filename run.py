@@ -680,6 +680,7 @@ def calc_inbetween_outside_point():
         print('3. Wing area')
         print('4. Max takeoff weight')
         print('5. Wing loading')
+
         select_value_2 = input(
             '\nPlease select an option by entering a number '
             'between 1-5 an H, M or Q:\n')
@@ -808,13 +809,71 @@ def calc_inbetween_outside_point():
 def help():
     """ Display help text
     """
-    print('\nHELP')
+    print('\n----------------------------------------------------------')
+    print('HELP SECTION')
+    print('\n----------------------------------------------------------')
+    print('\nADD DATA:')
     print(f'Wing Span, m')
     print(f'Aspect Ratio, n/a')
     print(f'Wing Area, m\u00b2')
     print(f'Max Takeoff Weight, kg')
     print(f'Wing Loading, kg/m\u00b2')
-    print('\nPress enter to return to the main menu:')
+    print('\nSee readme-file for equations')
+    print('\n----------------------------------------------------------')
+
+    print('\nMETA DATA:')
+    print('Mean (arithmetic mean) - the mathematical average of a set of '
+          'two or \nmore numbers')
+    print('Median - the middle value of a set of numbers.'
+          'More specifically, \nvariance measures how far each number in '
+          'the set is \nfrom the mean (average), and thus from every '
+          'other number in the set.')
+    print('Variance - a statistical measurement of the spread between '
+          'numbers\nin a data set. More specifically, variance measures '
+          'how far \neach number in the set is \nfrom the mean (average), '
+          'and thus from every other number in the set.')
+    print('\n----------------------------------------------------------')
+    print('\nINBETWEEN POINTS:')
+    print('Pairing parameter to "Wing Span":')
+    print('Aspect Ratio - 3')
+    print('Wing Area - 3')
+    print('Max Takeoff Weight - 2')
+    print('Wing Loading - 3\n')
+    print('Pairing parameter to "Aspect Ratio":')
+    print('Wing span - 3')
+    print('Wing Area - 3')
+    print('Max Takeoff Weight - 2')
+    print('Wing Loading - 3\n')
+    print('Pairing parameter to "Wing Area":')
+    print('Wing span - 3')
+    print('Aspect Ratio - 3')
+    print('Max Takeoff Weight - 1')
+    print('Wing Loading - 3\n')
+    print('Pairing parameter to "Max Takeoff Weight":')
+    print('Wing span - 2')
+    print('Aspect Ratio - 2')
+    print('Wing Area - 1')
+    print('Wing Loading - 4\n')
+    print('Pairing parameter to "Wing Loading":')
+    print('Wing span - 3')
+    print('Aspect Ratio - 3')
+    print('Wing Area - 3')
+    print('Max Takeoff Weight - 4')
+    print('\nLegend to above number values:')
+    print('1. EXTREMELY RELEVANT since the lift necessary to counteract the \n'
+          'Max takeoff weight is directly proportional to the '
+          'Wing area.')
+    print('2. RELEVANT since the lift necessary to counteract the \n'
+          'Max takeoff weight is indirectly proportional to \n'
+          'the Max takeoff weight.')
+    print('3. INTERESTING for research purposes \n'
+          'but not an obvious selection for aircraft design.')
+    print('4. NOT a SENSIBLE SELECTION since this parameter is '
+          'used to define \n'
+          'the already selected parameter. Rather use wingspan instead.')
+    print('\n----------------------------------------------------------')
+    print('\nPlease press enter if you do not automatically return to '
+          'the main menu:')
 
 
 def main():
@@ -832,27 +891,27 @@ def main():
         selection_main_menu = input('\nPlease select an option by entering a '
                                     'number between 1-9 an H or Q:\n')
         if selection_main_menu == '1':
-            add_data()  # row 289
+            add_data()  # row 369
             main()
             break
         elif selection_main_menu == '2':
-            view_list_of_worksheets()  # row 329
+            view_list_of_worksheets()  # row 392
             main()
             break
         elif selection_main_menu == '3':
-            select_and_view_airplane_data()  # row 358
+            select_and_view_airplane_data()  # row 441
             main()
             break
         elif selection_main_menu == '4':
-            search_data()  # row 368
+            search_data()  # row 484
             main()
             break
         elif selection_main_menu == '5':
-            calc_meta_data()  # row 457
+            calc_meta_data()  # row 538
             main()
             break
         elif selection_main_menu == '6':
-            calc_inbetween_outside_point()  # row 509
+            calc_inbetween_outside_point()  # row 608
             main()
             break
         elif selection_main_menu == 'H':
